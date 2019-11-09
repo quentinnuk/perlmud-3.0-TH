@@ -1,0 +1,64 @@
+Version 3.0, 12/04/02: new features
+including topics ("help topics") and
+the ability to reload the source code
+of the mud without shutting down the
+mud, provided the code does not crash,
+of course ("help @reload").
+
+Version 2.12, 2/8/97: The @stats command
+was broken in version 2.1; in that version
+or 2.11 it would crash the MUD. This has
+been fixed.
+
+Version 2.11, 2/6/97: SO_LINGER is no longer
+being shut off for HTTP connections. This should
+be helpful on the platforms that previously
+could not use the HTTP interface (SunOS
+in particular had problems). Also, HTTP
+sockets are being set non-blocking again.
+
+Version 2.1, 2/4/97: the database is now stored
+as a collection of objects with attribute-value
+pairs. This makes it easier to read and modify the 
+code, and makes custom versions of the mud much
+more database-compatible with each other. You can
+easily add attributes without conflicting with 
+future official versions of PerlMUD. 
+
+Also, an @gag command has been added. @gag person
+to avoid listening to a person who annoys you.
+Beware: you won't see them coming or going either.
+@ungag person to remove a gag. examine me to 
+find out who is currently on your personal
+gag list.
+
+The $hostName configuration variable has been
+added in the configuration area. This
+must be set to the Internet host name of
+your server. It is used to provide account
+applicants with complete login instructions
+via email.
+
+Finally, two new flags have been added in the
+configuration area:
+
+$allowEmit: determines whether the @emit
+command is available. @emit says things
+without prefixing them with your name.
+
+$allowBuild: determines whether new users
+are allowed to create objects, dig rooms,
+and so on. Set this off *before* you first
+run PerlMUD 2.1 if you want the setting to
+affect all of your current users once you
+have upgraded. The new 'builder' flag
+determines whether an individual can build.
+
+Version 2.02, 1/28/97: jump scrolling now works
+properly in the frames client under MSIE
+(it worked in Netscape before). 
+
+Version 2.01, 1/28/97: applying online for an account
+name containing uppercase letters is now working.
+
+

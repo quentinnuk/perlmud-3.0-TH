@@ -1,0 +1,374 @@
+<head>
+<title>About PerlMUD 3.0</title>
+</head>
+<body bgcolor="#FFFFFF">
+<p align="center">
+<a href="/cgi-bin/imagemap/navbar.map">
+<img alt="Boutell.Com, Inc." src="/btlcom.gif" width="477" height="80" border="0" ismap></a>
+<h1 align="center">About PerlMUD <em>3.0</em></h1>
+<p align="center"><img src="perlmud.gif">
+</p>
+
+<h2>What is PerlMUD?</h2>
+PerlMUD is a MultiUser Dimension (MUD), a text-based
+environment that allows multiple users to converse,
+explore, and interact. PerlMUD is written in Perl 5
+and is highly compatible with the well-known TinyMUD
+command set, which provides a friendly interface
+to your online environment.
+<p>
+Complete Perl source code is included. Administrators can easily
+extend the PerlMUD system by writing additional
+Perl code.
+<h2>What's new and nifty about version 3.0?</h2>
+Version 3.0 is 100% backwards compatible with previous releases
+and the databases that they produced.
+<p>
+Version 3.0 has two major new features:
+<ul>
+<li><em>Topics</em> offer some of the best features of IRC,
+while respecting the style and personality of MUD systems.
+Topics provide a way to hold open conversations on specific topics
+in a crowded MUD room while giving others the opportunity to
+opt out if they choose. See "help topics" for more information.
+<li>The new <em>@reload</em> command allows the administrator
+to reload new PerlMUD source code <em>without shutting down the mud</em>.
+Beginning in version 3.0, the vast majority of the code and
+configuration options are located in the file <code>mudlib.pl</code>.
+Essentially all of the MUD's behavior can be changed "on the fly"
+with this feature. Administrators in production environments can use
+this feature to activate new changes without restarting, after testing 
+them in a separate test MUD environment. See <code>help @reload</code>
+and the mudlib.pl and mud source files for more information.
+</ul>
+<P>
+<h4>What Was New In Version 2.1</h4>
+Version 2.1 lets the MUD administrator decide
+whether new users should be allowed to build.
+You control this by setting the $allowBuild
+flag (in the configuration section at the top
+of the mud source file) to 1 for yes or 0
+for no. 
+<p>
+Version 2.1 also lets the MUD admin
+decide whether users should be permitted to 
+use the @emit command, which says things
+without prefixing them with the user's name.
+Set the $allowEmit flag to 1 or 0 to control
+this feature.
+<p>
+Version 2.1 adds the @gag and @ungag
+commands. @gag person prevents you from
+hearing anything that person says. (Beware:
+you won't see them coming or going either.)
+@ungag person lets you hear that person
+again. Type <code>examine me</code> to find
+out who is on your personal gag list 
+if you have forgotten.
+<p>
+Finally, Version 2.1 writes a new database
+format which should not need to be changed
+again. The source code of version 2.1 has
+been rewritten to use an array of objects
+(hashes), instead of separate arrays for
+each characteristic of an object, and the
+new database format stores attribute-value
+pairs. This will make it <strong>much easier
+to customize your mud server code</strong> in
+a way that is compatible with new releases
+of PerlMUD.
+<h3>What Was New in Version 2.0</h3>
+
+Version 2.0 of PerlMUD includes a simple, effective
+web-based user interface that <strong>any</strong>
+web browser can use. Browsers that support frames
+get the best interface, with automatic refresh
+of the output frame, but other browsers can also
+use the system; even lynx can handle it! 
+This simple web-based client <strong>is compatible
+with most firewalls</strong> if the user has
+web access through a proxy server.
+<strong>PerlMUD acts as a simple web server
+in its own right. This makes it drastically
+more efficient than CGI-based chat solutions.</strong>
+<p>
+A Java-based client, which is comparable to
+specialized mud clients in its friendliness, 
+is also included.
+<p>
+
+<h2>What do I need to run a PerlMUD server?</h2>
+
+You need access to a computer that offers Perl 5.001 or better. 
+If you are still using Perl 4.0, you need to upgrade.
+<p>
+Most Unix systems offer Perl. PerlMUD may or may not work for you
+under Windows. PerlMUD will run just fine under MacOS X.
+If you do use the software
+with Windows, you will need to provide a compatible alternative
+to the Unix <code>sendmail</code> program, or give out
+accounts manually. Your input on NT experiences is welcome.
+<p>
+MacPerl can apparently run PerlMUD with some success on MacOS Classic; 
+again, more input on this is welcome.
+<p>
+PerlMUD runs without problems under Linux and other
+common Unix operating systems with Perl 5 installed.
+
+<h2>Where can I get PerlMUD?</h2>
+
+Point your web browser at the following URL:
+<p>
+<code><a href="http://www.boutell.com/perlmud/perlmud-3.0.tar.gz">
+http://www.boutell.com/perlmud/perlmud-3.0.tar.gz</a></code>
+<p>
+Save the file to disk.
+
+You will need to issue these commands after the download:
+
+<pre>
+uncompress perlmud-3.0.tar.gz 
+tar -xf perlmud-3.0.tar
+cd perlmud-3.0
+</pre>
+
+The above commands are intended for Unix, and will also work at the
+terminal prompt in MacOS X.
+
+<h2>How do I set up PerlMUD?</h2>
+
+Once you unpack the program, as shown above, you must 
+configure it. The Perl source code is in the file "mud". <strong>You will 
+need to edit the <code>$dataDirectory</code> setting at the top of that
+file to match the directoy where PerlMUD 3.0 hs been placed.</strong>
+<p>
+Perform the following steps:
+<ul>
+<li>1. Using a text editor, such as vi, set <code>$dataDirectory</code> in 
+the file <code>mud</code> to point to the path
+where you have installed PerlMUD 3.0.
+<li>2. Copy the file "minimal.db" to "mud.db".
+<li>3. Set <code>$serverName</code> in <code>mudlib.pl</code> to the name 
+you would prefer to see in the titles of various web pages produced
+by the simple web interface.
+<li>4. Set <code>$hostName</code> in <code>mudlib.pl</code> to the Internet host
+name of the server. Example: if your PerlMUD server runs on
+the machine <code>www.mycompany.com</code>, then put
+<code>www.mycompany.com</code> here. <strong>You cannot
+simply make up a name --</strong> if you don't know
+what the machine is called, ask the administrator.
+This information is used to give new users instructions
+to connect to the MUD when they receive accounts via email.
+<li>5. Optionally, change <code>$tinypPort</code> (if you do not want to 
+use port 4096) and code>$httpPort</code> (if you do not want to use
+port 4196) in <code>mudlib.pl</code>. The first is used for telnet and java client
+access; the second is used by the simple web interface.
+</ul>
+<p>
+Now, to start the MUD, type (under Unix):
+<pre>
+perl mud &
+</pre>
+In the beginning, there are only two objects: 
+The Void (a room, object #0) and Admin (a player,
+object #1).
+<p>
+Wait a few seconds for the mud to start, then
+type the following commands (under Unix):
+<pre>
+telnet localhost 4096
+connect admin initial
+</pre>
+Once you have logged into the admin character,
+type "help" for more information. You will find
+the tutorial topics useful to get you started
+with PerlMUD administration. 
+<p>
+<blink><strong>SECURITY ALERT:</strong></blink> 
+change your password using the @password command 
+before you let the public know your server exists!
+Try "help @password" while logged into the mud
+for further instructions. (Most administrative
+commands begin with an @ sign.)
+
+<h2>How do I add more rooms and objects?</h2>
+Type "help building" to read about how to create
+objects; type "help rooms" for information about
+creating new rooms and exits between them. Type
+"help admin" for a list of administrative commands.
+
+<h2>How will my users access PerlMUD?</h2>
+
+Your users can apply for accounts
+<strong>right on the web,</strong> by accessing
+the simple web server <strong>built in</strong>
+to your PerlMUD system! The URL to use is
+<code>http://yourhost.com:4196/</code>, where
+<code>yourhost.com</code> should be replaced
+with the hostname of the machine you are running
+your PerlMUD server on.
+<h2>How do I restrict access?</h2>
+<h3>Running a Completely Private System</h3>
+The simplest solution is to create an <strong>empty file</strong>
+called <code>allowed.txt</code> in your
+PerlMUD directory. This will tell PerlMUD not
+to let <em>anyone</em> apply for an account
+online. Instead, you will use the
+@pcreate command when logged in as the
+admin user, to create accounts manually:
+<pre>
+@pcreate name = password
+</pre>
+You'll also want to edit the document
+<code>home.html</code> to no longer link
+to the special "public applications" URL
+of the server ( <code>/apply</code> ).
+<h3>Open Access from Only One Organization</h3>
+If you wish, you can allow users whose email
+addresses are in a specific domain to apply
+freely for accounts without any extra effort
+on your part. Just create a file called
+<code>allowed.txt</code> in your PerlMUD
+directory, and put the names of domains 
+and/or individual email addresses that
+<em>are</em> allowed to apply for accounts.
+<p>
+Here's a simple example:
+<pre>
+boutell.com
+</pre>
+If your allowed.txt file contains the
+line above, then all users with addresses
+<em>ending in</em> boutell.com are permitted
+to apply for accounts.
+<p>
+Here's another example:
+<pre>
+boutell.com
+smith@jones.com
+</pre>
+This allowed.txt file would permit anyone
+at boutell.com, or the specific email address
+smith@jones.com, to apply for an account.
+<h3>Locking Out A Few Bad Apples</h3>
+The last option, which public servers will
+want to use, is to simply lock out "bad apples"
+by domain or by email address. <em>Each time
+a new user is given an account,</em> a line
+is written to the file <code>accounts.log</code>,
+giving the account name and the email address
+for that user. You can use this information
+to decide who must be locked out of the system.
+<p>
+Just create a file called
+<code>lockouts.txt</code> in your PerlMUD
+directory, and put the names of domains 
+and/or individual email addresses that
+<em>are NOT</em> allowed to apply for accounts.
+<p>
+Here's a simple example:
+<pre>
+ugly.com
+</pre>
+If your allowed.txt file contains the
+line above, then all users with addresses
+<em>ending in</em> ugly.com are NOT
+permitted to apply for accounts.
+<p>
+Here's another example:
+<pre>
+ugly.com
+jerk@jones.com
+</pre>
+This allowed.txt file would not permit
+anyone at ugly.com, or the specific
+email address jerk@jones.com, to apply
+for an account under any circumstances.
+<H4>How do I know where a jerk is coming from?</h4>
+<em>Each time a new user is given an account,</em> a line
+is written to the file <code>accounts.log</code>,
+giving the account name and the email address
+for that user. You can use this information
+to decide who must be locked out of the system. 
+
+<h2>How do my users log on?</h2>
+There are three ways to access PerlMUD servers.
+<p>
+The simplest, although the least attractive, is
+to connect through <strong>any web browser</strong>
+by accessing the URL <code>http://yourhost.com:4196/</code>.
+<p>
+This simple interface is easy to access, but users
+who are familiar with <code>telnet</code> programs
+will prefer to telnet to <code>port 4096</code>
+on the server machine, or use a mud client program
+such as <a href="http://www.muq.org/~hawkeye/tf/">TinyFugue</a> for
+Unix or one of the numerous Mac and Windows mud clients.
+<p>
+The third approach, which is as easy to understand
+as the web interface, as fast as the telnet interface,
+and more attractive than either, is to use the 
+<a href="client.html">Java PerlMUD client</a>. 
+The Java client is far more user-friendly
+than a telnet session, and it appears as an
+integral part of the web browser.
+<h2>What if my users are behind a firewall?</h2>
+They will get best results using the 
+simple web interface, which is accessed at
+the following URL: <code>http://yourhost.com:4196/</code>
+<p>
+Of course, <code>yourhost.com</code> must be replaced
+by the name of the host on which your PerlMUD server
+is running. 
+<p>
+Some users with firewalls may also have telnet access 
+if they are permitted to log into a special "gateway"
+machine first.
+<p>
+<h2>Is PerlMUD stable?</h2>
+Version 3.0 of PerlMUD has withstood many years
+of daily use, including an online/real world wedding 
+ceremony with over 50 active participants.
+Complete online help is included, with tutorial topics
+for new users and admins as well as a command-by-
+command reference.
+
+<h2>Does PerlMUD require a lot of memory?</h2>
+
+PerlMUD is RAM-based, so the database resides
+in virtual memory. A PerlMUD system with only
+two objects occupies about 2.3 megabytes of
+virtual memory, but each additional object
+requires very little space. My system, with 205 objects 
+and several players logged on, occupies about 3 megabytes
+of virtual memory. 
+
+<h2>Is PerlMUD efficient?</h2>
+
+PerlMUD requires very little CPU. PerlMUD wakes up
+only when a user issues a command, so typical CPU
+use is near zero.
+
+<h2>Is PerlMUD extensible?</h2>
+
+Yes, by the MUD administrator. The entire MUD is written
+in the extremely friendly Perl programming language,
+so adding new commands is straightforward. 
+
+<h2>What about programming documentation?</h2>
+
+The code is reasonably well-commented.
+
+<h2>How do I customize the web pages PerlMUD displays?</h2>
+
+Just edit the HTML files accepted.html, application.html, 
+and home.html.
+
+<h2>Do I have to register PerlMUD?</h2>
+
+No, PerlMUD was released under the MIT license on
+July 4th, 2011.
+
+<hr>
+<a href="http://www.boutell.com/">Boutell.Com, Inc.</a> Email: <a href="mailto:perlmud@boutell.com">perlmud@boutell.com</a>
+</body>

@@ -1,0 +1,123 @@
+<html>
+<head>
+<title>PerlMUD Java Client Manual</title>
+</head>
+<body bgcolor="#FFFFFF">
+<p align="center"><img src="perlmud.gif"></p>
+<h1 align="center">PerlMUD Java Client Manual</h1>
+
+<h2>What is the PerlMUD Java Client?</h2>
+The PerlMUD Java Client is a friendly, easy-to-understand
+way for your users to access your <a href="index.html">
+PerlMUD server</a>. Since
+the client is written in Java, any user with a Java-
+capable web browser can access your PerlMUD system
+without understanding the telnet command or installing
+any special MUD client software. Users can just
+access your web server and log in through the Java client.
+
+<h2>What web browsers support Java at this time?</h2>
+Netscape 2.0 or better and Microsoft Internet
+Explorer 3.0 or better both support Java. 
+<strong>We don't recommend Netscape 2.0; use
+Netscape 3.0, especially on Macs.</strong>
+If you are using <strong>Windows 3.1,</strong> try
+Microsoft Internet Explorer 3.0 for Windows 3.1,
+which is the only Windows 3.1 browser we know of
+that supports Java.
+<h2>What must I have BEFORE I can use the client?</h2>
+First, you must have three things:
+<p>
+<strong>1. A working <a href="index.html">PerlMUD server</a>
+for users to connect to.</strong>
+<p>
+<strong>2. A web server on the same machine as
+the PerlMUD server.</strong> This is a security
+restriction imposed by your web browser, 
+<strong>not</strong> by PerlMUD.
+<p>
+<strong>3. A java-capable web browser
+such as MSIE 3.0 or Netscape 3.0</strong>, in
+order to try the client yourself.
+<h2>How do I install the client?</h2>
+The PerlMUD Java Client is distributed in the
+form of two Java .class files,
+MudClient.class and SlaveFrame.class,
+which must be placed on your web server for use by
+your PerlMUD users. These two files are found
+in the <code>java</code> subdirectory of your
+perlmud2.0 directory.
+Copy them to a directory in the web space of
+your web server.
+<p>
+Next, create a simple HTML page like the following
+in that directory, or copy the example
+<code>index.html</code> file from the
+java directory and <strong>make appropriate
+changes to specify your host and port</strong>.
+<pre>
+&lt;h1&gt;Access PerlMUD&lt;/h1&gt;
+If you have a Java-capable web browser, a handy
+PerlMUD client applet will appear below.
+&lt;p&gt;
+&lt;applet code="MudClient.class"
+width=100% height=420&gt;
+&lt;param name=serverHost value="boutell.com"&gt;
+&lt;param name=serverPort value="4096"&gt;
+&lt;/applet&gt;
+</pre>
+VERY IMPORTANT: you <strong>must change serverHost and
+serverPort</strong> to the host name and port number
+of your PerlMUD server. Due to Java's security rules,
+<strong>the PerlMUD server and the
+web server must run on the same machine.</strong>
+<h2>How do I test the client?</h2>
+First, make sure of the following:
+<p>
+1. You have downloaded MudClient.class and
+SlaveFrame.class and installed them on your web server.
+<p> 
+2. You have created a web page as shown above,
+using the &lt;applet&gt; tag to properly access
+the applet.
+<p>
+3. You have a PerlMUD server up and running
+on the web server machine.
+<p>
+Now, you're ready to test it! Start up your
+Java-capable browser and access
+the page. <strong>Don't open the page as a local
+file. Be sure to access the page through the
+web server. Netscape security restrictions
+are the reason for this requirement.</strong>.
+
+<h2>How will my users access the client?</h2>
+Once you've set it up and tested it, just give
+them the URL of the page. <strong>As long as
+they have Java-capable web browsers,</strong> 
+your users will see a login screen when they 
+access the page. <strong>If they do not have
+Java-capable browsers,</strong> or they have
+disabled Java, they will get access to the
+"vanilla" web interface. <strong>They will not have to 
+install any special software!</strong>
+<h2>What features does the Java PerlMUD client offer?</h2>
+In addition to the convenience of a client that appears
+"built-in" to the browser, the Java PerlMUD client offers
+several convenient features your users will appreciate:
+<ul>
+<li>Separate windows for keyboard input, PerlMUD
+output, and review of past commands.
+<li>Automatic recognition of URLs: if a URL is mentioned
+by a user of the MUD, it can be immediately accessed
+through a convenient button built into the client!
+This includes email addresses.
+</ul>
+<h2>How can I get Java source code for the applet?</h2>
+
+Java source code is included in the java-source folder.
+<hr>
+<em><a href="http://www.boutell.com/index.html">Boutell.Com, Inc.</a></em>
+</body>
+</html>
+

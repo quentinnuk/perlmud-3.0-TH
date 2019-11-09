@@ -1,0 +1,4 @@
+This is a PerlMUD system. This message is in the file welcome.txt.
+
+Type "connect name password" to log in.
+

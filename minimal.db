@@ -1,0 +1,19 @@
+2.1
+0
+name Void
+type 1
+owner 1
+flags 0
+contents 1
+<END>
+1
+name Admin
+lastPing 855176615
+type 2
+password initial
+last 855176615
+location 0
+owner 1
+on 855176604
+flags 147456
+<END>

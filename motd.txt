@@ -1,0 +1,2 @@
+Welcome to your MUD! This message is in the file motd.txt.
+

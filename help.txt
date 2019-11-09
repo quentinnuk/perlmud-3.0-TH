@@ -1,0 +1,805 @@
+*index
+PerlMUD Help System
+
+Type "help topic" for more information about a 
+particular command or topic. The following is a list of 
+the available commands and help topics: 
+
+TOPICS:
+
+beginner, clothing, moving, talking, topics, email, building, 
+locking, rooms, substitutions, flags, creatures, admin, rules
+
+COMMANDS:
+
+say, emote, look, read, examine, inventory, drop, get, take,
+quit, home, who, last, sign, write, help, motd, welcome, whisper,
+page, @topic, @wall, @dig, @doing, @create, @stats, @set, @email, 
+@describe, @name, @chown, @pcreate, @password, @teleport, @link, 
+@open, @fail, @ofail, @success, @osuccess, @odrop, @lock, @boot,
+@clean, @find, @recycle, @toad, @shutdown, @dump, @rows, 
+@gag, @ungag, @tz, @24, @12, @reload
+*beginner
+Welcome to PerlMUD. PerlMUD is very similar to TinyMUD
+and TeenyMUD, with which you may be familiar. 
+
+If you are new to MUDs, you will want to read the 
+following topics first:
+
+clothing
+moving
+talking
+topics
+email
+
+Type "help clothing" to read that topic.
+*email
+On some PerlMUD systems, you can receive mail at the site
+the MUD runs on if you use the @email command to set an
+address to which your mail should be forwarded. This means
+your fellow MUD users don't have to remember your
+email address. See @email for details.
+*@email
+If you wish to make it easier for other users to contact
+you by email, use the @email command to tell the system
+where email for you should be forwarded. Once you do this,
+other users can contact you by sending email to
+yourmudname@mudcomputer.com instead of remembering
+your address.
+
+Example (for the player "bob"):
+@email boba@foo.com
+Email address set.
+
+Bob's friends can now reach him by sending mail
+to bob@baz.com, if the MUD runs on baz.com.
+
+TO FIND OUT if @email is set for you or another person, type:
+
+examine *personname
+
+Note the use of the asterisk. 
+*clothing
+When your character is first created, it is not much to look at. Be
+sure to set your description with the @desc command.
+
+@describe me = You see a tall newspaperman with a button nose.
+
+Type "look me" to see yourself.
+
+Next, if you wish, set your gender with the @set command:
+
+@set me = male
+
+You can abbreviate most commands.
+
+Next, you will probably want to read the "help moving" topic.
+*moving
+To move from room to room in PerlMUD, just type the direction in 
+which you want to move. Usually the possible directions are mentioned
+in the description of the room you are in. Typical exits
+include north, south, east, west, and one-letter abbreviations 
+of the above. You may see the message "Huh?" if a particular
+exit is not available from the current room.
+
+Example:
+
+You are in the dining room. There is a door to the north.
+n
+You are in the hallway.
+
+Next, you will probably want to read the "help talking" topic.
+*talking
+You will often encounter other players on the MUD. 
+To converse with them, use the "say" command, which
+can be abbreviated to a single " (double quotation mark).
+For example:
+
+say hello
+You say hello.
+"hello
+You say hello.
+
+If you want to express action or emotion, use
+the emote command, which can be abbreviated to a
+single : character. For example:
+
+emote cries.
+Bob cries.
+:cries.
+Bob cries.
+
+To learn about conversing on specific topics, move on to 
+"help topics". 
+*topics
+Often people want to discuss a subject of limited 
+interest without leaving a public area. To make this
+less annoying for everyone, "topics" are provided.
+By default, everyone hears what is said on a topic,
+but users can elect to "@leave" topics. 
+
+Users speak on a topic by prefacing the topic
+name with a comma:
+
+,geek I love the gd graphics library.
+You say, "I love the gd graphics library." <geek>
+You can also emote on a topic using the ; character.
+
+;geek blushes hotly.
+Tom blushes hotly. <geek>
+
+For more information, and examples, see "help @topic", 
+"help @join" and "help @leave".
+
+To learn about creating objects, move on to the "help building" topic.
+*building
+To create an object, use the @create command:
+
+@create Can of Cheese-B-Gone
+Can of Cheese-B-Gone has been created as #188.
+
+Then describe the object. Try the following commands.
+Note that abbreviations can be used:
+
+@desc can = The can is of the usual ozone-destroying aerosol type.
+look can
+inventory
+drop can
+get can
+@recycle can
+To learn more, see the "help locking" topic, or move on to "help rooms".
+*locking
+You may wish to lock an object so that only certain people can pick it up, 
+or lock an exit so that only certain people can move through it. Locks can 
+refer to both people and objects. If you lock an object to a person, only 
+that person can pick it up. Place an * in front of the person's name when
+locking the object. If you lock an object to another object, the second 
+object must be in the possession of a person attempting to use it. You can 
+also build complicated locks using & (AND), | (OR), ! (NOT), and ( and ) 
+to group expressions.
+
+Got all that? Here are some examples:
+
+@lock can = me
+@lock can = !*Bob
+@lock north = key
+@lock south = !(bluekey | greenkey | redkey | prize)
+
+To find out how to control what people see when a lock succeeds
+or fails, see the "help messages" topic. To move on, see
+the "help rooms" topic.
+*messages
+To control what a user sees when she fails to pass a lock, use @fail:
+
+@fail north = You can't unlock the door. Guess you need a key.
+
+To control what the audience sees, use @ofail. Note that the
+player's name always appears first:
+
+@ofail north = tries to open the door, but $s doesn't have a key.
+
+$s is a substitution which inserts the correct pronoun. There are
+several others; see the "help substitutions" topic for more information.
+
+To control what a user sees when she successfully passes
+a lock, use @success. To control what the audience sees,
+use @osuccess.
+
+To move on, see the "help rooms" topic.
+*rooms
+Eventually, you will want to create a home of your own for
+your character. Try your own variation on the following
+commands. 
+
+@dig Palace of Wonderful Things
+@link me = #XXX               (Type the number @dig reports to you, not XXX)
+home
+@desc here = Welcome to the Palace. Try the trapdoor down or press the button.
+@open down;d = #0             (Or the number of a room set linkok on this MUD)
+@desc down = A trapdoor in the floor beckons you downwards.
+@open press button;button = home
+
+Exits can have many alternate names, separated by semicolons.
+"home" is a special destination which takes the player to the
+home she is attached to by the @link command. "nowhere" is another
+special destination which goes nowhere!
+
+Note that you can use the @link command to change the destination
+of the down exit, or any exit, at a later time. @link is also
+useful to set the home of your objects. 
+*flags
+Every PerlMUD object can have one or more flags set.
+You can use the @set command to set or clear a flag:
+
+@set me = male
+@set me = !dark
+
+dark                   Contents of room not visible (except to "examine")
+male                   Character is male (for pronoun substitutions)
+female                 Character is female (for pronoun substitutions)
+linkok                 OK for anyone to link exits TO this room
+jumpok                 OK for anyone to teleport to this room
+buildok                OK for anyone to link exits FROM this room
+sticky                 This object goes home immediately when dropped
+puzzle                 If set for room, force drop all on "home" or "@tele"
+abode                  OK for anyone to set their home to this room
+grand                  This room is huge; entrances, exits are silent
+book                   Anyone can "sign" this object, adding text
+once                   Used with book: a second signature replaces the first
+wizard                 This player is a wizard (#1 is always a wizard)
+expert                 If set, you must type a " before things you say
+spy                    Tells you who really said something 
+builder                The player is permitted to build things and rooms
+creature               This player is actually a creature written in Perl
+nocreatures            This room does not admit creatures
+*substitutions
+Commands like @fail, @ofail, @success, and @osuccess set messages
+to be displayed when a player fails or succeeds in manipulating
+an object or exit. To make sense, these messages must contain
+the correct pronouns. The following substitutions are available,
+and output the correct pronoun or name depending on the player's
+flag settings and name:
+
+Substitution    Name                  Outputs
+%s              subjective            he, she, it, or name
+%n              name                  name
+%p              possessive            his, her, its, or name's
+%a              absolute possessive   his, hers, its, or name's
+%o              objective             him, her, it, or name name
+%r              reflexive             himself, herself, itself, or name
+%%              Percent sign          %
+
+If the above substitutions are capitalized, the output will
+also be capitalized.
+*admin
+The following administrative commands are available,
+primarily for use by wizards. Also note that many ordinary
+commands have far fewer restrictions when used by wizards.
+
+@wall message               Sends a message to all connected players.
+@stats player               Outputs statistics. Player can be omitted.
+@chown object = owner       Grants an object to another player.
+@pcreate name = password    Creates a new player.
+@password name = password   Changes a password.
+@teleport name = #location  Teleports an object.
+@boot name                  Disconnects a player (for now).
+@clean                      Sends nonplayers and sleeping players home
+                            from this room.
+@find name                  Finds objects with the specified name.
+@recycle object             Recycles the specified object.
+@toad player = newowner     Turns a player into a toad. There's no going back!
+                            If newowner is not specified, possessions recycled.
+@dump                       Writes the database to disk immediately.
+@shutdown                   Shuts down the mud. Implies @dump.
+@reload                     Reloads code from mudlib.pl. Implies @dump.
+*say
+The say command is used to speak to other players in the room. 
+
+Usage: 
+
+say hi there!
+"hi there!
+..troc do you have any more cookies?
+*emote
+The emote command is used to express yourself
+in the third person. The resulting sentence will
+begin with your name.
+
+Usage: 
+
+emote smiles.
+:smiles.
+*look
+The look command is used to glance at the current room,
+or at a particular object.
+
+Usage:
+
+look
+look me
+look north
+*read
+A synonym for "look."
+*examine
+The examine command is used to examine the current
+room or a particular object in detail. The examine
+command outputs a great deal of useful information
+including flag settings, lock settings, fail and
+success messages and other information about the object.
+
+Usage:
+
+examine
+examine me
+examine north
+*inventory
+The inventory command displays what your character
+is carrying. 
+
+Usage:
+
+inventory
+*drop
+The drop command is used to drop an object, or
+to drop all currently carried objects.
+
+Usage:
+
+drop key
+drop all
+*get
+The get command is used to pick up an object.
+
+Usage:
+
+get key
+*take
+A synonym for "get."
+*quit
+The quit command is used to disconnect from PerlMUD.
+*home
+The home command is used to transport your character
+back to her home room. You can set your character's
+home using the @link command.
+
+Usage:
+
+home
+*who
+The who command displays information about the currently
+connected users, including how long they have been
+connected and how long they have been idle. The who
+command also displays how long the PerlMUD system
+has been up and running since it was last restarted.
+
+Usage:
+
+who
+*last
+The last command displays information about the most
+recent login and logout times of a particular user.
+See also the @tz command for a way to display these times
+relative to your own time zone, instead of GMT. Also see
+the @24 and @12 commands to set your preferred clock format.
+
+Usage:
+
+last playername
+*@tz
+The @tz command sets your time zone for convenience in
+reading the output of the "last" command, and other commands
+that output times and dates. You must specify an offset
+in hours and minutes, with an optional minus sign. Time
+zone names are not accepted. See also the @24 and @12
+commands to set your preferred clock format.
+
+usage:
+
+@tz -08:00
+
+(This example sets US Pacific standard time.)
+*@24
+The @24 command sets 24-hour clock display format for
+the "last" command and other commands that display the
+time of day. See also the @12 command.
+
+usage:
+
+@24
+*@12
+The @12 command sets 12-hour am/pm clock display format for
+the "last" command and other commands that display the
+time of day. See also the @24 command.
+
+usage:
+
+@12
+*sign
+The sign command is used to sign a book. Things which have 
+the book flag set can be signed by any user. Signing the 
+book adds up to 256 characters, prefixed by your name. 
+If the once flag is set on the book, then signing a second
+time replaces your previous signature. Use the look command 
+to see the current signatures in the book.
+See also unsign.
+Usage:
+
+sign book = message
+*write
+A synonym for "sign."
+*unsign
+The unsign command is used to remove a signature from a book.
+When you unsign a book, your oldest signature is deleted.
+Usage:
+
+unsign book
+*help
+The help system you are now using. Type "help" by itself and 
+press ENTER to begin learning more about PerlMUD.
+
+Usage:
+
+help
+*motd
+The motd command repeats the message that was displayed
+immediately after you logged into the MUD.
+
+Usage:
+
+motd
+*welcome
+The welcome command repeats the message that was displayed
+when you first connected to the MUD.
+
+Usage:
+
+welcome
+*whisper
+The whisper command is used to speak privately to
+one or more individuals. The . command is a shorthand
+for whisper. If the individual is in the same room,
+you can abbreviate the name.
+
+Usage:
+
+whisper person,person,person = message
+.person,person message
+*page
+The page command is used to send a private message to
+another player anywhere in the MUD. The whisper command
+is more useful. Page has been kept for backwards 
+compatibility.
+
+Usage:
+
+page person = message
+*@wall
+The @wall command is used to send a message to
+all players currently connected to the MUD.
+@wall is available only to wizards.
+
+Usage:
+
+@wall System restarting in 5 minutes
+*@dig
+The @dig command is used to create a new room. After the
+room is created, PerlMUD will report the object ID
+associated with the room. Be sure to make a note of
+the ID as you will need it to open an exit to that
+room or teleport to that room.
+
+Usage:
+
+@dig Castle Mauveskull
+*@doing
+The @doing command is used to set the message which appears
+next to your character's name on the list output by the
+who command. 
+
+Usage:
+
+@doing message
+*@create
+The @create command is used to create a new object.
+(Rooms are created with the @dig command, exits are
+created with the @open command, and players are
+created with the @pcreate command.)
+
+Usage:
+
+@create objectname
+*@topic
+The @topic command is used to raise a topic, so people can
+choose to '@leave' or '@join' that topic rather than hearing
+everything that is said on the subject. By default, you are
+always '@join'ed to all topics that come up.
+
+Usage:
+@topic gd
+,gd I find the gd library very useful!
+*@join
+The @join command is used to indicate an interest in
+one or more topics. By default, you see everything that
+is said on any topic. If you have used the @leave command
+to discard a topic, you can @join it later. If you have
+used '@leave all' to stop following all topics, you can
+@join individual topics or '@join all' to go back to the
+default setting.
+
+Usage:
+@join gd,hex
+@join all
+*@leave
+The @leave command is used to stop seeing comments on
+one or more topics. By default, you see everything that
+is said on any topic. If you have used the @leave command
+to discard a topic, you can @join it later. If you have
+used '@leave all' to stop following all topics, you can
+@join individual topics or '@join all' to go back to the
+default setting.
+
+Usage:
+@leave gd
+@leave all
+@join hex
+*@stats
+The @stats command outputs statistics about the system
+as a whole, or about a particular character. These statistics
+are useful to determine how large the MUD has become, or
+to measure the impact of a particular user.
+
+Usage:
+
+@stats
+@stats me
+*@set
+The @set command is used to set various flags on any 
+object (including players, rooms, and exits). See
+"help flags" for more information.
+
+Usage:
+
+@set here = dark
+@set here = linkok
+@set me = female
+@set #327 = jumpok
+*@describe
+The @describe command is used to set the description
+that a player sees when looking at an object.
+
+Usage:
+
+@describe here = You are standing in a north-south hallway.
+@describe me = Indifferent honest.
+@describe north = To the north you can make out the shores of a distant lake.
+
+*@rows
+The @rows command sets the number of rows of scrollback
+the WWW interface should display. You may wish to set this to 
+a smaller value if your link is slow.
+
+Usage:
+
+@rows me = 20
+*@name
+The @name command is used to rename an existing
+object. Only wizards can rename players.
+
+Usage:
+
+@name north = s;south
+@name here = Castle OffwhiteSkull
+*@chown
+The @chown command is used to change the ownership of
+an object. You may give any object you own to any other
+player using @chown. 
+
+Usage:
+
+@chown object = player
+*@pcreate
+The @pcreate command is used to create a new character.
+This command is available only to wizards. Character
+names cannot contain spaces.
+
+Usage:
+
+@pcreate name = password
+*@password
+The @password command is used to set a new password
+for a character. 
+
+Usage:
+
+@password foo
+@password Jessica = kibitz27
+*@teleport
+The @teleport command is used to transport an object,
+or your character, to a specific location. If the word
+home is used as a destination, the object will go
+to its own home, as was set by the @link command.
+
+Usage:
+
+@teleport #0
+@teleport dog = home
+*@link
+The @link command is used to establish a home for an object. 
+An object's home must be a room. Objects can be sent home under 
+a variety of circumstances. In the case of exits, it sets a new
+destination for the exit.
+
+Usage:
+
+@link me = here
+@link dog = here
+@link dog = #27
+
+*@open
+The @open command is used to open a new exit from this
+room to a different room ID. The destination must be a
+room. Every exit must have a destination, although it is 
+possible to @lock an exit so that it never succeeds. Many 
+synonyms for the exit's name can be provided to accommodate 
+reasonable guesses on the player's part. The destination
+can be changed later using the @link command.
+
+Usage:
+
+@open n;north;out = #322
+*@fail
+The @fail command is used to establish a failure message
+which the player will see when unsuccessfully attempting
+to get an object or use an exit. See also locking,
+substitutions, @lock, @ofail, @success, @osuccess,
+and @odrop.
+
+Usage:
+
+@fail north = The door won't open without a key.
+*@ofail
+The @ofail command is used to establish a failure message
+which spectators in the room will see when a player 
+unsuccessfully attempts to get an object or use an exit. 
+See also locking, substitutions, @lock, @fail, @success, 
+@osuccess, and @odrop.
+
+Usage:
+
+@ofail north = pounds senselessly on the door.
+*@success
+The @success command is used to establish a success message
+which the player will see when successfully attempting
+to get an object or use an exit. See also locking,
+substitutions, @lock, @osuccess, @fail, @ofail, and @odrop.
+
+Usage:
+
+@success north = The key fits! You turn the lock and pass through.
+*@osuccess
+The @osuccess command is used to establish a success message
+which spectators in the room will see when a player 
+successfully attempts to get an object or use an exit. 
+See also locking, substitutions, @lock, @success, @fail, 
+@ofail, and @odrop.
+
+Usage:
+
+@osuccess north = passes through the door.
+*@odrop
+The @odrop command is used to establish a success message
+which spectators in the room will see when a player 
+drops the specified object. If the object is an exit,
+the message will be displayed to other players in the
+room the player has traveled into. See also locking, substitutions, 
+@lock, @success, @osuccess, @fail, and @ofail.
+*@lock
+The @lock command is used to control which players
+can get a particular object or pass through a particular 
+exit. Locks can refer to both players and objects. If
+a lock refers to a player, then that player can use
+the object. If a lock refers to an object, then the
+player can use it if the player is carrying the
+specified key. Objects and players can be combined
+using & (AND), | (OR), ! (NOT), and ( and )
+(parentheses to group expressions).
+
+If players are mentioned in the lock, it is crucial
+that an * appear before the name of each player.
+
+To clear a lock, place nothing on the right-hand side
+of the = sign.
+
+Usage:
+
+@lock north = *jessica
+@lock south = (!*roger) & blue key
+*@boot
+The @boot command is used to immediately disconnect
+a particular player (for now). No permanent damage
+is done to the user's character. Only wizards can
+use this command.
+
+Usage:
+
+@boot player
+*@clean
+The @clean command is used to "clean up" the current 
+room. Every object that does not have its home set
+to the current room is immediately sent home, except
+for currently connected players. Only the owner of the 
+room or a wizard can use this command.
+
+Usage:
+
+@clean
+
+*@find
+The @find command is used to locate missing objects
+by name. This is useful if you have forgotten the
+id number of a newly created room.
+
+Usage:
+
+@find name
+*@recycle
+The @recycle command is used to recycle (destroy) an
+object, reclaiming the space to be reused by a
+new object. If the object contains other objects,
+they are immediately dropped. If the object is a
+room, room #0 is set as the new home of objects
+residing in the recycled room. If there are exits
+which lead to a recycled room, those exits are
+directed to room #0. @recycle cannot be used directly 
+on players, but wizards can use @toad first to
+turn players into inanimate objects. 
+
+@recycle cannot be undone. Be sure you want to recycle 
+the object. This command cannot be abbreviated.
+
+Usage:
+
+@recycle object
+
+*@toad
+The @toad command is used to turn a character into a 
+slimy toad (an inanimate object). The character's
+possessions are recycled if no recipient is specified
+to accept them. Only wizards can use this command.
+This command cannot be abbreviated.
+
+Usage:
+
+@toad player
+@toad player = recipient
+*@shutdown
+The @shutdown command is used to shut down the MUD,
+disconnecting all current users and writing the 
+database to disk. This command cannot be abbreviated.
+*@reload
+The @reload command is used to reload the mud source
+code from mudlib.pl, after first writing the database
+to disk. This often allows the installation of new
+features without a shutdown, although of course bugs
+in the changes you have made could crash the mud.
+This command cannot be abbreviated.
+*@dump
+The @dump command is used to write the database to disk
+immedately. Note that the server automatically writes the
+database to disk at regular intervals. This command is
+nonetheless useful when a particularly important action
+has just been performed. Only wizards can use this
+command. This command cannot be abbreviated.
+*@gag
+The @gag command allows you to completely ignore
+another player. Use this command if you find you
+simply can't stand them, no matter what. Use
+examine me (not look me) to see who is on your 
+gag list. 
+
+Example:
+
+@gag bob
+
+See also: @ungag
+*@ungag
+The @ungag command is used to remove a gag placed with
+the gag command. 
+
+Example:
+
+@ungag bob
+Bob says, "it's oddly quiet in here."
+
+See also: @gag
+*rules
+Nerdsholm is an extension of Tom's living room. Please
+behave accordingly. 
+
+When building yourself a home, ask for an entrance somewhere 
+in the town so you can be added to the map. Please don't
+add random, inconsistent exits. Beyond your front door, 
+silly or illogical geography is perfectly OK.
+
+Don't MUD while driving.
+
