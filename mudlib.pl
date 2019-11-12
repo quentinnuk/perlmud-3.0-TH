@@ -30,7 +30,7 @@ $httpIpAddress = $ipAddress;
 #What do you want to call your server? The public sees this name
 #in the title of various web pages.
 
-$serverName = "Nerdsholm";
+$serverName = "Telehack";
 
 #What is the complete ** Internet host name ** of your server?
 #This goes out with the instructions that are sent to
@@ -39,7 +39,7 @@ $serverName = "Nerdsholm";
 #be a REAL host name for the server -- just putting
 #something here won't magically add a new name to your DNS!
 
-$hostName = "nerdsholm.boutell.com";
+$hostName = "localhost";
 
 #Should users be allowed to create objects and rooms by default?
 #Set this to 0 if you prefer not.

@@ -40,7 +40,7 @@
 #of crashing the mud if the new code is buggy, but it can sometimes
 #avoid the need for a restart).
 
-$dataDirectory = "/home/boutell/perlmud-3.0/";
+$dataDirectory = "/Users/qjn10/dev/perlmud-3.0-TH";
 
 require "$dataDirectory/mudlib.pl";
 
