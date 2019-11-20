@@ -27,10 +27,6 @@
 #ARISING FROM, OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR 
 #OTHER DEALINGS IN THE SOFTWARE.
 #
-#CONTACT INFORMATION:
-#
-#http://www.boutell.com/perlmud/
-#
 #CONFIGURABLE SETTINGS FOLLOW
 #
 #The directory where PerlMUD can expect to find all of its data files,
@@ -39,8 +35,10 @@
 #install new code on the fly (of course, there is still a good chance
 #of crashing the mud if the new code is buggy, but it can sometimes
 #avoid the need for a restart).
+use strict;
+#use warnings;
 
-$dataDirectory = "/Users/qjn10/dev/perlmud-3.0-TH";
+my $dataDirectory = "/Users/qjn10/dev/perlmud-3.0-TH";
 
 require "$dataDirectory/mudlib.pl";
 
@@ -59,23 +57,16 @@ if (!chdir($dataDirectory)) {
 	exit 0;
 }	
 
-if ($hostName =~ /CHANGEME/) {
-	print "The \$hostName configuration variable has not been set.\n",
-		"This configuration variable, added in version 2.1,\n",
-		"must be set to the Internet host name of your server\n",
-		"so users can be told how to connect. Please read the\n",
-		"documentation and follow all of the instructions carefully.\n";	exit 0;
-}
-
 #Start time
 
-$now = time;
+our $now = time;
 
 srand($now + $$);
 
-$initialized = $now;
-$lastdump = $now;
-$lastFdClosure = $now;
+our $initialized = $now;
+our $lastdump = $now;
+our $lastFdClosure = $now;
+our $reloadFlag = 0;
 
 #Create initial db (commented out)
 
@@ -88,18 +79,14 @@ if (!&restore) {
 	exit 0;
 }
 
-#Name first file descriptor
-
-$fdBase = "FD";
-$fdNum = 0;
-
 #Set up listener socket
 
-$sockaddr = 'S n a4 x8';
-($name, $aliases, $proto) = getprotobyname("tcp"); 
+my $sockaddr = 'S n a4 x8';
+our ($name, $aliases, $proto) = getprotobyname("tcp");
+our ($ipAddress, $tinypPort);
 
-@addr = split(/\./, $ipAddress); 
-$this = pack($sockaddr, AF_INET, $tinypPort, pack("CCCC", @addr));
+our @addr = split(/\./, $ipAddress);
+our $this = pack($sockaddr, AF_INET, $tinypPort, pack("CCCC", @addr));
 
 if (!socket(TINYP_LISTENER, AF_INET, SOCK_STREAM, $proto)) {
 	print "Couldn't create listener socket.\n";
@@ -129,41 +116,6 @@ fcntl(TINYP_LISTENER, F_SETFL, O_NONBLOCK);
 if (!listen(TINYP_LISTENER, 5)) {
 	print "Couldn't initiate listening for connections.\n";
 	close(TINYP_LISTENER);
-	exit 1;
-}
-
-@addr = split(/\./, $httpIpAddress); 
-$this = pack($sockaddr, AF_INET, $httpPort, pack("CCCC", @addr));
-
-if (!socket(HTTP_LISTENER, AF_INET, SOCK_STREAM, $proto)) {
-	print "Couldn't create listener socket.\n";
-	print "This Perl implementation probably does not support sockets.\n";
-	exit 1;
-}
-
-#Make sure we can reuse this quickly after a shutdown
-
-setsockopt(HTTP_LISTENER, SOL_SOCKET, SO_REUSEADDR, $this);
-
-#Always set linger; we'll make many brief attempts to
-#close the socket to avoid responsiveness problems
-#(version 3.0)
-
-setsockopt(TINYP_LISTENER, SOL_SOCKET, SO_LINGER, 1);
-
-#Get the port
-
-if (!bind(HTTP_LISTENER, $this)) {
-	print "Couldn't bind to port ", $httpPort, ".\n";
-	close(HTTP_LISTENER);
-	exit 1;
-}
-
-fcntl(HTTP_LISTENER, F_SETFL, O_NONBLOCK);
-
-if (!listen(HTTP_LISTENER, 5)) {
-	print "Couldn't initiate listening for connections.\n";
-	close(HTTP_LISTENER);
 	exit 1;
 }
 

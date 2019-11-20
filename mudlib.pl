@@ -4,14 +4,12 @@
 #This file can be reloaded in response to the @reload command
 #(wizard only of course). Code accordingly: don't assume that
 #lists will be empty, etc. in any initialization you do here.
+use strict;
+#use warnings;
 
 #Port number to listen for tiny line protocol connections on 
-$tinypPort = 4096;
+our $tinypPort = 4096;
 #$tinypPort = 4096;
-
-#Port number to listen for HTTP connections on
-$httpPort = 4196;
-#$httpPort = 80;
 
 #IP address to listen on. If this is set to 0.0.0.0, then
 #PerlMUD will answer on all interfaces. If it is set to a
@@ -23,14 +21,12 @@ $httpPort = 4196;
 #with your regular WWW server.
 
 #$ipAddress = "206.125.69.87";
-$ipAddress = "0.0.0.0";
-$httpIpAddress = $ipAddress;
-#$httpIpAddress = "206.125.69.84";
+our $ipAddress = "0.0.0.0";
 
 #What do you want to call your server? The public sees this name
 #in the title of various web pages.
 
-$serverName = "Telehack";
+our $serverName = "Telehack";
 
 #What is the complete ** Internet host name ** of your server?
 #This goes out with the instructions that are sent to
@@ -39,190 +35,166 @@ $serverName = "Telehack";
 #be a REAL host name for the server -- just putting
 #something here won't magically add a new name to your DNS!
 
-$hostName = "localhost";
+our $hostName = "localhost";
 
 #Should users be allowed to create objects and rooms by default?
 #Set this to 0 if you prefer not.
 
-$allowBuild = 1;
+my $allowBuild = 1;
 
 #Should users be allowed to @emit things without their
 #name prefixed? Set this to zero if you prefer not.
 
-$allowEmit = 1;
+my $allowEmit = 1;
 
 #Location of sendmail on your system. This will usually be correct.
 #This is only important if you are accepting account applications from 
 #the public.
 
-$sendmail = "/usr/sbin/sendmail";
+my $sendmail = "/usr/sbin/sendmail";
 
 #File locations for the database, the login screen banner,
 #the Message of the Day, and the help file. 
 
-$dbFile = "mud.db";
-$welcomeFile = "welcome.txt";
-$motdFile = "motd.txt";
-$helpFile = "help.txt";
-$emailFile = "mail.txt";
-$homePageFile = "home.html";
-$applicationFile = "application.html";
-$acceptedFile = "accepted.html";
-$mailAliasesFile = "aliases.txt";
-$apachePasswordsFile = "apache.passwords.txt";
-$updateMailAliasesCommand = "./updatealiases";
+my $dbFile = "mud.db";
+my $welcomeFile = "welcome.txt";
+my $motdFile = "motd.txt";
+my $helpFile = "help.txt";
+my $emailFile = "mail.txt";
+my $homePageFile = "home.html";
+my $applicationFile = "application.html";
+my $acceptedFile = "accepted.html";
+my $mailAliasesFile = "aliases.txt";
+my $apachePasswordsFile = "apache.passwords.txt";
+my $updateMailAliasesCommand = "./updatealiases";
 #If you uncomment this, set a password
-#$newsPassword = "";
-$newsPassword = "a8b7";
+#my $newsPassword = "";
+my $newsPassword = "a8b7";
 
 #Idle timeout. This hangs up on users if they do not
 #enter at least one command in the time interval
 #(specified in seconds; 3600 is an hour).
  
-$idleTimeout = 86400;
-
-#Idle timeout for HTTP connections, in seconds. This is
-#different: if the server doesn't at least hear from 
-#the user's web browser, requesting more mud output,
-#in this interval, the user is disconnected.
-#
-#Since users frequently do not formally log out and there is 
-#no real "connection," this timeout should be fairly short (10 minutes).
-
-$httpIdleTimeout = 600;
+my $idleTimeout = 86400;
 
 #Time to wait between (brief) attempts at closing
 #sockets we don't need anymore. The longer this is,
 #the fewer pauses the mud will experience.
 
-$fdClosureInterval = 30;
-
-#Rows of text to keep from one http update to the next.
-
-$httpRows = 40;
-
-#Columns of text, with auto word wrap inside a <PRE> tag.
-$httpCols = 70;
-
-#Seconds between HTTP client pulls (in browsers that support pull).
-$httpRefreshTime = 30;
+my $fdClosureInterval = 30;
 
 #Interval between automatic backups of the database, in seconds (1 hour).
 #Note: stale topics are also sent home during this pass.
-$dumpinterval = 3600;
+my $dumpinterval = 3600;
 #Seconds until a topic is considered stale.
-$topicStaleTime = 3000;
+my $topicStaleTime = 3000;
 
 #Version of PerlMUD.
-$perlMudVersion = 3.0;
+my $perlMudVersion = 3.0;
 
 #Max size of output buffer before flushing takes place
-$flushOutput = 32768;
+my $flushOutput = 32768;
 
 #If the client sends the 'smartclient' command prior to sending the
 #connect command, then this prefix is sent in front of each line of 
 #topic-specific output for the life of the connection. The @emit command
 #cannot spoof this.  
 
-$topicPrefix = "[{}]";
+my $topicPrefix = "[{}]";
 
 #Nothing below here should require changes to set up the mud
+
+our $reloadFlag;
 	
 #Protocols 
 
-$tinyp = 0;
-$http = 1;
-
-#Protocol states
-$httpReadingHeaders = 0;
-$httpReadingBody = 1;
-$httpWriting = 2;
+my $tinyp = 0;
 
 #Object types
 
-$room = 1;
-$player = 2;
-$exit = 3;
-$thing = 4;
-$topic = 5;
+my $room = 1;
+my $player = 2;
+my $exit = 3;
+my $thing = 4;
+my $topic = 5;
 
 #Special IDs
 
-$none = -1;
-$home = -2;
-$nowhere = -3;
+my $none = -1;
+my $home = -2;
+my $nowhere = -3;
 
 #Flag values
 
 #Can't be seen; or description only, contents invisible
-$dark = 1;
+my $dark = 1;
 
 #Gender
-$male = 2;
-$female = 4;
-$herm = 6;
+my $male = 2;
+my $female = 4;
+my $herm = 6;
 
 #Name of location visible in who list
-$public = 8;
+my $public = 8;
 
 #Unused flag
-$unusedFlag = 16;
+my $unusedFlag = 16;
 #OK to link to
-$linkok = 32;
+my $linkok = 32;
 
 #OK to jump to
-$jumpok = 64;
+my $jumpok = 64;
 
 #OK for anyone to build here
-$buildok = 128;
+my $buildok = 128;
 
 #Claimable by anyone who passes the lock
 #(Not yet implemented)
-$claimok = 256;
+my $claimok = 256;
 
 #Goes home when dropped
-$sticky = 512;
+my $sticky = 512;
 
 #Part of a puzzle; a teleport or home command
 #from this location drops all objects carried.
 
-$puzzle = 1024;
+my $puzzle = 1024;
 
 #If true, this location can be set home (@link)
 #for an object by anyone.
-$abode = 2048;
+my $abode = 2048;
 
 #If true for a room, this location is "grand central station":
 #players can see things, hear people speak, etc., but arrivals and 
 #departures go unnoticed. 
-$grand = 4096;
+my $grand = 4096;
 
 #If true for an object, any person can "sign" the object,
 #appending a string of up to 60 characters to its description.
-$book = 8192;
+my $book = 8192;
 
 #This player is a wizard. #1 is always a wizard.
-$wizard = 16384;
+my $wizard = 16384;
 
 #This player hates automatic speech and wants more abbreviations.
-$expert = 32768;
+my $expert = 32768;
 
 #This player wants to know who @emits things.
 #Only an issue if $allowEmit is set.
-$spy = 65536;
+my $spy = 65536;
 
 #This player is allowed to build things. Set for new
 #players if $allowBuild is set. Only a wizard can change 
 #this flag after that.
-$builder = 131072;
+my $builder = 131072;
 
 #If the book flag is set, and the once flag is also set, then
 #any subsequent signature replaces all previous signatures
 #by the same individual. 
-$once = 262144;
+my $once = 262144;
 
 #For flag setting
-%flags = (
+my %flags = (
 	"dark", $dark,
 	"male", $male,
 	"female", $female,
@@ -251,7 +223,7 @@ $once = 262144;
 	"once", $once
 );
 
-%flagsProper = (
+my %flagsProper = (
 	"dark", $dark,
 	"male", $male,
 	"female", $female,
@@ -272,7 +244,7 @@ $once = 262144;
 	"once", $once
 );
 
-@flagNames = (
+my @flagNames = (
 	"dark",
 	"male",
 	"female",
@@ -298,7 +270,7 @@ $once = 262144;
 #say that, for instance, abbreviations of 'whisper'
 #should beat abbreviations of 'who'.
 
-@commandsProperOrder = (
+my @commandsProperOrder = (
 	"\@wall", \&wall,
 	"say", \&say,
 	"emote", \&emote,
@@ -355,7 +327,7 @@ $once = 262144;
 	"\@24", \&twentyfour,
 	"\@12", \&twelve
 );
-
+my %commandsProper;
 my($i);
 for ($i = 0; ($i < int(@commandsProperOrder)); $i += 2) {
 	$commandsProper{$commandsProperOrder[$i]} =
@@ -364,13 +336,13 @@ for ($i = 0; ($i < int(@commandsProperOrder)); $i += 2) {
 
 #Data for base64 decoder
 
-$base64alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
+my $base64alphabet = 'ABCDEFGHIJKLMNOPQRSTUVWXYZ'.
                   'abcdefghijklmnopqrstuvwxyz'.
                   '0123456789+/';
 
-$base64pad = '=';
+my $base64pad = '=';
 
-$base64initialized = 0;
+my $base64initialized = 0;
 
 #Set the SIGPIPE handler (grrr)
 
@@ -379,7 +351,7 @@ $base64initialized = 0;
 #Set up commands table (now in order of precedence) 
 
 #3.0: make sure to empty it again if we're reloading
-%commandsTable = ( );
+my %commandsTable = ( );
 
 for ($i = 0; ($i < int(@commandsProperOrder)); $i += 2) {
 	my($key) = $commandsProperOrder[$i];
@@ -396,16 +368,23 @@ for ($i = 0; ($i < int(@commandsProperOrder)); $i += 2) {
 	}
 }
 
+our ($lastdump, $lastFdClosure,$now);
+our ($initialized);
+my (@activeFds, $fdClosureNew, $fdClosureTimedOut, @fdClosureList);
+my (@objects, %playerIds, $commandLogging);
+
+
 #Marker for new material in frames
-$httpNewMarker = "<a name=\"newest\">#</a>";	
+#$httpNewMarker = "<a name=\"newest\">#</a>";
 
 #(re)initialization code ends here
+
 
 sub selectPass
 {
 	my($rfds, $wfds, $i);
 	$rfds = "";
-	$wfds = "";		
+	$wfds = "";
 	for ($i = 0; ($i <= $#activeFds); $i++) {
 		if ($activeFds[$i]{"fd"} ne $none) {
 			if ($activeFds[$i]{"protocol"} == $tinyp) {
@@ -413,23 +392,11 @@ sub selectPass
 				vec($rfds, fileno($fd), 1) = 1;
 				if (length($activeFds[$i]{"outbuf"})) {
 					vec($wfds, fileno($fd), 1) = 1;
-				}	
-			} elsif ($activeFds[$i]{"protocol"} == $http) {
-				my($fd) = $activeFds[$i]{"fd"};
-				if (($activeFds[$i]{"state"} == 
-					$httpReadingHeaders) || 
-					($activeFds[$i]{"state"} == 
-					$httpReadingBody)) 
-				{
-					vec($rfds, fileno($fd), 1) = 1;
-				} elsif ($activeFds[$i]{"state"} == $httpWriting) {
-					vec($wfds, fileno($fd), 1) = 1;
 				}
 			}	
 		} 
 	}
 	vec($rfds, fileno(TINYP_LISTENER), 1) = 1;
-	vec($rfds, fileno(HTTP_LISTENER), 1) = 1;
 	my($timeout);
 	my($before);
 	$before = time;
@@ -497,47 +464,23 @@ sub selectPass
 	if (vec($rfds, fileno(TINYP_LISTENER), 1)) {
 		&acceptTinyp;
 	}
-	if (vec($rfds, fileno(HTTP_LISTENER), 1)) {
-		&acceptHttp;
-	}
 	# Idle Timeouts
 	for ($i = 0; ($i <= $#activeFds); $i++) {
-		$e = $activeFds[$i]{"id"};
+		my $e = $activeFds[$i]{"id"};
 		if ($e != $none) {
-			if ($objects[$e]{"httpRecent"}) {
-				next;
-			}
-			$idlesecs = $now - $objects[$e]{"last"};
+			my $idlesecs = $now - $objects[$e]{"last"};
 			if ($idlesecs > $idleTimeout) {
 				&closePlayer($e, 1);
 			}
 		}
 	}	
-	for ($i = 0; ($i <= $#httpActiveIds); $i++) {
-		if ($httpActiveIds[$i] != $none) {
-			if (($now - $objects[$httpActiveIds[$i]]{"lastPing"}) >
-				$httpIdleTimeout) 
-			{
-				&closePlayer($httpActiveIds[$i], 1);
-			} elsif (($now - $objects[$httpActiveIds[$i]]{"last"}) >
-				$idleTimeout) 
-			{
-				&closePlayer($httpActiveIds[$i], 1);
-			}
-		}
-	}
 }
 
 sub closeActiveFd
 {
 	my($i) = @_;
 	if ($activeFds[$i]{"id"} != $none) {
-		if (!$objects[$activeFds[$i]{"id"}]{"httpRecent"}) {
-			&closePlayer($activeFds[$i]{"id"}, 1);
-			return;
-		} else {
 			$objects[$activeFds[$i]{"id"}]{"activeFd"} = $none;
-		}
 		$activeFds[$i]{"id"} = $none;
 	}
 	my($fd);
@@ -609,8 +552,7 @@ sub input
 					return;
 				}
 				&tellActiveFd($aindex, "Login Succeeded");
-				if (($objects[$id]{"activeFd"} != $none) ||
-					$objects[$id]{"httpRecent"}) 
+				if (($objects[$id]{"activeFd"} != $none))
 				{
 					closePlayer($id, 0);
 				}
@@ -632,16 +574,6 @@ sub closePlayer
 {
 	my($id, $gohome) = @_;
 	my($i);
-	if ($objects[$id]{"httpRecent"}) {
-		$objects[$id]{"httpRecent"} = 0;
-		$objects[$id]{"httpOutput"} = "";
-		for ($i = 0; ($i <= $#httpActiveIds); $i++) {
-			if ($httpActiveIds[$i] == $id) {
-				$httpActiveIds[$i] = $none;
-				last;
-			}
-		}
-	}
 	for ($i = 0; ($i <= $#activeFds); $i++) {
 		if (($activeFds[$i]{"fd"} ne $none) &&
 			($activeFds[$i]{"id"} == $id)) 
@@ -664,9 +596,7 @@ sub closePlayer
 
 sub acceptTinyp 
 {
-	my($fd) = $fdBase . $fdNum;
-	$fdNum++;
-	if (accept($fd, TINYP_LISTENER)) {
+	if (accept(my $fd, TINYP_LISTENER)) {
 		my($i, $found);
 		$found = 0;
 		for ($i = 0; ($i <= $#activeFds); $i++) {
@@ -693,37 +623,6 @@ sub acceptTinyp
 	}
 }
 
-sub acceptHttp
-{
-	my($fd) = $fdBase . $fdNum;
-	$fdNum++;
-	if (accept($fd, HTTP_LISTENER)) {
-		my($i, $found);
-		$found = 0;
-		for ($i = 0; ($i <= $#activeFds); $i++) {
-			if ($activeFds[$i]{"fd"} eq $none) {
-				$activeFds[$i]{"protocol"} = $http;
-				$activeFds[$i]{"state"} = $httpReadingHeaders;
-				$activeFds[$i]{"fd"} = $fd;
-				$activeFds[$i]{"id"} = $none;
-				$found = 1;
-				last;
-			}
-		}
-		if (!$found) {
-			my($aindex) = $#activeFds + 1;
-			$activeFds[$aindex]{"protocol"} = $http;
-			$activeFds[$aindex]{"state"} = $httpReadingHeaders;
-			$activeFds[$aindex]{"fd"} = $fd;
-			$activeFds[$aindex]{"id"} = $none;
-		}
-		# Lingering is important for HTTP (2.11)
-		setsockopt($fd, SOL_SOCKET, SO_LINGER, 1);
-		# Set non-blocking I/O (restored, 2.11)
-		fcntl($fd, F_SETFL, O_NONBLOCK);
-	}
-}
-
 sub command
 {
 	my($me, $text) = @_;	
@@ -746,10 +645,11 @@ sub command
 		return;
 	}
 	$objects[$me]{"last"} = $now;
-	if ($commandLogging) {
-		print CLOG $me, ":", $text, "\n";
-		&flush(CLOG);
-	}
+# we are not going to use PerlMUD logging
+#	if ($commandLogging) {
+#		print CLOG $me, ":", $text, "\n";
+#		&flush(CLOG);
+#	}
 	if (substr($text, 0, 1) eq "\"") {
 		&say($me, substr($text, 1), "", "");
 		return;
@@ -1373,7 +1273,8 @@ sub toad
 
 	&dropAll($id);
 
-	if (($objects[$id]{"activeFd"} != $none) || ($objects[$id]{"httpRecent"})) {
+	if (($objects[$id]{"activeFd"} != $none))
+    {
 		&closePlayer($id, 0);
 	}
 	my($name) = $objects[$id]{"name"};
@@ -1471,8 +1372,8 @@ sub recycleById
 	#recycle them too, unless they are players.
 	#If they are players, set their homes to room 0
 	#and send them home.
-
-	@list = split(/,/, $objects[$id]{"contents"});
+    my $e;
+	my @list = split(/,/, $objects[$id]{"contents"});
 	foreach $e (@list) {
 		if ($objects[$e]{"home"} == $id) {
 			if ($objects[$e]{"type"} == $player) {
@@ -1596,21 +1497,11 @@ sub tellWizards
 	for ($i = 0; ($i <= $#activeFds); $i++) {
 		my($e) = $activeFds[$i]{"id"};
 		if ($e != $none) {
-			if ($objects[$e]{"httpRecent"}) {
-				next;
-			}
 			if (&wizardTest($e)) {
 				&tellPlayer($e, $msg);
 			}
 		}
 	}	
-	foreach $e (@httpActiveIds) {
-		if ($e != $none) {
-			if (&wizardTest($e)) {
-				&tellPlayer($e, $msg);
-			}
-		}
-	}		
 }
 
 sub who
@@ -1624,9 +1515,6 @@ sub who
 	for ($i = 0; ($i <= $#activeFds); $i++) {
 		$e = $activeFds[$i]{"id"};
 		if ($e != $none) {
-			if ($objects[$e]{"httpRecent"}) {
-				next;
-			}
 			$idlesecs = $now - $objects[$e]{"last"};
 			$idle = &timeFormat($idlesecs);
 			$onsecs = $now - $objects[$e]{"on"};
@@ -1640,18 +1528,6 @@ sub who
 					$idle, $objects[$e]{"doing"}));
 		}
 	}	
-	foreach $e (@httpActiveIds) {
-		if ($e != $none) {
-			$idlesecs = $now - $objects[$e]{"last"};
-			$idle = &timeFormat($idlesecs);
-			$onsecs = $now - $objects[$e]{"on"};
-			$on = &timeFormat($onsecs);
-			&tellPlayer($me, 
-				sprintf("%-12.12s%-8.8s%-8.8s%-48s", 
-					$objects[$e]{"name"}, $on, 
-					$idle, $objects[$e]{"doing"}));
-		}
-	}		
 	&tellPlayer($me, "Uptime: " . &timeFormat($now - $initialized));
 	&tellPlayer($me, "End of List.");
 }
@@ -1697,8 +1573,7 @@ sub last
 	my($msg) = $objects[$id]{"name"} . " last logged in: " . 
 		&timeAndDateFormat($me, $objects[$id]{"on"});
 	&tellPlayer($me, $msg);
-	if (($objects[$id]{"activeFd"} != $none) ||
-		($objects[$id]{"httpRecent"}))
+	if (($objects[$id]{"activeFd"} != $none))
 	{
 		&tellPlayer($me, $objects[$id]{"name"} . 
 			" is still logged in.");
@@ -1783,6 +1658,7 @@ sub shutdown
 sub dump
 {
 	my($me, $arg, $arg1, $arg2) = @_;
+    
 	if ($me != $none) {
 		if (!&wizardTest($me)) {
 			&tellPlayer($me, "Sorry, only a wizard can do that.");
@@ -1831,19 +1707,7 @@ sub dump
 				# Connection dependent. Don't save it.
 				next;
 			}
-			if ($attribute eq "httpRecent") {
-				# Connection dependent. Don't save it.
-				next;
-			}
 			if ($attribute eq "lastPing") {
-				# Connection dependent. Don't save it.
-				next;
-			}
-			if ($attribute eq "httpOutput") {
-				# Connection dependent. Don't save it.
-				next;
-			}
-			if ($attribute eq "httpNewBatch") {
 				# Connection dependent. Don't save it.
 				next;
 			}
@@ -1867,7 +1731,7 @@ sub dump
 		print OUT "<END>\n";
 	}
 	if (!close(OUT)) {
-		&wall(1, "Warning: couldn't complete save to $dbfile.tmp!");
+		&wall(1, "Warning: couldn't complete save to $dbFile.tmp!");
 		# Don't try again right away
 		$lastdump = $now;
 		return;
@@ -1889,7 +1753,7 @@ sub help
 	}
 	$arg = "*" . $arg;
 	if (!open(IN, $helpFile)) {
-		&tellActiveFd($i, "ERROR: the file " . $fname .
+		&tellActiveFd($i, "ERROR: the file " . $helpFile .
 			" is missing.");
 		return;
 	}
@@ -2040,7 +1904,7 @@ sub getIdsSpokenTo
 {
 	my($me, $arg1) = @_;
 	my(@refs) = split(/,/, $arg1);
-	my(@ids);
+	my(@ids,$id);
 	my($i);
 	for $i (@refs) {
 		$i = &canonicalizeWord($me, $i);
@@ -2060,8 +1924,7 @@ sub getIdsSpokenTo
 				$id = $playerIds{$i};
 			}
 		}
-		if (($objects[$id]{"activeFd"} == $none) &&
-			(!$objects[$id]{"httpRecent"}))
+		if (($objects[$id]{"activeFd"} == $none))
 		{
 			&tellPlayer($me, "$i is not logged in.");
 			next;
@@ -2091,7 +1954,9 @@ sub topic
 	}
 	my($tn) = "<" . $objects[$id]{"name"} . ">";
 	if (!$emote) {
-		my($output) = "You say$to, \"" . $arg2 . "\" $tn";
+# debug
+#        my($output) = "You say$to, \"" . $arg2 . "\" $tn"; # i think this is wrong should be $tn
+        my($output) = "You say$tn, \"" . $arg2 . "\" $tn";
 		my($prefix) = &getTopicPrefix($me);
 		$output = "$prefix$output";
 		&tellPlayer($me, $output);
@@ -2227,14 +2092,6 @@ sub setRows
 				&tellPlayer($me, 
 					"Rows must be set to a value between 5 and 200.");
 				return $none;
-			}
-			if ($arg2 eq "") {
-				$objects[$id]{"httpRows"} = $httpRows;
-				&tellPlayer($me, "Rows reset to " . 
-				$httpRows . ".");
-			} else {
-				$objects[$id]{"httpRows"} = $arg2;
-				&tellPlayer($me, "Rows set.");
 			}
 		}
 	}
@@ -2412,6 +2269,7 @@ sub setField
 sub page
 {
 	my($me, $arg, $arg1, $arg2) = @_;
+    my ($id);
 	if (substr($arg1, 0, 1) ne "#") {
 		my($n);
 		$n = $arg1;
@@ -2433,9 +2291,7 @@ sub page
 		&tellPlayer($me, "That is not a valid player.");
 		return;
 	}
-	if (($objects[$id]{"activeFd"} == $none) &&
-		(!$objects[$id]{"httpRecent"})) 
-	{
+	if (($objects[$id]{"activeFd"} == $none)) {
 		&tellPlayer($me, "That player is not logged in.");
 		return;
 	}
@@ -2453,6 +2309,7 @@ sub page
 sub boot
 {
 	my($me, $arg, $arg1, $arg2) = @_;
+    my ($id);
 	if (!&wizardTest($me)) {
 		&tellPlayer($me, "Only a wizard can do that.");
 		return;
@@ -2489,6 +2346,7 @@ sub boot
 sub name
 {
 	my($me, $arg, $arg1, $arg2) = @_;
+    my ($id);
 	if (substr($arg1, 0, 1) ne "#") {
 		$id = &findContents($me, $arg1);
 		if ($id == $none) {
@@ -2546,6 +2404,7 @@ sub name
 sub chown
 {
 	my($me, $arg, $arg1, $arg2) = @_;
+    my ($id);
 	if (substr($arg1, 0, 1) ne "#") {
 		$id = &findContents($me, $arg1);
 		if ($id == $none) {
@@ -3111,7 +2970,7 @@ sub findContents
 		#TinyMUD semicolon stuff
 		if ($objects[$e]{"type"} == $exit) {
 			my(@elist);
-			my(@f);
+			my($f);
 			@elist = split(/;/, $objects[$e]{"name"});
 			foreach $f (@elist) {
 				$f =~ tr/A-Z/a-z/;
@@ -3140,7 +2999,7 @@ sub findContents
 		#TinyMUD semicolon stuff
 		if ($objects[$e]{"type"} == $exit) {
 			my(@elist);
-			my(@f);
+			my($f);
 			@elist = split(/;/, $objects[$e]{"name"});
 			foreach $f (@elist) {
 				$f =~ tr/A-Z/a-z/;
@@ -3458,6 +3317,7 @@ sub filterTopic
 		$default = $objects[$me]{"topicdefault"};
 	}
 	my(@topics) = split(/,/, $topics);
+    my ($t);
 	for $t (@topics) {
 		my($qm) = quotemeta($topic);
 		if ($t =~ /^$qm$/i) {
@@ -3501,7 +3361,7 @@ sub joinTopicBody
 	my(@topics) = split(/[ ,]+/, $arg);	
 	my($otopics) = $objects[$me]{"topics"};
 	my(@otopics) = split(/,/, $otopics);
-	my(%topics);
+	my(%topics, $t);
 	for $t (@otopics) {
 		$topics{$t} = 1;
 	}
@@ -3523,7 +3383,7 @@ sub joinTopicBody
 		}
 	}
 	@topics = ( );
-	while (($key, $value) = each(%topics)) {
+	while (my ($key, $value) = each(%topics)) {
 		if ($value) {
 			push @topics, $key;	
 		}
@@ -3538,7 +3398,7 @@ sub tellPlayer
 	my($who, $what) = @_;
 	$what =~ s/\s+$//;
 	# Filter annoyances out (apply gag filters).
-	my($name);
+	my($name, $gag);
 	$name = $objects[$who]{"name"};
 	$name = quotemeta($name);
 	if (($objects[$who]{"gags"} =~ /^$name[,' ]/i) ||
@@ -3555,32 +3415,8 @@ sub tellPlayer
 				return;
 			}
 		}
-	} 
-	if ($objects[$who]{"httpRecent"}) {
-		if ($objects[$who]{"httpNewBatch"}) {
-			$objects[$who]{"httpOutput"} =~ s/$httpNewMarker//g;
-			$objects[$who]{"httpOutput"} .= $httpNewMarker;
-			$objects[$who]{"httpNewBatch"} = 0;
-		}
-		my($at);
-		# HTML escapes, plus word wrap (for 70-character <PRE> "window")
-		$what =~ s/&/&amp;/g;
-		$what =~ s/</&lt;/g;
-		$what =~ s/>/&gt;/g;
-		my($nwhat);
-		while (&plainlength($what) > $httpCols) {
-			$at = &plainrindex($what, " ", $httpCols);
-			if ($at == -1) {
-				last;
-			}
-			$nwhat .= substr($what, 0, $at) . "\n";
-			$what = substr($what, $at + 1);
-		}
-		$nwhat .= $what;
-		$nwhat = &linkUrls($nwhat);
-		$nwhat =~ s/\x01([^\,\x02]+)\,([^\,\x02]+)\x02/&linkEmbed($1, $2)/ge;
-		$objects[$who]{"httpOutput"} .= $nwhat . "\n";			
-	} elsif ($objects[$who]{"activeFd"} ne $none) {
+	}
+    if ($objects[$who]{"activeFd"} ne $none) {
 		$what =~ s/\x01([^\,\x02]+)\,([^\,\x02]+)\x02/$1/g;
 		&tellActiveFd($objects[$who]{"activeFd"}, $what);
 	}
@@ -3589,15 +3425,12 @@ sub tellPlayer
 sub tellActiveFd
 {
 	my($active, $what) = @_;
-	if ($activeFds[$active]{"protocol"} == $http) {
-		$activeFds[$active]{"outbuf"} .= $what . "\n";
-	} else {
 		$activeFds[$active]{"outbuf"} .= $what . "\r\n";
 		while (length($activeFds[$active]{"outbuf"}) > $flushOutput) {
 			$activeFds[$active]{"outbuf"} = "*FLUSHED*" . 
 				substr($activeFds[$active]{"outbuf"}, $flushOutput / 2);
 		}
-	}
+#	}
 }
 
 sub restore
@@ -3721,16 +3554,12 @@ sub restore
 			if ($dbVersion < 1.0) {
 				next;
 			}
-			$objects[$id]{"httpRows"} = <IN>;
-			chomp $objects[$id]{"httpRows"};
-			if ($dbVersion < 2.0) {
-				# Then they almost certainly want this
-				$objects[$id]{"httpRows"} = $httpRows;
-			}
 			# For compatibility with 3.0
 			$objects[$id]{"view"} = <IN>;
 			chomp $objects[$id]{"view"};
-			$objectOrientations = <IN>;
+#debug
+#            $objectOrientations = <IN>; # this may be a bug? should it be $objects[$id]{"orientation"}=<IN>
+            $objects[$id]{"orientation"} = <IN>;
 			chomp $objects[$id]{"orientation"};
 		}
 	}
@@ -3799,12 +3628,15 @@ sub sendHome
 		&dropAll($me);
 	}
 	&removeContents($objects[$me]{"location"}, $me);
-	if (!($objects[$objects[$id]{"location"}]{"flags"} & $grand)) {
+#debug
+#    if (!($objects[$objects[$id]{"location"}]{"flags"} & $grand)) { # i think this should be $me location
+    if (!($objects[$objects[$me]{"location"}]{"flags"} & $grand)) {
 		&tellRoom($objects[$me]{"location"}, $none,
 			$objects[$me]{"name"} . " goes home.");
 	}
 	&addContents($objects[$me]{"home"}, $me);
-	if (!($objects[$objects[$id]{"location"}]{"flags"} & $grand)) {
+#    if (!($objects[$objects[$id]{"location"}]{"flags"} & $grand)) { # i think this should be $me location
+    if (!($objects[$objects[$me]{"location"}]{"flags"} & $grand)) {
 		&tellRoom($objects[$me]{"location"}, $me,
 			$objects[$me]{"name"} . " arrives at home.");
 	}
@@ -3881,7 +3713,7 @@ sub purge
 		}
 		my(@list) = split(/,/, $objects[$i]{"contents"});
 		my(@nlist);
-		for $l (@list) {	
+		for my $l (@list) {
 			if ($junk{$l}) {
 				next;
 			}
@@ -4231,7 +4063,7 @@ sub readData
 	# Append to the input buffer
 	$len = length($activeFds[$i]{"inbuf"});
 	$got = sysread($fd, $activeFds[$i]{"inbuf"}, 4096, $len);
-	if (($got == 0) || 
+	if (($got == 0) ||
 		((!defined($got)) && ($! != EINTR) && ($! != EAGAIN))) {
 		&closeActiveFd($i);
 		return;
@@ -4243,86 +4075,7 @@ sub examineData
 {
 	my($i) = @_;
 	my($where);
-	if ($activeFds[$i]{"protocol"} == $http) {
-		if ($activeFds[$i]{"state"} == $httpReadingHeaders) {
-			# MONDO TEDIUM
-			my($breaklength);
-			my($where, $whereTry);
-			$whereTry = index($activeFds[$i]{"inbuf"}, "\n\n");
-			$breaklength = 2;
-			$where = $whereTry;
-			$whereTry = index($activeFds[$i]{"inbuf"}, "\r\r");
-			if (($where == -1) || 
-				(($whereTry != -1) && ($whereTry < $where))) {
-				$where = $whereTry;
-			}	
-			$whereTry = index($activeFds[$i]{"inbuf"}, "\n\r\n\r");
-			if (($where == -1) || 
-				(($whereTry != -1) && ($whereTry < $where))) {
-				$breaklength = 4;
-				$where = $whereTry;
-			}	
-			$whereTry = index($activeFds[$i]{"inbuf"}, "\r\n\r\n");
-			if (($where == -1) || 
-				(($whereTry != -1) && ($whereTry < $where))) {
-				$breaklength = 4;
-				$where = $whereTry;
-			}	
-			if ($where == -1) {
-				return;
-			}
-			$activeFds[$i]{"name"} = "";
-			$activeFds[$i]{"password"} = "";
-			my($request, @headers, $header);
-			$request = substr($activeFds[$i]{"inbuf"},
-				0, $where);
-			$activeFds[$i]{"inbuf"} = substr($activeFds[$i]{"inbuf"},
-				$where + $breaklength);
-			$request =~ s/\r\n/\n/g;
-			$request =~ s/\r/\n/g;
-			@headers = split(/\n/, $request);
-			foreach $header (@headers) {
-				my($attr, $value) = split(/\s*:\s*/, $header); 
-				$attr =~ tr/A-Z/a-z/;
-				if ($attr eq "content-length") {
-					$activeFds[$i]{"length"} = $value;
-					$activeFds[$i]{"state"} = $httpReadingBody;
-					$activeFds[$i]{"request"} = $request;
-				} elsif ($attr eq "content-type") {
-					$activeFds[$i]{"type"} = $value;
-				} elsif ($attr eq "authorization") {
-					my($scheme, $value) = split(/\s+/, 
-						$value);		
-					$scheme =~ tr/A-Z/a-z/;
-					if ($scheme eq "basic") {
-						$value = &base64decode($value);
-						($activeFds[$i]{"name"}, 	
-						$activeFds[$i]{"password"}) = 
-							split(/:/, $value);
-					}
-				}
-			}
-			# No body in this request
-			if ($activeFds[$i]{"state"} == $httpReadingHeaders) {
-				&httpHandleRequest($i, $request, "",
-					$activeFds[$i]{"name"},
-					$activeFds[$i]{"password"});
-				return;	
-			}
-		}
-		if ($activeFds[$i]{"state"} == $httpReadingBody) {
-			if (length($activeFds[$i]{"inbuf"}) >= 
-				$activeFds[$i]{"length"}) 
-			{	
-				&httpHandleRequest($i, 
-					$activeFds[$i]{"request"},
-					$activeFds[$i]{"inbuf"},
-					$activeFds[$i]{"name"},
-					$activeFds[$i]{"password"});
-			}
-			return;
-		}
-	}
+    my @commands;
 			
 	# Split into commands
 	if ($activeFds[$i]{"inbuf"} =~ /\n/) {
@@ -4371,195 +4124,6 @@ sub writeData
 	}
 	$activeFds[$i]{"outbuf"} = substr(
 		$activeFds[$i]{"outbuf"}, $got);
-	if ($activeFds[$i]{"protocol"} == $http) {
-		if (!length($activeFds[$i]{"outbuf"})) {
-			closeActiveFd($i);
-		}			
-	}	
-}
-
-sub tellActiveFdHtml
-{
-	my($fd, $arg) = @_;
-	&tellActiveFd($fd, $arg);
-	&tellActiveFd($fd, "<br>");
-}
-
-sub httpHandleRequest
-{
-	my($i, $request, $body, $name, $password) = @_;
-	my(@fields, $method, $rawUrl, $url, 
-		$protocol, $id, $key, $val, $query,
-		$dummy);
-	$activeFds[$i]{"outbuf"} = "";
-	$activeFds[$i]{"inbuf"} = "";
-	$activeFds[$i]{"state"} = $httpWriting;
-	@fields = split(/\n/, $request);
-	if ($#fields < 0) {
-		# Guh?
-		&closeActiveFd($i);
-		return;
-	}	
-	@fields = split(/ /, $fields[0]);
-	if ($#fields < 2) {
-		# Double guh
-		&closeActiveFd($i);		
-		return;
-	}
-	$method = $fields[0];
-	$rawUrl = join(" ", @fields[1 .. ($#fields - 1)]);
-	$protocol = $fields[$#fields];
-	# The next session's unique URL component
-	my($sessionId);
-	$sessionId = int(rand(20000));
-	($dummy, $dummy, $url) = split(/\//, $rawUrl);
-	if ($url eq "") {
-		$url = $dummy;
-	}
-	$name =~ tr/A-Z/a-z/; 
-	%in = &parseFormSubmission($i, $body);
-	if (($name eq "") || ($playerIds{$name} <= 0) ||
-		($objects[$playerIds{$name}]{"password"} ne $password)) 
-	{
-		if (($rawUrl eq "/") || ($rawUrl eq "")) {
-			&frontDoor($i);
-			return;
-		} elsif ($rawUrl eq "/apply") {
-			&application($i);
-			return;
-		} elsif ($rawUrl eq "/completed") {
-			&completedApplication($i, $body);
-			return;
-		}
-		&tellActiveFd($i, "HTTP/1.0 401 Unauthorized");
-		&tellActiveFd($i, "Server: PerlMUD/" . $perlMudVersion);
-		&tellActiveFd($i, "WWW-Authenticate: Basic realm=\"PerlMUD\"");
-		&tellActiveFd($i, "Content-type: text/html");
-		&tellActiveFd($i, "");
-		&tellActiveFd($i, "<HEAD><TITLE>Authorization Required</TITLE></HEAD>");
-		&tellActiveFd($i, "<BODY><H1>Login Required</H1>");
-		&tellActiveFd($i, $serverName . " could not verify that you");
-		&tellActiveFd($i, "are a user of the system. ");
-		&tellActiveFd($i, "Either you supplied the wrong");
-		&tellActiveFd($i, "credentials (e.g., bad password), or your");
-		&tellActiveFd($i, "web browser doesn't understand how to");
-		&tellActiveFd($i, "prompt you for the information.<P>");
-		&tellActiveFd($i, "</BODY>");
-		return;
-	}
-	$id = $playerIds{$name};
-	&tellActiveFd($i, "HTTP/1.0 200 Success");
-	&tellActiveFd($i, "Server: PerlMUD/" . $perlMudVersion);
-	# For crying out loud, PLEASE DON'T cache this! Thanks! Geez!
-	if ($url =~ /^upper/) {
-		&tellActiveFd($i, "Pragma: no-cache");
-		&tellActiveFd($i, "Expires: Thursday, 2 Jan 97");
-		&tellActiveFd($i, "Cache-control: no-store");
-	}
-	# Top page
-	if ($url =~ /^command:(\S+)$/) {
-		# An embedded command. Always produces a new frameset.
-		my($c) = $1;
-		$c =~ s/%(..)/pack("c",hex($1))/ge;
-		&command($id, $c);
-		$url = "command";
-	} else {
-		# Execute the command right away to find out if the
-		# user's orientation has changed. 
-		&command($id, $in{"command"});
-	}	
-	if ($url eq "upper") {
-		my($s);
-		$s = "Refresh: " . $httpRefreshTime .
-			"; URL=/" . $sessionId . "/upper#newest";
-		&tellActiveFd($i, $s);
-		&tellActiveFd($i, "Window-target: upper");
-	}
-	&tellActiveFd($i, "Content-type: text/html");	
-	&tellActiveFd($i);
-	if ($url eq "lower") {
-		&outputCommandForm($i, 1, $sessionId);
-		return;
-	}
-	if ($url ne "upper") {
-		&tellActiveFd($i, "<html>");
-		&tellActiveFd($i, "<head>");
-		&tellActiveFd($i, "<title>" . $serverName . " WWW Client</title>");
-		&tellActiveFd($i, "</head>");
-		&tellActiveFd($i, "<frameset rows=\"*, 40\"");
-		&tellActiveFd($i, "onLoad=\"frames[1].document.commands.command.focus();\">");
-#		&tellActiveFd($i, "<frame name=\"view\" ");
-#		&tellActiveFd($i, "marginheight=\"1\" ");
-#		&tellActiveFd($i, "src=\"/" .  $sessionId . "/view\">");
-		&tellActiveFd($i, "<frame name=\"upper\" ");
-		&tellActiveFd($i, "marginheight=\"1\" ");
-		&tellActiveFd($i, "src=\"/" .  $sessionId . "/upper#newest\">");
-		&tellActiveFd($i, "<frame name=\"lower\" ");
-		&tellActiveFd($i, "marginheight=\"1\" ");
-		&tellActiveFd($i, "src=\"/" .  $sessionId . "/lower\">");
-		&tellActiveFd($i, "</frameset>");
-		if (($url eq "pureframeset") || ($url eq "upper")) {
-			&tellActiveFd($i, "</html>");
-			return;
-		}
-		&tellActiveFd($i, "<noframes>");
-	}
-	# Okay, it's either the upper (output) frame
-	# or a no-frames client.
-	if ($objects[$id]{"activeFd"} != $none) {
-		closePlayer($id, 0);
-	}
-	if (!($objects[$id]{"httpRecent"})) {
-		my($i, $found);
-		$objects[$id]{"httpRecent"} = 1;
-		$objects[$id]{"httpNewBatch"} = 1;	
-		if (!$objects[$id]{"httpRows"}) {
-			$objects[$id]{"httpRows"} = $httpRows;
-		}
-		if (!($objects[$objects[$id]{"location"}]{"flags"} & 
-			$grand)) {
-			&tellRoom($objects[$id]{"location"}, $none,
-				$objects[$id]{"name"} . 
-				" has connected.");
-		}
-		$found = 0;
-		for ($i = 0; ($i <= $#httpActiveIds); $i++) {
-			if ($httpActiveIds[$i] == $none) {
-				$httpActiveIds[$i] = $id;
-				$found = 1;
-				last;
-			}
-		}
-		if (!$found) {
-			$httpActiveIds[$#httpActiveIds + 1] = 
-				$id;
-		}
-		&login($id, $none);
-	}
-	$activeFds[$i]{"id"} = $id;
-	my(@rows, $extra, $rows);
-	$rows = $objects[$id]{"httpRows"};
-	@rows = split(/\n/, $objects[$id]{"httpOutput"});
-	$extra = ($#rows + 1) - $rows;
-	if ($extra > 0) {
-		$objects[$id]{"httpOutput"} = join("\n", 
-			@rows[$extra .. $#rows]);
-		$objects[$id]{"httpOutput"} .= "\n";
-	}
-	&tellActiveFd($i, "<pre>");
-	my($copy);
-	$copy = $objects[$id]{"httpOutput"};
-	$copy =~ s/\s+$//;
-	&tellActiveFd($i, $copy);
-	&tellActiveFd($i, "</pre>");
-	$objects[$id]{"lastPing"} = $now;
-	if ($url ne "upper") {
-		&outputCommandForm($i, 0, $sessionId);
-		&tellActiveFd($i, "</noframes>");
-		&tellActiveFd($i, "</html>");
-	} else {
-		$objects[$id]{"httpNewBatch"} = 1;	
-	}
 }
 
 sub login
@@ -4577,174 +4141,48 @@ sub login
 	&command($id, "look");
 }
 
-sub outputCommandForm
-{
-	my($i, $frameFlag, $sessionId) = @_;
-	if ($frameFlag) {
-		&tellActiveFd($i,
-			"<form name=\"commands\" " .
-			"action=\"/" . $sessionId . "/frameset" . 
-			"\" target=\"_top\" method=\"POST\" " .
-			"onSubmit=\"queueClear()\">");
-	} else {
-		&tellActiveFd($i,
-			"<form action=\"/" . $sessionId . 
-			"/frameset\" method=\"POST\">");
-	}
-	if ($frameFlag) {
-		&tellActiveFd($i, 
-			"<input type=\"text\" " .
-			"size=\"40\" name=\"command\">");
-		&tellActiveFd($i, 
-			"<input type=\"submit\" " .
-			"value=\"Go\" name=\"update\">");
-	} else {
-		&tellActiveFd($i, 
-			"<input type=\"text\" " .
-			"size=\"30\" name=\"command\"> ");
-		&tellActiveFd($i, 
-		"<input type=\"submit\" name=\"update\" value=\"Go\">");
-	}
-
-	if ($frameFlag) {
-		&tellActiveFd($i, 
-			"</form>");
-		&tellActiveFd($i, 
-			"<script>");
-		&tellActiveFd($i,
-			"function queueClear ()  {");
-		&tellActiveFd($i,
-			"	setTimeout('clearCommand()', 500)");
-		&tellActiveFd($i,
-			"	return 1");
-		&tellActiveFd($i,
-			"}");
-		&tellActiveFd($i,
-			"function clearCommand ()  {");
-		&tellActiveFd($i,
-			"	document.commands.command.value = \"\"");
-		&tellActiveFd($i,
-			"}");
-		&tellActiveFd($i, 
-			"</script>");
-	} else {
-		&tellActiveFd($i,
-			"<br><em><strong>IMPORTANT: </strong> you must click 'Go' in order to see more output. For a better interface that does <strong>not</strong> require this, use <a href=\"http://www.netscape.com/\">Netscape 2.0</a>.</em>");
-	}
-}
-
-sub encodeInput
-{
-	my($in) = @_;
-	my($key, $val, $s, $first);
-	my($i, $l, $ch);
-	$first = 1;
-	while (($key, $val) = each(%{$in})) {
-		if (!$first) {
-			$s .= "&";
-		} else {
-			$first = 0;
-		}
-		$s .= &encodeUrl($key);	
-		$s .= "=";
-		$s .= &encodeUrl($val);	
-	}
-	return $s;
-}
-
-sub encodeUrl
-{
-	my($key) = @_;
-	my($l, $i, $ch, $s);
-	$s = "";
-	$l = length($key);
-	for ($i = 0; ($i < $l); $i++) {
-		$ch = substr($key, $i, 1);
-		if ($ch =~ /[^\w\.\#\:\/\~]/) {
-			$s .= sprintf("%%%2x", ord($ch)); 	
-		} else {
-			$s .= $ch;
-		}
-	}
-	return $s;
-}
-
-sub linkUrls
-{
-	my($l) = @_;
-	my(@words, $w, $r);
-	@words = split(/(\s+)/, $l);
-	$r = "";
-	#Surround URLs with equivalent links
-	$first = 1;
-	foreach $w (@words) {
-		if ($w =~ /\s+/) {
-			$r .= $w;
-		} elsif ($w =~ /(["',]*)([a-zA-Z]+:\/\/[\w:\.%@\-\/~]+[\w~\/])(\S*)/) {
-			$r .= $1 . "<a target=\"_new\" href=\"" . 
-				&encodeUrl($2) . "\">" . $2 . "</a>" . $3;
-		} elsif ($w =~ /(["',]*)([\w\.%\-!]+@[\w\.%\-!]+[\w])(\S*)/) {		
-			$r .= $1 . "<a href=\"mailto:" . &encodeUrl($2) . 
-				"\">" . $2 . "</a>" . $3;
-		} elsif ($w =~ /(["',]*)([\w\.%@\-~\/]+\.[\w:\.%\-~\/]+[\.\/][\w:\.%\-~\/]+[\w~\/])(\S*)/) {		
-			$r .= $1 . "<a target=\"_new\" href=\"http://" . 
-				&encodeUrl($2) . "\">" . $2 . "</a>" . $3;
-		} else {
-			$r .= $w;	
-		}
-	}
-	return $r;
-}
-
-sub base64setup
-{
-	my($i);
-	for ($i = 0; ($i < 64); $i++) {
-		$base64table[ord(substr($base64alphabet, $i, 1))] = $i;
-	}	
-	$base64initialized = 1;
-}
-
-sub base64decode
-{
-	my($arg) = @_;
-	my($i, @group, $j, $output, $l, $pad);
-	if (!$base64initialized) {
-		&base64setup;
-	}
-	$l = length($arg);
-	for ($i = 0; ($i < $l); $i += 4) 
-	{
-		for ($j = 0; ($j < 4); $j ++) {
-			$group[$j] = 
-				$base64table[ord(substr($arg, $i + $j, 1))];
-		}
-		$output .= sprintf("%c%c%c",
-			($group[0] << 2) + ($group[1] >> 4),
-			(($group[1] & 15) << 4) + (($group[2] & 60) >> 2),
-			(($group[2] & 3) << 6) + $group[3]);
-	}
-	for ($i = ($l - 1); ($i >= 0); $i--) {
-		if (substr($arg, $i, 1) eq "=") {
-			$pad++;
-		}
-	}
-	if ($pad == 1) {
-		$output = substr($output, 0, length($output) - 1);
-	} elsif ($pad == 2) {
-		$output = substr($output, 0, length($output) - 2);
-	}
-	return $output;
-}
-
-sub linkEmbed
-{
-	my($text, $command) = @_;
-	my($result);	
-	$result = "<a target=\"_top\" href=\"/" .  int(rand(20000)) . 
-		"/command:" .  &encodeUrl($command) . "\">" . $text . "</a>";
-	return $result;
-}
+# im not sure we need any of this base64 stuff if there is no http support
+#debig
+#sub base64setup
+#{
+#	my($i);
+#	for ($i = 0; ($i < 64); $i++) {
+#		$base64table[ord(substr($base64alphabet, $i, 1))] = $i;
+#	}
+#	$base64initialized = 1;
+#}
+#
+#sub base64decode
+#{
+#	my($arg) = @_;
+#	my($i, @group, $j, $output, $l, $pad);
+#	if (!$base64initialized) {
+#		&base64setup;
+#	}
+#	$l = length($arg);
+#	for ($i = 0; ($i < $l); $i += 4)
+#	{
+#		for ($j = 0; ($j < 4); $j ++) {
+#			$group[$j] =
+#				$base64table[ord(substr($arg, $i + $j, 1))];
+#		}
+#		$output .= sprintf("%c%c%c",
+#			($group[0] << 2) + ($group[1] >> 4),
+#			(($group[1] & 15) << 4) + (($group[2] & 60) >> 2),
+#			(($group[2] & 3) << 6) + $group[3]);
+#	}
+#	for ($i = ($l - 1); ($i >= 0); $i--) {
+#		if (substr($arg, $i, 1) eq "=") {
+#			$pad++;
+#		}
+#	}
+#	if ($pad == 1) {
+#		$output = substr($output, 0, length($output) - 1);
+#	} elsif ($pad == 2) {
+#		$output = substr($output, 0, length($output) - 2);
+#	}
+#	return $output;
+#}
 
 sub plainlength
 {
@@ -4790,7 +4228,7 @@ sub plainrindex
 		$end = $gat + 1;
 	}
 	# Okay, now we know where the real limiting point is...	
-	$at = rindex($in, $sub, $last);
+	my $at = rindex($in, $sub, $last);
 	# Hackery to ensure we never break up an embedded link
 	while ($at != -1) {
 		$gat = index($in, "\x02", $at);
@@ -4811,220 +4249,21 @@ sub plainrindex
 	}	
 	return $at;
 }
-	
-sub generateUsemap
-{
-	my($i, $e) = @_;
-	my(@elist);
-	my(@f);
-	@elist = split(/;/, $objects[$e]{"name"});
-	foreach $f (@elist) {
-		my($umap);
-		$f =~ tr/A-Z/a-z/;
-		$umap = $exitUsemaps{$f};
-		if ($umap ne "") {
-			$umap =~ s/SEED/int(rand(20000))/ge;
-			&tellActiveFd($i, "<map name=\"exits\">");
-			&tellActiveFd($i, $umap);
-			&tellActiveFd($i, "</map>");
-			return;
-		}
-	}	
-	&tellActiveFd($i, "<map name=\"#exits\">\n</map>");
-}
 
-sub frontDoor
-{
-	my($i) = @_;
-	&tellActiveFd($i, "HTTP/1.0 200 Success");
-	&tellActiveFd($i, "Server: PerlMUD/" . $perlMudVersion);
-	&tellActiveFd($i, "Content-type: text/html");	
-	&tellActiveFd($i);
-	&sendActiveFdFile($i, $homePageFile);
-	
-}
-
-sub application
-{
-	my($i) = @_;
-	&tellActiveFd($i, "HTTP/1.0 200 Success");
-	&tellActiveFd($i, "Server: PerlMUD/" . $perlMudVersion);
-	&tellActiveFd($i, "Content-type: text/html");	
-	&tellActiveFd($i);
-	&sendActiveFdFile($i, $applicationFile);
-}
-
-sub completedApplication
-{
-	my($fd, $body) = @_;
-	my($name, $password, $i);
-	%in = &parseFormSubmission($fd, $body);
-	$name = $in{"name"};
-	$name =~ s/^\#//g;
-	$name =~ s/ //g;
-	$email = $in{"email"};
-	$email =~ s/ //g;
-	&tellActiveFd($fd, "HTTP/1.0 200 Success");
-	&tellActiveFd($fd, "Server: PerlMUD/" . $perlMudVersion);
-	&tellActiveFd($fd, "Content-type: text/html");	
-	&tellActiveFd($fd);
-	my($copy) = $name;
-	$copy =~ tr/A-Z/a-z/;
-	if (exists($playerIds{$copy})) {
-		&tellActiveFd($fd, "<title>Application Problem</title>");
-		&tellActiveFd($fd, "<h1>Application Problem</h1>");
-		&tellActiveFd($fd, "Your application could not be accepted ");
-		&tellActiveFd($fd, "because another user has already taken ");
-		&tellActiveFd($fd, "the name you requested.");
-		&tellActiveFd($fd, "<p>");
-		&tellActiveFd($fd, "<strong>");
-		&tellActiveFd($fd, "<a href=\"/apply\">Apply Again</a>");
-		&tellActiveFd($fd, "</strong>");
-		return;
-	}	
-	# Check allowed-users file first, if it exists
-	if (open(ALLOWED, "allowed.txt")) {
-		my($reg, $qreg, $allowed);
-		$allowed = 0;
-		while ($reg = <ALLOWED>) {
-			chomp $reg;
-			if ($reg =~ /^\s*$/) {
-				next;
-			}
-			$qreg = "\Q$reg";
-			if ($email =~ /$qreg$/) {
-				$allowed = 1;
-			}
-		}
-		if (!$allowed) {
-			&tellActiveFd($fd, "<title>Application Rejected</title>");
-			&tellActiveFd($fd, "<h1>Application Rejected</h1>");
-			&tellActiveFd($fd, "Sorry, that address is " .
-				"not permitted to receive an account.");
-			return;
-		}
-		close(ALLOWED);
-	}
-	# Check lockouts file second, if it exists
-	if (open(LOCKOUTS, "lockouts.txt")) {
-		my($reg, $qreg);
-		while ($reg = <LOCKOUTS>) {
-			chomp $reg;
-			if ($reg =~ /^\s*$/) {
-				next;
-			}
-			$qreg = "\Q$reg";
-			if ($email =~ /$qreg$/) {
-				&tellActiveFd($fd, "<title>Application Rejected</title>");
-				&tellActiveFd($fd, "<h1>Application Rejected</h1>");
-				&tellActiveFd($fd, "Sorry, that address is " .
-					"not permitted to receive an account.");
-				return;
-			}
-		}
-		close(LOCKOUTS);
-	}
-	if ($name eq "") {
-		&tellActiveFd($fd, "<title>Application Problem</title>");
-		&tellActiveFd($fd, "<h1>Application Problem</h1>");
-		&tellActiveFd($fd, "Your application could not be accepted ");
-		&tellActiveFd($fd, "because you did not provide a name!");
-		&tellActiveFd($fd, "<p>");
-		&tellActiveFd($fd, "<strong>");
-		&tellActiveFd($fd, "<a href=\"/apply\">Apply Again</a>");
-		&tellActiveFd($fd, "</strong>");
-		return;
-	}
-	if ($email eq "") {
-		&tellActiveFd($fd, "<title>Application Problem</title>");
-		&tellActiveFd($fd, "<h1>Application Problem</h1>");
-		&tellActiveFd($fd, "Your application could not be accepted ");
-		&tellActiveFd($fd, "because you did not provide a valid ");
-		&tellActiveFd($fd, "email address.");
-		&tellActiveFd($fd, "<p>");
-		&tellActiveFd($fd, "<strong>");
-		&tellActiveFd($fd, "<a href=\"/apply\">Apply Again</a>");
-		&tellActiveFd($fd, "</strong>");
-		return;
-	}	
-	for ($i = 0; ($i < 6); $i++) {
-		$password .= sprintf("%c", int(rand(26)) + ord("a"));
-	}
-	my($id);
-	if (!(open(SENDMAIL, "|" . $sendmail . " -t"))) {
-		&tellActiveFd($fd, "<title>System Configuration Error</title>");
-		&tellActiveFd($fd, "<h1>System Configuration Error</h1>");
-		&tellActiveFd($fd, "This PerlMUD server is misconfigured.");
-		&tellActiveFd($fd, "The sendmail program cannot be located.");
-		&tellActiveFd($fd, "Please contact the administrator.");
-		return;
-	}	
-	print SENDMAIL "To: " . $in{"email"} . "\n";
-	print SENDMAIL "Subject: YOUR " . $serverName . " ACCOUNT IS READY!\n";
-	print SENDMAIL "\n";
-	print SENDMAIL "Your user name is: " . $name . "\n";
-	print SENDMAIL "Your password is: " . $password . "\n\n";
-	print SENDMAIL "TO CONNECT, access this URL:\n\n";
-	print SENDMAIL "http://" . $hostName . ":" . $httpPort . "/\n\n";
-	print SENDMAIL "KEEP YOUR PASSWORD IN A SAFE PLACE. Please do not\n";
-	print SENDMAIL "use this password for other purposes.\n\n";
-	if (open(MAIL, $emailFile)) {
-		while (<MAIL>) {
-			print SENDMAIL;
-		}
-		close(MAIL);
-	}
-	if (open(ACCOUNTLOG, ">>accounts.log")) {
-		print ACCOUNTLOG $name, " ", $email, "\n";
-		close(ACCOUNTLOG);
-	}
-	close(SENDMAIL);	
-	$id = &addObject(1, $name, $player);
-	$playerIds{$copy} = $id;
-	$objects[$id]{"owner"} = $id;
-	&addContents(0, $id);
-	$objects[$id]{"password"} = $password;
-	if ($allowBuild) {
-		$objects[$id]{"flags"} = $builder;
-	} else {
-		$objects[$id]{"flags"} = 0;
-	}
-	&sendActiveFdFile($fd, $acceptedFile);
-}
-
-sub parseFormSubmission
-{
-	my($i, $arg) = @_;
-	if ($activeFds[$i]{"type"} =~ "application/x-www-form-urlencoded") {
-		return &parseUrlEncoded($arg);
-	} else {
-		return &parseFileEncoded($i, $arg);
-	}	
-}
-
-sub parseUrlEncoded
-{
-	my($arg) = @_;
-	my(%in, @in, $id, $key, $val);
-	@in = split(/[&;]/, $arg);
-	foreach $id (0 .. $#in) {
-		# Remove trailing spaces
-		$in[$id] =~ s/\s+$//;
-		# Remove leading spaces
-		$in[$id] =~ s/^\s+//;
-		# Convert pluses to spaces
-		$in[$id] =~ s/\+/ /g;
-
-		# Split into key and value.
-		($key, $val) = split(/=/, $in[$id], 2); # splits on the first =.
-
-		# Convert %XX from hex numbers to alphanumeric
-		$key =~ s/%(..)/pack("c",hex($1))/ge;
-		$val =~ s/%(..)/pack("c",hex($1))/ge;
-		$in{$key} .= $val;
-	}
-	return %in;
-}
+#sub completedApplication
+#{
+#	$id = &addObject(1, $name, $player);
+#	$playerIds{$copy} = $id;
+#	$objects[$id]{"owner"} = $id;
+#	&addContents(0, $id);
+#	$objects[$id]{"password"} = $password;
+#	if ($allowBuild) {
+#		$objects[$id]{"flags"} = $builder;
+#	} else {
+#		$objects[$id]{"flags"} = 0;
+#	}
+#	&sendActiveFdFile($fd, $acceptedFile);
+#}
 
 sub parseFileEncoded
 {

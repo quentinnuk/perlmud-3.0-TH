@@ -7,21 +7,13 @@
 	objects = {
 
 /* Begin PBXFileReference section */
-		298A32EA23776AFB00BAB425 /* java-source */ = {isa = PBXFileReference; lastKnownFileType = folder; path = "java-source"; sourceTree = "<group>"; };
-		298A32EB23776AFB00BAB425 /* perlmud.gif */ = {isa = PBXFileReference; lastKnownFileType = image.gif; path = perlmud.gif; sourceTree = "<group>"; };
 		298A32EC23776AFB00BAB425 /* RELEASE.TXT */ = {isa = PBXFileReference; lastKnownFileType = text; path = RELEASE.TXT; sourceTree = "<group>"; };
 		298A32ED23776AFB00BAB425 /* allowed.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = allowed.txt; sourceTree = "<group>"; };
-		298A32EE23776AFB00BAB425 /* home.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = home.html; sourceTree = "<group>"; };
 		298A32EF23776AFB00BAB425 /* help.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = help.txt; sourceTree = "<group>"; };
-		298A32F023776AFB00BAB425 /* client.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = client.html; sourceTree = "<group>"; };
 		298A32F123776AFB00BAB425 /* minimal.db */ = {isa = PBXFileReference; lastKnownFileType = text; path = minimal.db; sourceTree = "<group>"; };
-		298A32F223776AFB00BAB425 /* application.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = application.html; sourceTree = "<group>"; };
-		298A32F323776AFB00BAB425 /* accepted.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = accepted.html; sourceTree = "<group>"; };
 		298A32F423776AFB00BAB425 /* welcome.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = welcome.txt; sourceTree = "<group>"; };
-		298A32F523776AFB00BAB425 /* README.TXT */ = {isa = PBXFileReference; lastKnownFileType = text; path = README.TXT; sourceTree = "<group>"; };
 		298A32F623776AFB00BAB425 /* index.html */ = {isa = PBXFileReference; lastKnownFileType = text.html; path = index.html; sourceTree = "<group>"; };
 		298A32F723776AFB00BAB425 /* motd.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = motd.txt; sourceTree = "<group>"; };
-		298A32F823776AFB00BAB425 /* java */ = {isa = PBXFileReference; lastKnownFileType = folder; path = java; sourceTree = "<group>"; };
 		298A32F923776AFB00BAB425 /* mud */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = mud; sourceTree = "<group>"; };
 		298A32FA23776AFC00BAB425 /* mudlib.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = mudlib.pl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -30,21 +22,13 @@
 		298A32E323776A8A00BAB425 = {
 			isa = PBXGroup;
 			children = (
-				298A32F323776AFB00BAB425 /* accepted.html */,
 				298A32ED23776AFB00BAB425 /* allowed.txt */,
-				298A32F223776AFB00BAB425 /* application.html */,
-				298A32F023776AFB00BAB425 /* client.html */,
 				298A32EF23776AFB00BAB425 /* help.txt */,
-				298A32EE23776AFB00BAB425 /* home.html */,
 				298A32F623776AFB00BAB425 /* index.html */,
-				298A32F823776AFB00BAB425 /* java */,
-				298A32EA23776AFB00BAB425 /* java-source */,
 				298A32F123776AFB00BAB425 /* minimal.db */,
 				298A32F723776AFB00BAB425 /* motd.txt */,
 				298A32F923776AFB00BAB425 /* mud */,
 				298A32FA23776AFC00BAB425 /* mudlib.pl */,
-				298A32EB23776AFB00BAB425 /* perlmud.gif */,
-				298A32F523776AFB00BAB425 /* README.TXT */,
 				298A32EC23776AFB00BAB425 /* RELEASE.TXT */,
 				298A32F423776AFB00BAB425 /* welcome.txt */,
 			);
