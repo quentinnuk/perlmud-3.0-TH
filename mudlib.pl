@@ -23,19 +23,12 @@ our $tinypPort = 4096;
 #$ipAddress = "206.125.69.87";
 our $ipAddress = "0.0.0.0";
 
-#What do you want to call your server? The public sees this name
-#in the title of various web pages.
-
-our $serverName = "Telehack";
-
 #What is the complete ** Internet host name ** of your server?
 #This goes out with the instructions that are sent to
 #MUD users that get their accounts via email. Examples:
 #www.boutell.com, mud.myschool.edu, et cetera. This must
 #be a REAL host name for the server -- just putting
 #something here won't magically add a new name to your DNS!
-
-our $hostName = "localhost";
 
 #Should users be allowed to create objects and rooms by default?
 #Set this to 0 if you prefer not.
@@ -46,12 +39,6 @@ my $allowBuild = 1;
 #name prefixed? Set this to zero if you prefer not.
 
 my $allowEmit = 1;
-
-#Location of sendmail on your system. This will usually be correct.
-#This is only important if you are accepting account applications from 
-#the public.
-
-my $sendmail = "/usr/sbin/sendmail";
 
 #File locations for the database, the login screen banner,
 #the Message of the Day, and the help file. 
@@ -373,10 +360,6 @@ our ($initialized);
 my (@activeFds, $fdClosureNew, $fdClosureTimedOut, @fdClosureList);
 my (@objects, %playerIds, $commandLogging);
 
-
-#Marker for new material in frames
-#$httpNewMarker = "<a name=\"newest\">#</a>";
-
 #(re)initialization code ends here
 
 
@@ -385,6 +368,7 @@ sub selectPass
 	my($rfds, $wfds, $i);
 	$rfds = "";
 	$wfds = "";
+    # set bits in rfds and wfds for each fd fileno to indicate if data to read/write
 	for ($i = 0; ($i <= $#activeFds); $i++) {
 		if ($activeFds[$i]{"fd"} ne $none) {
 			if ($activeFds[$i]{"protocol"} == $tinyp) {
@@ -448,19 +432,22 @@ sub selectPass
 		$lastFdClosure = time;
 	}
 	for ($i = 0; ($i <= $#activeFds); $i++) {
-		if ($activeFds[$i]{"fd"} ne $none) {
+		if ($activeFds[$i]{"fd"} ne $none) { # is there a player on this fd
 			my($fd) = $activeFds[$i]{"fd"};
+            # if there is data to be read from fd, readData
 			if (vec($rfds, fileno($fd), 1)) {
 				&readData($i, $fd);
 			}
 			# Watch out for a close detected on the read
-			if ($activeFds[$i]{"fd"} ne $none) {
+			if ($activeFds[$i]{"fd"} ne $none) { # is there still a player on this fd
+                # if there is data to be written to fd, writeData
 				if (vec($wfds, fileno($fd), 1)) {
 					&writeData($i, $fd);
 				}
 			}
 		}
 	}
+    # this is the bit that accepts new conections
 	if (vec($rfds, fileno(TINYP_LISTENER), 1)) {
 		&acceptTinyp;
 	}
