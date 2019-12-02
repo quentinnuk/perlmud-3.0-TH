@@ -16,6 +16,7 @@
 		298A32F723776AFB00BAB425 /* motd.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = motd.txt; sourceTree = "<group>"; };
 		298A32F923776AFB00BAB425 /* mud */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = mud; sourceTree = "<group>"; };
 		298A32FA23776AFC00BAB425 /* mudlib.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = mudlib.pl; sourceTree = "<group>"; };
+		29CDE12523948B73000DF501 /* muddltoperl.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = muddltoperl.pl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXGroup section */
@@ -29,6 +30,7 @@
 				298A32F723776AFB00BAB425 /* motd.txt */,
 				298A32F923776AFB00BAB425 /* mud */,
 				298A32FA23776AFC00BAB425 /* mudlib.pl */,
+				29CDE12523948B73000DF501 /* muddltoperl.pl */,
 				298A32EC23776AFB00BAB425 /* RELEASE.TXT */,
 				298A32F423776AFB00BAB425 /* welcome.txt */,
 			);

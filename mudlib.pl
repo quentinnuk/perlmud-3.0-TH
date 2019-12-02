@@ -5,6 +5,7 @@
 #(wizard only of course). Code accordingly: don't assume that
 #lists will be empty, etc. in any initialization you do here.
 use strict;
+use Text::Wrap;
 #use warnings;
 
 #Port number to listen for tiny line protocol connections on 
@@ -180,6 +181,33 @@ my $builder = 131072;
 #by the same individual. 
 my $once = 262144;
 
+# there is water here
+my $water = 524288;
+
+# there is oil here
+my $oil = 1048576;
+
+# if a mortal player enters they die
+my $death = 2097152;
+
+# objects dropped here add to score by object value
+my $sanctuary = 4194304;
+
+# If a player is in here, they cannot be seen from outside by mortals
+my $hideaway = 8388608;
+
+# If an object is in here, it cannot be seen by mortal players.
+my $hide = 16777216;
+
+# Only one player or mobile can be in this room at a time.
+my $small = 33554432;
+
+# This means that the room cannot be looked into from an adjacent room
+my $nolook = 67108864;
+
+# If a wiz is in a silent room, then they receives no status messages
+my $silent = 134217728;
+
 #For flag setting
 my %flags = (
 	"dark", $dark,
@@ -207,7 +235,16 @@ my %flags = (
 	"expert", $expert,
 	"spy", $spy,
 	"builder", $builder,
-	"once", $once
+	"once", $once,
+    "water", $water,
+    "oil", $oil,
+    "death", $death,
+    "sanctuary", $sanctuary,
+    "hideaway", $hideaway,
+    "hide", $hide,
+    "small", $small,
+    "no-look", $nolook,
+    "silent", $silent
 );
 
 my %flagsProper = (
@@ -228,7 +265,16 @@ my %flagsProper = (
 	"expert", $expert,
 	"spy", $spy,
 	"builder", $builder,
-	"once", $once
+    "once", $once,
+    "water", $water,
+    "oil", $oil,
+    "death", $death,
+    "sanctuary", $sanctuary,
+    "hideaway", $hideaway,
+    "hide", $hide,
+    "small", $small,
+    "nolook", $nolook,
+    "silent", $silent
 );
 
 my @flagNames = (
@@ -250,7 +296,16 @@ my @flagNames = (
 	"expert",
 	"spy",
 	"builder",
-	"once"
+	"once",
+    "water",
+    "oil",
+    "death",
+    "sanctuary",
+    "hideaway",
+    "hide",
+    "small",
+    "nolook",
+    "silent"
 );
 
 #Set these up in a particular order so that we can
@@ -3412,6 +3467,7 @@ sub tellPlayer
 sub tellActiveFd
 {
 	my($active, $what) = @_;
+    $what = wrap('','',$what);
 		$activeFds[$active]{"outbuf"} .= $what . "\r\n";
 		while (length($activeFds[$active]{"outbuf"}) > $flushOutput) {
 			$activeFds[$active]{"outbuf"} = "*FLUSHED*" . 
