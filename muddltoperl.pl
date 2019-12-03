@@ -213,28 +213,83 @@ my @flagNames = (
 
 my @objects; # contains all the objects
 
-my $file = 'MUD.TXT'; # source file
+my $file = 'MUD.TXT'; # main source file
 my $line;
-my $count = 19; # starting object number
+my @files = ();
+my $fh = <DATA>;
 
 if (restore()) {
-    open(DATA, "<$file");
+    open($fh, '<', $file) || die "Can't open include $file\n";;
     print "Processing $file \n";
 
-    while ($line = <DATA>) {
+    while ($line=read_line()) {
         chomp $line;
-        if (substr($line,0,6) eq '*rooms') {
+        if ($line =~ /^\*rooms/i ) {
             do_rooms();
+        }
+        if ($line =~/^\*maps/i ) {
+            # ignore for now
+        }
+        if ($line =~/^\*vocabulary/i ) {
+            # ignore for now
+        }
+        if ($line =~/^\*demons/i ) {
+            # ignore for now
+        }
+        if ($line =~/^\*objects/i ) {
+            # ignore for now
+        }
+        if ($line =~/^\*travel/i ) {
+            # ignore for now
+        }
+        if ($line =~/^\*text/i ) {
+            # ignore for now
         }
     }
     
-    close DATA;
+    close($fh);
     print "processing complete.\n";
 
     &dump;
 
 }
 
+sub read_line # reads a line from filehandle and includes sub files as neccssary
+{
+    my $line =<$fh>;
+    chomp $line;
+
+    if (!defined($line)) {
+        # return EOF if there are no files in the queue
+        return $line if ($#files == -1);
+
+        # pull the most recent file off the queue & resume
+        $fh = pop(@files);
+        return read_line();
+    }
+    # check for an include line
+    if ($line =~ /^\@(\w+).*$/)
+    {
+        # get the new file name and append extension
+        my $newFile = $1;
+        $newFile=$newFile . '.get';
+
+        # push the current file on the queue
+        push(@files, $fh);
+        $fh = undef;    # keep open from closing our previous handle
+
+        # open the new file or die
+        open($fh, '<', $newFile) || die "Can't open include $newFile\n";
+        
+        print "Include: $newFile\n";
+
+        # read from the new file
+        return read_line();
+    }
+
+    # nothing special, just return the line
+    return $line;
+}
 
 sub restore
 {
@@ -369,12 +424,8 @@ sub do_rooms
     
     my $i=0;
     print "Doing rooms\n";
-    while ($line = <DATA>) {
+    while ($line = read_line()) {
         chomp $line;
-#        if (substr($line,0,1) eq '@') { # handle include files somehow
-#            $line = <DATA>;
-#            chomp $line;
-#        }
         if ($line =~ /^(\w+)\s+.*$/) {
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             my @roomargs=split(/\s+/,$line);
@@ -407,9 +458,9 @@ sub do_rooms
         elsif ($line =~ /^\s+(.+)\s+$/) {
             $objects[$i]{"description"}=$objects[$i]{"description"} . $1 . " ";
         }
-        last if (substr($line,0,7) eq '@txtmap') || (substr($line,0,1) eq '*'); # end rooms if new section
+        last if (substr($line,0,1) eq '*'); # end rooms if new section
     }
-    print "\nResolving room x-refs";
+    print "Resolving room x-refs\n";
     for ($i=0;$i<=$#objects;$i++) {
         my $n = $objects[$i]{"name"};
         if (substr($n,0,1) eq '%') {
@@ -418,6 +469,6 @@ sub do_rooms
             $objects[$i]{"name"}=$objects[$objid]{"name"};
         }
     }
-    print "\nDone\n";
+    print "Done\n";
 }
 
