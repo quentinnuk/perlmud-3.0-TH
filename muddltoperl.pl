@@ -365,21 +365,34 @@ sub dump
 
 sub do_rooms
 {
+    my %roomIds; # maps room identifiers with object ids
+    
     my $i=0;
     print "Doing rooms\n";
     while ($line = <DATA>) {
         chomp $line;
+#        if (substr($line,0,1) eq '@') { # handle include files somehow
+#            $line = <DATA>;
+#            chomp $line;
+#        }
         if ($line =~ /^(\w+)\s+.*$/) {
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             my @roomargs=split(/\s+/,$line);
             $objects[$i]{"type"}=$room; # its a room
             $objects[$i]{"owner"}=1; # always the arch-wiz owns it
             $objects[$i]{"room"}=$roomargs[0]; # first argument of room is the room identifier
+            $roomIds{$roomargs[0]}=$i;
             my $flags=$dark;
             if ($#roomargs>0) {
-                for (my $i=1;$i<=$#roomargs;$i++) {
-                    if ($roomargs[$i] eq 'light') {
+                for (my $j=1;$j<=$#roomargs;$j++) {
+                    if ($roomargs[$j] eq 'light') {
                         $flags=$flags - $dark;
+                    } elsif ($roomargs[$j] eq 'dmove') {
+                        $j++;
+                        $objects[$i]{"dmove"}=$roomargs[$j]; # the argument to dmove is a room id - need to convert to obj id later
+                        next;
+                    } else {
+                        $flags |= $flagsProper{$roomargs[$j]};
                     }
                 }
             }
@@ -394,7 +407,16 @@ sub do_rooms
         elsif ($line =~ /^\s+(.+)\s+$/) {
             $objects[$i]{"description"}=$objects[$i]{"description"} . $1 . " ";
         }
-        last if (substr($line,0,7) eq '@txtmap');
+        last if (substr($line,0,7) eq '@txtmap') || (substr($line,0,1) eq '*'); # end rooms if new section
+    }
+    print "\nResolving room x-refs";
+    for ($i=0;$i<=$#objects;$i++) {
+        my $n = $objects[$i]{"name"};
+        if (substr($n,0,1) eq '%') {
+            my $roomid=substr($n,1);
+            my $objid=$roomIds{"$roomid"}; # should probably test this is found
+            $objects[$i]{"name"}=$objects[$objid]{"name"};
+        }
     }
     print "\nDone\n";
 }
