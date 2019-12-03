@@ -219,7 +219,7 @@ my @files = ();
 my $fh = <DATA>;
 
 if (restore()) {
-    open($fh, '<', $file) || die "Can't open include $file\n";;
+    open($fh, '<', $file) || die "Can't open $file\n";
     print "Processing $file \n";
 
     while ($line=read_line()) {
