@@ -215,6 +215,7 @@ my @objects; # contains all the objects
 
 my $file = 'MUD.TXT'; # main source file
 my $line;
+my %roomIds; # maps room identifiers with object ids
 my @files = ();
 my $fh = <DATA>;
 
@@ -240,7 +241,7 @@ if (restore()) {
             # ignore for now
         }
         if ($line =~/^\*travel/i ) {
-            # ignore for now
+            do_travel();
         }
         if ($line =~/^\*text/i ) {
             # ignore for now
@@ -420,7 +421,6 @@ sub dump
 
 sub do_rooms
 {
-    my %roomIds; # maps room identifiers with object ids
     
     my $i=0;
     print "Doing rooms\n";
@@ -448,27 +448,81 @@ sub do_rooms
                 }
             }
             $objects[$i]{"flags"}=$flags;
-            $line = <DATA>;
+            $line = read_line();
             chomp $line;
             $line =~ /^\s+(.+)\W$/;
             $objects[$i]{"name"}=$1;
             $objects[$i]{"description"}='';
-            print "$i\r";
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
             $objects[$i]{"description"}=$objects[$i]{"description"} . $1 . " ";
         }
-        last if (substr($line,0,1) eq '*'); # end rooms if new section
+        last if ($line=~/^\*.+$/); # end rooms if new section
     }
     print "Resolving room x-refs\n";
     for ($i=0;$i<=$#objects;$i++) {
         my $n = $objects[$i]{"name"};
-        if (substr($n,0,1) eq '%') {
-            my $roomid=substr($n,1);
-            my $objid=$roomIds{"$roomid"}; # should probably test this is found
+        my $dmid=$objects[$i]{"dmove"};
+        if ($n =~/^%(\w+).*$/) {
+            my $objid=$roomIds{$1}; # debug should probably test this is found
             $objects[$i]{"name"}=$objects[$objid]{"name"};
         }
+        $objects[$i]{"dmove"}=$roomIds{$dmid} if (defined $dmid);
     }
     print "Done\n";
 }
 
+sub do_travel() {
+    my $i=0;
+    my @travelargs;
+    my ($objid, $destid);
+    print "Doing travel\n";
+    while ($line = read_line()) {
+        chomp $line;
+        if ($line =~ /^\w+\s+.*$/) {
+            $i=$#objects + 1; # the next object number
+            @travelargs=split(/\s+/,$line);
+            # arg[0] is the roomid these directions apply to
+            $objid=$roomIds{(shift @travelargs)}; # map roomid to object id
+            # arg[1] is the condition which we store for now
+            $objects[$i]{"condition"}=shift @travelargs;
+            # arg[2] is the destination roomid
+            $destid=$roomIds{(shift @travelargs)}; # map roomid to destination object id
+            $objects[$i]{"owner"}=1; # always the arch-wiz
+            $objects[$i]{"type"}=$exit; # type is an exit
+            $objects[$i]{"action"}=$destid; # sends you to destid object
+            $objects[$i]{"location"}=$objid; # is in room objid
+            $objects[$i]{"home"}=$objid; # in case the exit is sent home
+            $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
+            if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
+                $objects[$objid]{"contents"}.= ", $i"; # adding contents
+            } else {
+                $objects[$objid]{"contents"}="$i"; # intialising contents
+            }
+            
+        }
+        elsif ($line =~ /^\s+.+\s+$/) { # another direction for the same room as objid
+            $i=$#objects + 1; # the next object number
+            @travelargs=split(/\s+/,$line);
+            # arg[0] is empty on follow on lines
+            shift @travelargs; # throw away empty arg
+            # arg[1] is the condition which we store for now
+            $objects[$i]{"condition"}=shift @travelargs;
+            # arg[2] is the destination roomid
+            $destid=$roomIds{(shift @travelargs)}; # map roomid to destination object id
+            $objects[$i]{"owner"}=1; # always the arch-wiz
+            $objects[$i]{"type"}=$exit; # type is an exit
+            $objects[$i]{"action"}=$destid; # sends you to destid object
+            $objects[$i]{"location"}=$objid; # is in room objid
+            $objects[$i]{"home"}=$objid; # in case the exit is sent home
+            $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
+            if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
+                $objects[$objid]{"contents"}.= ", $i"; # adding contents
+            } else {
+                $objects[$objid]{"contents"}="$i"; # intialising contents
+            }
+        }
+        last if ($line=~/^\*.+$/); # end travel if new section
+    }
+    print "Done\n";
+}
