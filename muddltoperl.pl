@@ -217,7 +217,9 @@ my $file = 'MUD.TXT'; # main source file
 my $line;
 my %roomIds; # maps room identifiers with object ids
 my @files = ();
-my $fh = <DATA>;
+my $fh;
+
+open LOG, ">log.txt";
 
 if (restore()) {
     open($fh, '<', $file) || die "Can't open $file\n";
@@ -226,6 +228,7 @@ if (restore()) {
     while ($line=read_line()) {
         chomp $line;
         if ($line =~ /^\*rooms/i ) {
+            print LOG "Rooms\n";
             do_rooms();
         }
         if ($line =~/^\*maps/i ) {
@@ -241,6 +244,7 @@ if (restore()) {
             # ignore for now
         }
         if ($line =~/^\*travel/i ) {
+            print LOG "Rooms\n";
             do_travel();
         }
         if ($line =~/^\*text/i ) {
@@ -252,12 +256,13 @@ if (restore()) {
     print "processing complete.\n";
 
     &dump;
-
 }
+
+close LOG;
 
 sub read_line # reads a line from filehandle and includes sub files as neccssary
 {
-    my $line =<$fh>;
+    my $line=<$fh>;
     chomp $line;
 
     if (!defined($line)) {
@@ -266,6 +271,7 @@ sub read_line # reads a line from filehandle and includes sub files as neccssary
 
         # pull the most recent file off the queue & resume
         $fh = pop(@files);
+        print LOG "POP file\n";
         return read_line();
     }
     # check for an include line
@@ -282,7 +288,7 @@ sub read_line # reads a line from filehandle and includes sub files as neccssary
         # open the new file or die
         open($fh, '<', $newFile) || die "Can't open include $newFile\n";
         
-        print "Include: $newFile\n";
+        print LOG "INCLUDE: $newFile\n";
 
         # read from the new file
         return read_line();
@@ -426,9 +432,11 @@ sub do_rooms
     print "Doing rooms\n";
     while ($line = read_line()) {
         chomp $line;
-        if ($line =~ /^(\w+)\s+.*$/) {
+        if ($line =~ /^\w+\s+.*$/) {
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
+            $line=lc($line);
             my @roomargs=split(/\s+/,$line);
+            print LOG "Room object $i: 0=$roomargs[0] all=@roomargs\n";
             $objects[$i]{"type"}=$room; # its a room
             $objects[$i]{"owner"}=1; # always the arch-wiz owns it
             $objects[$i]{"room"}=$roomargs[0]; # first argument of room is the room identifier
@@ -451,10 +459,12 @@ sub do_rooms
             $line = read_line();
             chomp $line;
             $line =~ /^\s+(.+)\W$/;
+            print LOG "name: $1\n";
             $objects[$i]{"name"}=$1;
             $objects[$i]{"description"}='';
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
+            print LOG "desc: $1\n";
             $objects[$i]{"description"}=$objects[$i]{"description"} . $1 . " ";
         }
         last if ($line=~/^\*.+$/); # end rooms if new section
@@ -465,10 +475,12 @@ sub do_rooms
         my $dmid=$objects[$i]{"dmove"};
         if ($n =~/^%(\w+).*$/) {
             my $objid=$roomIds{$1}; # debug should probably test this is found
+            print LOG "x-ref: $i $n is $objid " . $objects[$objid]{"name"} . "\n";
             $objects[$i]{"name"}=$objects[$objid]{"name"};
         }
         $objects[$i]{"dmove"}=$roomIds{$dmid} if (defined $dmid);
     }
+    print LOG "end rooms\n";
     print "Done\n";
 }
 
@@ -477,17 +489,31 @@ sub do_travel() {
     my @travelargs;
     my ($objid, $destid);
     print "Doing travel\n";
+    print LOG "travel\n";
     while ($line = read_line()) {
         chomp $line;
         if ($line =~ /^\w+\s+.*$/) {
+            $line=lc($line);
             $i=$#objects + 1; # the next object number
             @travelargs=split(/\s+/,$line);
+            print LOG "exit object $i: @travelargs\n";
             # arg[0] is the roomid these directions apply to
             $objid=$roomIds{(shift @travelargs)}; # map roomid to object id
             # arg[1] is the condition which we store for now
             $objects[$i]{"condition"}=shift @travelargs;
             # arg[2] is the destination roomid
-            $destid=$roomIds{(shift @travelargs)}; # map roomid to destination object id
+            $destid=shift @travelargs; # map roomid to destination object id
+            if ($destid=~/^(\d+)$/) {
+                $destid=$none;
+                print LOG "numeric destid=$1\n";
+            } elsif ($destid=~/^(\w+)$/) {
+                $destid=$roomIds{$1} or print LOG "lookup roomid $1 failed\n"; # map roomid to destination object id
+                $objects[$i]{"action"}=$destid; # sends you to destid object
+                print LOG "mapped destid=$destid\n";
+            } else { # its not a room reference, its msg, demon or a class
+                $destid=$none;
+                print LOG "invalid destid $1\n";
+            }
             $objects[$i]{"owner"}=1; # always the arch-wiz
             $objects[$i]{"type"}=$exit; # type is an exit
             $objects[$i]{"action"}=$destid; # sends you to destid object
@@ -495,29 +521,41 @@ sub do_travel() {
             $objects[$i]{"home"}=$objid; # in case the exit is sent home
             $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
             if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
-                $objects[$objid]{"contents"}.= ", $i"; # adding contents
+                $objects[$objid]{"contents"}.= ",$i"; # adding contents
             } else {
                 $objects[$objid]{"contents"}="$i"; # intialising contents
             }
             
         }
         elsif ($line =~ /^\s+.+\s+$/) { # another direction for the same room as objid
+            $line=lc($line);
             $i=$#objects + 1; # the next object number
             @travelargs=split(/\s+/,$line);
+            print LOG "$i\t@travelargs\n";
             # arg[0] is empty on follow on lines
             shift @travelargs; # throw away empty arg
             # arg[1] is the condition which we store for now
             $objects[$i]{"condition"}=shift @travelargs;
             # arg[2] is the destination roomid
-            $destid=$roomIds{(shift @travelargs)}; # map roomid to destination object id
+            $destid=shift @travelargs;
+            if ($destid=~/^(\d+)$/) {
+                $destid=$none;
+                print LOG "numeric destid=$1\n";
+            } elsif ($destid=~/^(\w+)$/) {
+                $destid=$roomIds{$1} or print LOG "lookup roomid $1 failed\n"; # map roomid to destination object id
+                $objects[$i]{"action"}=$destid; # sends you to destid object
+                print LOG "mapped destid=$destid\n";
+            } else { # its not a room reference, its something msg, demon or a class
+                $destid=$none;
+                print LOG "invalid destid $1\n";
+            }
             $objects[$i]{"owner"}=1; # always the arch-wiz
             $objects[$i]{"type"}=$exit; # type is an exit
-            $objects[$i]{"action"}=$destid; # sends you to destid object
             $objects[$i]{"location"}=$objid; # is in room objid
             $objects[$i]{"home"}=$objid; # in case the exit is sent home
             $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
             if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
-                $objects[$objid]{"contents"}.= ", $i"; # adding contents
+                $objects[$objid]{"contents"}.= ",$i"; # adding contents
             } else {
                 $objects[$objid]{"contents"}="$i"; # intialising contents
             }
