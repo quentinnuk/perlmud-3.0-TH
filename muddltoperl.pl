@@ -498,25 +498,24 @@ sub do_travel() {
             @travelargs=split(/\s+/,$line);
             print LOG "exit object $i: @travelargs\n";
             # arg[0] is the roomid these directions apply to
-            $objid=$roomIds{(shift @travelargs)}; # map roomid to object id
+            $objid=$roomIds{(shift @travelargs)} or print LOG "lookup objid $1 failed\n"; # map roomid to object id
             # arg[1] is the condition which we store for now
             $objects[$i]{"condition"}=shift @travelargs;
             # arg[2] is the destination roomid
             $destid=shift @travelargs; # map roomid to destination object id
-            if ($destid=~/^(\d+)$/) {
-                $destid=$none;
-                print LOG "numeric destid=$1\n";
-            } elsif ($destid=~/^(\w+)$/) {
-                $destid=$roomIds{$1} or print LOG "lookup roomid $1 failed\n"; # map roomid to destination object id
-                $objects[$i]{"action"}=$destid; # sends you to destid object
-                print LOG "mapped destid=$destid\n";
-            } else { # its not a room reference, its msg, demon or a class
-                $destid=$none;
-                print LOG "invalid destid $1\n";
+            if ($destid=~/^(\d+)$/) { # msg or demon reference
+                print LOG "ignored numeric destid=$1\n";
+            } elsif ($destid=~/^(\w+)$/) { # room or class reference
+                $destid=$roomIds{$1} or print LOG "lookup destid $1 failed\n"; # map roomid to destination object id
+                if (defined $destid) { # its a room
+                    $objects[$i]{"action"}=$destid; # sends you to destid object
+                    print LOG "mapped destid=$destid\n";
+                }
+            } else { # its not a room, msg or demon reference, its something else
+                print LOG "ignored invalid destid $1\n";
             }
             $objects[$i]{"owner"}=1; # always the arch-wiz
             $objects[$i]{"type"}=$exit; # type is an exit
-            $objects[$i]{"action"}=$destid; # sends you to destid object
             $objects[$i]{"location"}=$objid; # is in room objid
             $objects[$i]{"home"}=$objid; # in case the exit is sent home
             $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
@@ -538,16 +537,16 @@ sub do_travel() {
             $objects[$i]{"condition"}=shift @travelargs;
             # arg[2] is the destination roomid
             $destid=shift @travelargs;
-            if ($destid=~/^(\d+)$/) {
-                $destid=$none;
-                print LOG "numeric destid=$1\n";
-            } elsif ($destid=~/^(\w+)$/) {
-                $destid=$roomIds{$1} or print LOG "lookup roomid $1 failed\n"; # map roomid to destination object id
-                $objects[$i]{"action"}=$destid; # sends you to destid object
-                print LOG "mapped destid=$destid\n";
-            } else { # its not a room reference, its something msg, demon or a class
-                $destid=$none;
-                print LOG "invalid destid $1\n";
+            if ($destid=~/^(\d+)$/) { # msg or demon reference
+                print LOG "ignored numeric destid=$1\n";
+            } elsif ($destid=~/^(\w+)$/) { # room or class reference
+                $destid=$roomIds{$1} or print LOG "lookup destid $1 failed\n"; # map roomid to destination object id
+                if (defined $destid) { # its a room
+                    $objects[$i]{"action"}=$destid; # sends you to destid object
+                    print LOG "mapped destid=$destid\n";
+                }
+            } else { # its not a room, msg or demon reference, its something else
+                print LOG "ignored invalid destid $1\n";
             }
             $objects[$i]{"owner"}=1; # always the arch-wiz
             $objects[$i]{"type"}=$exit; # type is an exit
