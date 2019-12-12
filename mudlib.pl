@@ -750,19 +750,24 @@ sub command
 			if ($objects[$id]{"action"}	== $home) {
 				&sendHome($me);
 				return;
-			}		
-			if (!($objects[$objects[$id]{"action"}]{"flags"} & $grand)) {
+			}
+            my $destid=$objects[$id]{"action"};
+            if ($destid=~/:/) { # multi destination exit
+                my @destinations = split(/:/,$destid);
+                $destid=splice(@destinations,rand(@destinations),1); # pick a random destination
+            }
+			if (!($objects[$destid]{"flags"} & $grand)) {
 				if ($objects[$id]{"odrop"} ne "") {
-					&tellRoom($objects[$id]{"action"}, $none,
+					&tellRoom($destid, $none,
 						$objects[$me]{"name"} . " " .
 						&substitute($me, 
 							$objects[$id]{"odrop"}));
 				} else {
-					&tellRoom($objects[$id]{"action"}, $none,
+					&tellRoom($destid, $none,
 						$objects[$me]{"name"} . " has arrived.");
 				}
 			}
-			&addContents($objects[$id]{"action"}, $me);
+			&addContents($destid, $me);
 			&describe($me, $objects[$me]{"location"}, 0);	
 			return;
 		}
