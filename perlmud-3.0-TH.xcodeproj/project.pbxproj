@@ -42,7 +42,7 @@
 		298A32E423776A8A00BAB425 /* Project object */ = {
 			isa = PBXProject;
 			attributes = {
-				LastUpgradeCheck = 1120;
+				LastUpgradeCheck = 1130;
 			};
 			buildConfigurationList = 298A32E723776A8A00BAB425 /* Build configuration list for PBXProject "perlmud-3.0-TH" */;
 			compatibilityVersion = "Xcode 9.3";

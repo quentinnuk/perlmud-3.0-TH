@@ -213,11 +213,12 @@ my @flagNames = (
 
 my @objects; # contains all the objects
 
-my $file = 'MUD.TXT'; # main source file
+my $file = 'VALLEY.TXT'; # main source file
 my $line;
 my %roomIds; # maps room identifiers with object ids
 my @files = ();
 my $fh;
+my %textIds; # maps text numeric ids to strings
 
 open LOG, ">log.txt";
 
@@ -228,7 +229,6 @@ if (restore()) {
     while ($line=read_line()) {
         chomp $line;
         if ($line =~ /^\*rooms/i ) {
-            print LOG "Rooms\n";
             do_rooms();
         }
         if ($line =~/^\*maps/i ) {
@@ -244,11 +244,11 @@ if (restore()) {
             # ignore for now
         }
         if ($line =~/^\*travel/i ) {
-            print LOG "Rooms\n";
             do_travel();
         }
         if ($line =~/^\*text/i ) {
             # ignore for now
+            do_texts();
         }
     }
     
@@ -430,6 +430,7 @@ sub do_rooms
     
     my $i=0;
     print "Doing rooms\n";
+    print LOG "rooms\n";
     while ($line = read_line()) {
         chomp $line;
         if ($line =~ /^\w+\s+.*$/) {
@@ -495,58 +496,60 @@ sub do_travel() {
         if ($line =~ /^\w+\s+.*$/) {
             $line=lc($line);
             $i=$#objects + 1; # the next object number
+            if ($line =~ /(.+)<(.+)>(.+)\s+/) { # joins multi destination lines together
+                my $destination=join(':',split(/\s+/,$2));
+                $line=$1 . "\t" . $destination . "\t" . $3;
+                print LOG "multi dest line =$line \n";
+            }
             @travelargs=split(/\s+/,$line);
-            print LOG "exit object $i: @travelargs\n";
+            print LOG "door object $i: @travelargs\n";
             # arg[0] is the roomid these directions apply to
             $objid=$roomIds{(shift @travelargs)} or print LOG "lookup objid $1 failed\n"; # map roomid to object id
-            # arg[1] is the condition which we store for now
-            $objects[$i]{"condition"}=shift @travelargs;
-            # arg[2] is the destination roomid
-            $destid=shift @travelargs; # map roomid to destination object id
-            if ($destid=~/^(\d+)$/) { # msg or demon reference
-                print LOG "ignored numeric destid=$1\n";
-            } elsif ($destid=~/^(\w+)$/) { # room or class reference
-                $destid=$roomIds{$1} or print LOG "lookup destid $1 failed\n"; # map roomid to destination object id
-                if (defined $destid) { # its a room
-                    $objects[$i]{"action"}=$destid; # sends you to destid object
-                    print LOG "mapped destid=$destid\n";
-                }
-            } else { # its not a room, msg or demon reference, its something else
-                print LOG "ignored invalid destid $1\n";
-            }
-            $objects[$i]{"owner"}=1; # always the arch-wiz
-            $objects[$i]{"type"}=$exit; # type is an exit
-            $objects[$i]{"location"}=$objid; # is in room objid
-            $objects[$i]{"home"}=$objid; # in case the exit is sent home
-            $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
-            if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
-                $objects[$objid]{"contents"}.= ",$i"; # adding contents
-            } else {
-                $objects[$objid]{"contents"}="$i"; # intialising contents
-            }
-            
         }
         elsif ($line =~ /^\s+.+\s+$/) { # another direction for the same room as objid
             $line=lc($line);
             $i=$#objects + 1; # the next object number
+            if ($line =~ /(.+)<(.+)>(.+)\s+/) { # joins multi destination lines together
+                my $destination=join(':',split(/\s+/,$2));
+                $line=$1 . "\t" . $destination . "\t" . $3;
+                print LOG "multi dest line =$line \n";
+            }
             @travelargs=split(/\s+/,$line);
             print LOG "$i\t@travelargs\n";
             # arg[0] is empty on follow on lines
             shift @travelargs; # throw away empty arg
+        }
+        if ($line !~ /^\*.+$/) { # only do this if it is not a new section
             # arg[1] is the condition which we store for now
-            $objects[$i]{"condition"}=shift @travelargs;
-            # arg[2] is the destination roomid
-            $destid=shift @travelargs;
-            if ($destid=~/^(\d+)$/) { # msg or demon reference
-                print LOG "ignored numeric destid=$1\n";
+            my $condition=shift @travelargs; # numeric msg or demon for direction, or class or object test
+            $objects[$i]{"condition"}=$condition if ($condition ne 'n'); # no need to keep no condition
+            if ($condition=~/^[-]?\d+$/) {
+                # condition is a msg or demon number so arg[2] is a direction we need to preserve so dont shift
+                $destid = '0'; # no exit in muddl
+            } else {
+                # arg[2] is the destination roomid or a 0 for no exit if condition is satisfied
+                $destid=shift @travelargs; # store roomid that it will send you to, unless the condition was a number
+            }
+            if ($destid eq '0') { # 0 is no exit and usually comes with a condition
+                $destid=$nowhere;
+                $objects[$i]{"action"}=$destid; # door to nowwhere
+                print LOG "no exit\n";
             } elsif ($destid=~/^(\w+)$/) { # room or class reference
                 $destid=$roomIds{$1} or print LOG "lookup destid $1 failed\n"; # map roomid to destination object id
                 if (defined $destid) { # its a room
                     $objects[$i]{"action"}=$destid; # sends you to destid object
-                    print LOG "mapped destid=$destid\n";
+                    print LOG "action destid=$destid\n";
                 }
-            } else { # its not a room, msg or demon reference, its something else
-                print LOG "ignored invalid destid $1\n";
+            } elsif ($destid =~ /.*:.*/) {
+                my @destinations=split(/:/,$destid);
+                foreach my $destination(@destinations) {
+                    $destination=$roomIds{$destination} or print LOG "lookup destid $destination failed\n";
+                }
+                $destid=join(':',@destinations);
+                $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by colons at random
+                print LOG "action destid=$destid\n";
+            } else { # its not a room, msg or demon reference, its something unexpected
+                print LOG "ignored invalid destid $destid\n";
             }
             $objects[$i]{"owner"}=1; # always the arch-wiz
             $objects[$i]{"type"}=$exit; # type is an exit
@@ -561,5 +564,52 @@ sub do_travel() {
         }
         last if ($line=~/^\*.+$/); # end travel if new section
     }
+    print LOG "end travel\n";
+    print "Done\n";
+}
+
+sub do_texts() { # stores all the texts reponses into a list for lookup later
+    my $i=0;
+    my @textargs;
+    my ($objid);
+    print "Doing text\n";
+    print LOG "texts\n";
+    while ($line = read_line()) {
+        chomp $line;
+        if ($line =~ /^\d+\s+.*$/) {
+            $line=lc($line);
+            my @textargs=split(/\s+/,$line,2);
+            $objid=shift @textargs; # first thing should be the id used as key
+            $textargs[0]=~/^(.*)\s+$/; # trim the end of line
+            $textIds{$objid}=$1;
+            print LOG "text: objid=$objid txt=" . $textIds{$objid} . "\n";
+        }
+        elsif ($line =~ /^\s+(.+)\s+$/) {
+            print LOG "$i:\t$1\n";
+            $textIds{$objid}=$textIds{$objid} . $1 . " ";
+        }
+        last if ($line=~/^\*.+$/); # end rooms if new section
+    }
+    # now have all texts, need to x-ref in door objects and add locks and success/fail
+    print "Resolving text x-refs\n";
+    # to do
+    for ($i=0;$i<=$#objects;$i++) { # could use a foreach here but having the index aids debugging
+        if ($objects[$i]{"type"}==$exit) {
+            my $c = $objects[$i]{"condition"};
+            if ($c=~/^\d+$/) { # condition is a msg number not a -ve demon number so set success msg for going nowhere
+                $objects[$i]{"success"}=$textIds{$c} or print LOG "invalid text condition $c in objid $i \n";
+                print LOG "x-ref $i cond $c resolved\n";
+                delete ($objects[$i]{"condition"}); # dont need to keep this now success set up
+            }
+        } # need to resolve other places where text is used
+    }
+    print LOG "end texts\n";
+    print "Done\n";
+}
+
+sub do_compile() {
+    my $i=0;
+    print "Compiling objects\n";
+    print LOG "rooms\n";
     print "Done\n";
 }

@@ -1,19 +1,19 @@
 2.1
 0
-name Void
-type 1
 owner 1
-flags 0
 contents 1
+type 1
+flags 0
+name Elizabethan tearoom.
+description This cosy, Tudor room is where all British Legends adventures start. Its exposed oak beams and soft, velvet-covered furnishings provide it with the ideal atmosphere in which to relax before venturing out into that strange, timeless realm. A sense of decency and decorum prevails, and a feeling of kinship with those who, like you, seek their destiny in The Land. There are exits in all directions, each of which leads into a wisping, magical mist of obvious teleportative properties...
 <END>
 1
-name Admin
-lastPing 855176615
+last 1576021522
 type 2
-password initial
-last 855176615
 location 0
-owner 1
-on 855176604
+on 1576021334
+password initial
+name Admin
 flags 147456
+owner 1
 <END>
