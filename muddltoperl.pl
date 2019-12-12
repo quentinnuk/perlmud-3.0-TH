@@ -496,9 +496,9 @@ sub do_travel() {
         if ($line =~ /^\w+\s+.*$/) {
             $line=lc($line);
             $i=$#objects + 1; # the next object number
-            if ($line =~ /(.+)<(.+)>(.+)\s+/) { # joins multi destination lines together
-                my $destination=join(':',split(/\s+/,$2));
-                $line=$1 . "\t" . $destination . "\t" . $3;
+            if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination lines together (only one multi per line)
+                my $destination=join('|',split(/\s+/,$3));
+                $line=$1 . "\t" . $destination . "\t" . $5;
                 print LOG "multi dest line =$line \n";
             }
             @travelargs=split(/\s+/,$line);
@@ -509,9 +509,9 @@ sub do_travel() {
         elsif ($line =~ /^\s+.+\s+$/) { # another direction for the same room as objid
             $line=lc($line);
             $i=$#objects + 1; # the next object number
-            if ($line =~ /(.+)<(.+)>(.+)\s+/) { # joins multi destination lines together
-                my $destination=join(':',split(/\s+/,$2));
-                $line=$1 . "\t" . $destination . "\t" . $3;
+            if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination lines together
+                my $destination=join('|',split(/\s+/,$3));
+                $line=$1 . "\t" . $destination . "\t" . $5;
                 print LOG "multi dest line =$line \n";
             }
             @travelargs=split(/\s+/,$line);
@@ -540,12 +540,12 @@ sub do_travel() {
                     $objects[$i]{"action"}=$destid; # sends you to destid object
                     print LOG "action destid=$destid\n";
                 }
-            } elsif ($destid =~ /.*:.*/) {
-                my @destinations=split(/:/,$destid);
+            } elsif ($destid =~ /.*\|.*/) {
+                my @destinations=split(/\|/,$destid);
                 foreach my $destination(@destinations) {
                     $destination=$roomIds{$destination} or print LOG "lookup destid $destination failed\n";
                 }
-                $destid=join(':',@destinations);
+                $destid=join('|',@destinations);
                 $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by colons at random
                 print LOG "action destid=$destid\n";
             } else { # its not a room, msg or demon reference, its something unexpected
@@ -577,7 +577,6 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
     while ($line = read_line()) {
         chomp $line;
         if ($line =~ /^\d+\s+.*$/) {
-            $line=lc($line);
             my @textargs=split(/\s+/,$line,2);
             $objid=shift @textargs; # first thing should be the id used as key
             $textargs[0]=~/^(.*)\s+$/; # trim the end of line

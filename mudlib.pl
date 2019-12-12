@@ -6,6 +6,8 @@
 #lists will be empty, etc. in any initialization you do here.
 use strict;
 use Text::Wrap;
+use List::Util qw(shuffle);
+
 #use warnings;
 
 #Port number to listen for tiny line protocol connections on 
@@ -752,9 +754,8 @@ sub command
 				return;
 			}
             my $destid=$objects[$id]{"action"};
-            if ($destid=~/:/) { # multi destination exit
-                my @destinations = split(/:/,$destid);
-                $destid=splice(@destinations,rand(@destinations),1); # pick a random destination
+            if ($destid=~/(.+?)\|.+/) { # multi destination exit
+                $destid=$1; # pick the first destination the loader randomised
             }
 			if (!($objects[$destid]{"flags"} & $grand)) {
 				if ($objects[$id]{"odrop"} ne "") {
@@ -3018,7 +3019,9 @@ sub findContents
 		if ($objects[$e]{"type"} == $exit) {
 			my(@elist);
 			my($f);
-			@elist = split(/;/, $objects[$e]{"name"});
+            $f = $objects[$e]{"name"};
+            $f =~ s/\|.*//; # remove any alternate exits after the first one
+			@elist = split(/;/, $f);
 			foreach $f (@elist) {
 				$f =~ tr/A-Z/a-z/;
 				if ($f eq $arg) {
@@ -3250,7 +3253,7 @@ sub describeBody
 					} else {
 						$desc .= ", ";
 					}		
-					my(@foo) = split(/;/, 
+                    my(@foo) = split(/(;|\|)/,
 						$objects[$e]{"name"});
 					$desc .= "\x01" . $foo[0] . "," .
 						$foo[0] . "\x02";
@@ -3524,12 +3527,17 @@ sub restore
 					last;
 				}
 				# Get the attribute and the value
-				($attribute, $value) = split(/ /, $line, 2);  
+				($attribute, $value) = split(/ /, $line, 2);
 				# Unescape endlines
 				$value =~ s/\\n/\r\n/g;
 				# But a slash preceding one of those
 				# means an escaped LF is truly wanted
 				$value =~ s/\\\r\n/\\n/g;
+                if ((($attribute eq 'action') || ($attribute eq 'name')) && ($value=~/.+\|.+/)) { # multi value attribute
+                    my @vals = split(/\|/,$value);
+                    @vals = shuffle(@vals); # randomise order
+                    $value = join('|',@vals); # re-assemble
+                }
 				$objects[$id]{$attribute} = $value;
 			}
 			$objects[$id]{"id"} = $id;
@@ -3541,7 +3549,7 @@ sub restore
 				$n = $objects[$id]{"name"};
 				$n =~ tr/A-Z/a-z/;
 				$playerIds{$n} = $id;
-			}		
+			}
 			# GOTCHA: $none and 0 are different
 			$objects[$id]{"activeFd"} = $none;
 		} else {
