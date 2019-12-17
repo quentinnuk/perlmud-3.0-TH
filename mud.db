@@ -1,5409 +1,5410 @@
 2.1
 0
-description This cosy, Tudor room is where all British Legends adventures start. Its exposed oak beams and soft, velvet-covered furnishings provide it with the ideal atmosphere in which to relax before venturing out into that strange, timeless realm. A sense of decency and decorum prevails, and a feeling of kinship with those who, like you, seek their destiny in The Land. There are exits in all directions, each of which leads into a wisping, magical mist of obvious teleportative properties...
-owner 1
-contents 4
 type 1
-flags 0
 name Elizabethan tearoom.
+contents 4,1
+description This cosy, Tudor room is where all British Legends adventures start. Its exposed oak beams and soft, velvet-covered furnishings provide it with the ideal atmosphere in which to relax before venturing out into that strange, timeless realm. A sense of decency and decorum prevails, and a feeling of kinship with those who, like you, seek their destiny in The Land. There are exits in all directions, each of which leads into a wisping, magical mist of obvious teleportative properties...
+flags 0
+owner 1
 <END>
 1
-off 1576025874
-password initial
-type 2
-location 94
+on 1576598552
+last 1576598630
+location 0
 flags 147456
 owner 1
-on 1576167897
+off 1576025874
+type 2
+password initial
 name Admin
-last 1576168167
 <END>
 2
-description You are stood on a narrow road between The Land and whence you came. To the north and south are the small foothills of a pair of majestic mountains, with a large wall running round. To the west the road continues, where in the distance you can see a thatched cottage opposite an ancient cemetery. The way out is to the east, where a shroud of mist covers the secret pass by which you entered The Land.
 type 1
-name Narrow road between lands.
-contents 3,5,6
 owner 1
+contents 3,5,6
+description You are stood on a narrow road between The Land and whence you came. To the north and south are the small foothills of a pair of majestic mountains, with a large wall running round. To the west the road continues, where in the distance you can see a thatched cottage opposite an ancient cemetery. The way out is to the east, where a shroud of mist covers the secret pass by which you entered The Land.
+name Narrow road between lands.
 <END>
 3
-action 0
 name east;e
 home 2
+action 0
 type 3
-location 2
 owner 1
+location 2
 success You force yourself through the narrow, mist-covered gap...
 <END>
 4
+home 0
+type 3
 action 2
 name out;o
-home 0
+location 0
 owner 1
-type 3
 <END>
 5
-home 2
-lock #0
-name west;w
-action 0
-fail As you approach the edge of the cliff the rock starts to crumble. Hurriedly you retreat as you feel the group begin to give way under your feet!
 type 3
+action 0
+home 2
+name west;w
+fail As you approach the edge of the cliff the rock starts to crumble. Hurriedly you retreat as you feel the group begin to give way under your feet!
 location 2
 owner 1
+lock #0
 <END>
 6
-lock #0
-home 2
-action 0
 name jump
-fail You can't climb bushy trees like yews! Maybe you could from INSIDE...
-owner 1
-location 2
 type 3
+action 0
+home 2
+owner 1
+lock #0
+fail You can't climb bushy trees like yews! Maybe you could from INSIDE...
+location 2
 <END>
 7
-owner 1
-contents 103,104,105
-room home
 type 1
-flags 16777217
-description This is a room reserved exclusively for wizards. Its ornate oaken panelling and antique furniture make it the perfect place for its honoured users to relax in the style to which they are justly entitled. To find exits type exits. 
 name Wizards' room.
+description This is a room reserved exclusively for wizards. Its ornate oaken panelling and antique furniture make it the perfect place for its honoured users to relax in the style to which they are justly entitled. To find exits type exits. 
+contents 103,104,105
+flags 16777217
+owner 1
+room home
 <END>
 8
-name Wizards' storeroom.
-room store
-contents 106
-owner 1
 flags 25165825
+owner 1
+room store
 type 1
 description The immensity of this room is enough to fill any mortal with awe and insignificance, but you are naturally unimpressed. This is the room used by wizards as a store for things to be dumped at random out on the poor unsuspecting adventurers to add a bit of spice to the game. 
+contents 106
+name Wizards' storeroom.
 <END>
 9
-name Limbo.
 description Everything around you is a glowing white, and there are no walls you can focus on. You feel as if you are floating on air. You are. 
-flags 209715200
+contents 107
+name Limbo.
 type 1
 owner 1
 room limbo
-contents 107
+flags 209715200
 <END>
 10
-type 1
-flags 31457280
 room xmasbx
-contents 108
 owner 1
-description This room is for the benefit only of those wizards and witches who want to make Christmas a nice time of year. Use no other season, please! The command to make it snow instead of rain is WINTER. Oh, and don't forget the mistletoe and the ivy! Merry Christmas! 
+flags 31457280
 name Christmas box.
+description This room is for the benefit only of those wizards and witches who want to make Christmas a nice time of year. Use no other season, please! The command to make it snow instead of rain is WINTER. Oh, and don't forget the mistletoe and the ivy! Merry Christmas! 
+contents 108
+type 1
 <END>
 11
-name Bank of river.
-contents 109,110,111,112
-room bank1
-owner 1
-flags 0
 type 1
 description You are stood on the grassy, west bank of a fast-flowing river. The river flows from the north to the south, where can be seen a ford across it. To the west you can see a tumble-down stable, and in the distance north of that, mountains. On the opposite bank of the river is dense forest. 
+contents 109,110,111,112
+name Bank of river.
+flags 0
+owner 1
+room bank1
 <END>
 12
-description This is the west bank of a river, which flows north to south very quickly. The opposite bank is forested, but here the ground is clear. To the northwest rise the steep slopes of a tall mountain, its peak towering high above the clouds. 
-owner 1
-contents 113,114,115,116,117
-room bank2
-flags 0
-type 1
 name Bank of river.
+contents 113,114,115,116,117
+description This is the west bank of a river, which flows north to south very quickly. The opposite bank is forested, but here the ground is clear. To the northwest rise the steep slopes of a tall mountain, its peak towering high above the clouds. 
+type 1
+room bank2
+owner 1
+flags 0
 <END>
 13
-flags 0
 type 1
+contents 118,119,120,121
+name Bank of river.
+description This is a narrow strip of land wedged between a fast-flowing river to the east, and a (climbable) mountain to the west. The river cuts its way north-south, and makes quite some noise. You can't see much of what the landscape on the opposite bank is like for the trees there. 
+flags 0
 owner 1
 room bank3
-contents 118,119,120,121
-description This is a narrow strip of land wedged between a fast-flowing river to the east, and a (climbable) mountain to the west. The river cuts its way north-south, and makes quite some noise. You can't see much of what the landscape on the opposite bank is like for the trees there. 
-name Bank of river.
 <END>
 14
-description You find yourself on the bank of a fast-flowing river, where the heath to the west is parted from the forest on the opposite bank. The river flows from the north, and continues to the south, cutting off a narrow strip of land trapped between it and the steep mountain you spy to the southwest. 
 flags 0
-type 1
 owner 1
 room bank4
-contents 122,123,124,125,126,127
+type 1
 name Bank of river.
+description You find yourself on the bank of a fast-flowing river, where the heath to the west is parted from the forest on the opposite bank. The river flows from the north, and continues to the south, cutting off a narrow strip of land trapped between it and the steep mountain you spy to the southwest. 
+contents 122,123,124,125,126,127
 <END>
 15
+type 1
 name Bank of river.
+description Flowing from the northeast and curving viciously to the south is a fast-flowing river, upon the banks of which you now find yourself situated. On the opposite bank are trees, although the river is too quick to enable your swimming across. To the north is a curious, ornate wall, decorated in exotic, colourful designs of seemingly eastern origin. The wall is too tall to climb, as is the enormous hedge you find to the west, over the top of which you can just see what looks to be a belfry. The hedge stops on the edge of some trees, which are clumped together to the southwest. 
 contents 128,129,130,131,132
+flags 0
 room bank5
 owner 1
-type 1
-flags 0
-description Flowing from the northeast and curving viciously to the south is a fast-flowing river, upon the banks of which you now find yourself situated. On the opposite bank are trees, although the river is too quick to enable your swimming across. To the north is a curious, ornate wall, decorated in exotic, colourful designs of seemingly eastern origin. The wall is too tall to climb, as is the enormous hedge you find to the west, over the top of which you can just see what looks to be a belfry. The hedge stops on the edge of some trees, which are clumped together to the southwest. 
 <END>
 16
+type 1
+contents 133,134,135,136
 name Inside belfry.
 description You find yourself at the bottom of a belfry stood in a forest clearing. Outside, to the east the way is blocked by a huge hedge, and to the north is an ornate wall, decorated in colourful, oriental friezes. Elsewhere is more forest. The tower of the belfry rises high above you, but you can't climb the walls. 
+flags 33554433
 owner 1
 room belfry
-contents 133,134,135,136
-type 1
-flags 33554433
 <END>
 17
+description You are gingerly pushing your way through a prickly briar patch, skillfully avoiding being scratched from the many thorns about. To the north runs an east-west road, and to the east is a yard outside an old inn. South lies pasture, beyond which is a river, and west are the foothills of a majestic mountain, spearing its way through the fluffy clouds. 
+contents 137,138,139,140,141,142,143,144
 name Briar patch.
 type 1
-flags 0
 owner 1
 room briar
-contents 137,138,139,140,141,142,143,144
-description You are gingerly pushing your way through a prickly briar patch, skillfully avoiding being scratched from the many thorns about. To the north runs an east-west road, and to the east is a yard outside an old inn. South lies pasture, beyond which is a river, and west are the foothills of a majestic mountain, spearing its way through the fluffy clouds. 
+flags 0
 <END>
 18
-description You are crossing a narrow, wooden bridge over a fast-flowing river. To the west lie the dark oaks of an evil wood, with the noise made by the river only adding to the eerie effect of their hideous shadows. At the eastern end of the bridge is a small island, bereft of trees, yet looking quite lush compared to the fearsome dark of the forest. 
-owner 1
-contents 145,146,147
-room bridge
-type 1
 flags 0
+room bridge
+owner 1
+type 1
 name Bridge over river.
+description You are crossing a narrow, wooden bridge over a fast-flowing river. To the west lie the dark oaks of an evil wood, with the noise made by the river only adding to the eerie effect of their hideous shadows. At the eastern end of the bridge is a small island, bereft of trees, yet looking quite lush compared to the fearsome dark of the forest. 
+contents 145,146,147
 <END>
 19
-name Did you think you could fly? Sorry if I gave that impression...
 type 1
-flags 2097152
 contents 148
-room dead1
+name Did you think you could fly? Sorry if I gave that impression...
+flags 2097152
 owner 1
+room dead1
 <END>
 20
-description of the swamp where you stand, and to your horror you find yourself being sucked under! Well that's something not to try again, eh? 
-type 1
 flags 2097152
-room dead2
-contents 149
 owner 1
+room dead2
+type 1
 name You jump up and down, but the extra force is too much for the part
+contents 149
+description of the swamp where you stand, and to your horror you find yourself being sucked under! Well that's something not to try again, eh? 
 <END>
 21
-name The volatile marsh gases catch light from your naked flame, and before
+flags 2097152
 room dead3
-contents 150
 owner 1
 type 1
-flags 2097152
+name The volatile marsh gases catch light from your naked flame, and before
 description you know it, #WHOOMSH#... 
+contents 150
 <END>
 22
-name Dense forest.
-owner 1
-contents 151,152,153,154,155,156
-room efrst1
-flags 0
 type 1
+name Dense forest.
 description You are wandering around in some dense forest on the west bank of a fast-flowing river. To the north, the river is crossed by a ford, and to the south it runs beside a meadow, beyond which you can see what looks like a belvedere of some kind. At that point the river splits, and curves round to the southwest of where you stand. West, the forest seems to be primarily of fruit trees, and northwest through the greenery you can see what looks like a well. 
+contents 151,152,153,154,155,156
+flags 0
+room efrst1
+owner 1
 <END>
 23
-name East pasture.
-type 1
-flags 0
-contents 157,158,159,160,161,162
 room epstre
 owner 1
+flags 0
 description You are standing in lush pasture, irrigated by a river which curves from being to the east round to the north and continuing west of there to the northwest of where you stand. The pasture carries on to the west and southwest, but south is some rougher pasture which isn't so good. 
+contents 157,158,159,160,161,162
+name East pasture.
+type 1
 <END>
 24
+type 1
 name Evil wood.
+contents 163,164,165,166,167,168,169,170,171
 description You are wandering around in among the hideously deformed oaks of an evil wood. To the north and east runs a river, and west is a rough pasture. The wood gets thicker to the south, where it continues in an almost impenetrable darkness... 
 flags 0
-type 1
-contents 163,164,165,166,167,168,169,170,171
 room ewd1
 owner 1
 <END>
 25
+flags 0
+owner 1
+room ewd2
+type 1
+contents 172,173,174,175,176,177,178,179,180
 name Evil wood.
 description You are forcing your way through the ancient, misshapen oaks which make up an evil wood. The only ways out which do not involve continuing into the denseness of the trees are to the north and west. Otherwise, the darkness envelops... 
-owner 1
-contents 172,173,174,175,176,177,178,179,180
-room ewd2
-flags 0
-type 1
 <END>
 26
-contents 181,182,183,184,185,186,187
-room ewd3
-owner 1
-flags 0
 type 1
-description You are thrusting your way through a mangled assortment of aged oak trees which are part of an evil wood. Northwards, the trees give way to a rough pasture, and to the easterly directions they continue in the same density as here. Other directions, however, the forest becomes too thick for you to force your way through... 
+contents 181,182,183,184,185,186,187
 name Evil wood.
+description You are thrusting your way through a mangled assortment of aged oak trees which are part of an evil wood. Northwards, the trees give way to a rough pasture, and to the easterly directions they continue in the same density as here. Other directions, however, the forest becomes too thick for you to force your way through... 
+flags 0
+owner 1
+room ewd3
 <END>
 27
-type 1
-flags 0
-room ewd4
-contents 188,189,190,191,192,193
-owner 1
-description You are in the midst of an evil wood, surrounded by gnarled oaks of ancient origin. The forest continues all around you, in a darkness which seems unnatural, although to the south and southwest it appears too thick to move through... 
 name Evil wood.
+description You are in the midst of an evil wood, surrounded by gnarled oaks of ancient origin. The forest continues all around you, in a darkness which seems unnatural, although to the south and southwest it appears too thick to move through... 
+contents 188,189,190,191,192,193
+type 1
+room ewd4
+owner 1
+flags 0
 <END>
 28
-name Evil wood.
 description You are in the depths of a murky, evil wood, its gloomy oaks seeming to stare down at you as though watching your every movement. All around, the forest continues, although in the southerly directions it appears too thick to enable passage... 
-owner 1
 contents 194,195,196,197
-room ewd5
-flags 0
+name Evil wood.
 type 1
+room ewd5
+owner 1
+flags 0
 <END>
 29
-name Evil wood.
-description You are in an evil wood, on the west bank of a fast-flowing river. The malformed oaks which enclose the area loom over you, throwing the whole place into deep shadow. The wood continues in all directions except the east, where the river runs, although to the south it is too dense for you to venture that way... 
-room ewd6
-contents 198,199,200,201,202,203
-owner 1
 flags 0
+room ewd6
+owner 1
 type 1
+contents 198,199,200,201,202,203
+description You are in an evil wood, on the west bank of a fast-flowing river. The malformed oaks which enclose the area loom over you, throwing the whole place into deep shadow. The wood continues in all directions except the east, where the river runs, although to the south it is too dense for you to venture that way... 
+name Evil wood.
 <END>
 30
-name Evil wood.
-flags 0
-type 1
-owner 1
-contents 204,205,206,207,208,209
-room ewd7
 description You are in the middle of an evil wood, built up over many centuries from a ghastly assortment of wizened oaks, twisted into a tangled conglomeration. The forest continues in all directions... 
+name Evil wood.
+contents 204,205,206,207,208,209
+type 1
+room ewd7
+owner 1
+flags 0
 <END>
 31
-description This is part of an evil wood, on the west bank of a fast-flowing river. The knotted, wicked-looking oaks continue in the south and westerly directions, but other ways is the river. Through the trees, to the east, can be seen a small bridge which spans the river to an island in mid- stream... 
-owner 1
-contents 210,211,212,213,214,215,216,217,218
-room ewd8
-flags 0
 type 1
 name Evil wood.
+description This is part of an evil wood, on the west bank of a fast-flowing river. The knotted, wicked-looking oaks continue in the south and westerly directions, but other ways is the river. Through the trees, to the east, can be seen a small bridge which spans the river to an island in mid- stream... 
+contents 210,211,212,213,214,215,216,217,218
+flags 0
+room ewd8
+owner 1
 <END>
 32
+room ewd9
+owner 1
+flags 0
+name Evil wood.
+contents 219,220,221,222,223
 description You are pushing your way through the forlorn branches of some ancient oaks in the middle of an evil wood. All around, the wood continues, its oppressive gloom enveloping the entire scene... 
 type 1
-flags 0
-owner 1
-contents 219,220,221,222,223
-room ewd9
-name Evil wood.
 <END>
 33
-name Evil wood.
-flags 0
 type 1
-owner 1
-contents 224,225,226,227,228,229
-room ewd10
 description You are stood in the very heart of an evil wood, its intense blackness and eerie silence casting fear into your soul. The dense, warped oaks carry on in all directions, and their thick branches obscure the sky from view... 
+name Evil wood.
+contents 224,225,226,227,228,229
+flags 0
+room ewd10
+owner 1
 <END>
 34
 description This is an ornate and elegant gazebo, built on a small eminence to afford a better prospect of the surrounding countryside. North can be seen a lush meadow, beyond which is a forest, and further still a mountain. East is a fast-flowing river, which splits in two and curves from the north round to the west, as well as continuing to the south. Over the river can be seen forest, although south the trees are of a hideous, misshapen form. 
-owner 1
-room gazebo
+name Inside gazebo.
 contents 230,231,232
 type 1
+room gazebo
+owner 1
 flags 167772160
-name Inside gazebo.
 <END>
 35
+contents 233,234,235,236,237
 name Rough heath.
 description You are striding across a rough heath, between a forest in the north and a mountain to the south. East is the bank of a river, and west the heath continues. Through the trees to the north can be glimpsed a small tower of some kind. 
 type 1
-flags 0
-contents 233,234,235,236,237
 room heath1
 owner 1
+flags 0
 <END>
 36
-name Rough heath.
-owner 1
-contents 238,239,240,241,242,243,244,245
-room heath2
-type 1
 flags 0
+room heath2
+owner 1
+type 1
 description You are walking across a rough heath, which continues to the east, west and southwest. South is the base of a large mountain, the peak of which is partly obscured by the clouds which flank it some way up. North from here is mainly forest, although in the distance to the northwest is an enormous mountain, more majestic than the other. 
+contents 238,239,240,241,242,243,244,245
+name Rough heath.
 <END>
 37
-description This is a band of rough heathland, which curves from the south to continue to the east. Southeast lies the base of a large mountain, but northwest are the foothills of one even larger, and far more majestic. North is forest, through which can be espied an ornate wall. 
-owner 1
-contents 246,247,248,249,250,251,252
-room heath3
-flags 0
 type 1
 name Rough heath.
+description This is a band of rough heathland, which curves from the south to continue to the east. Southeast lies the base of a large mountain, but northwest are the foothills of one even larger, and far more majestic. North is forest, through which can be espied an ornate wall. 
+contents 246,247,248,249,250,251,252
+flags 0
+room heath3
+owner 1
 <END>
 38
-description You are scrambling over a rough heath, which rises out of a deep valley to the south and carries on to the north and northeast. East is the bottom of a large mountain, and west lie the foothills of an even greater peak. The ground here is very awkward to walk on, but you can keep your footing without too much trouble. 
 flags 0
-type 1
 room heath4
-contents 253,254,255,256,257,258,259
 owner 1
+type 1
+description You are scrambling over a rough heath, which rises out of a deep valley to the south and carries on to the north and northeast. East is the bottom of a large mountain, and west lie the foothills of an even greater peak. The ground here is very awkward to walk on, but you can keep your footing without too much trouble. 
 name Rough heath.
+contents 253,254,255,256,257,258,259
 <END>
 39
-name Inside the "Admiral Bombow" inn.
 flags 0
-type 1
-owner 1
 room inn
-contents 260,261,262,263,264
+owner 1
+type 1
 description You stand inside what used to be a cheery, hospitable tavern, which has now unfortunately fallen into a state of gross disrepair. All the windows have long since been smashed, and now only a howling wind whistles through where once there was warmth and light. 
+contents 260,261,262,263,264
+name Inside the "Admiral Bombow" inn.
 <END>
 40
+type 1
+name Small island.
+description You are stood on a small island in the middle of a fast-flowing river. The only exit is via a bridge to the west, which crosses the river into a dark, evil wood. The island itself, mysteriously enough, has no trees, but apart from that there is plenty of vegetation. 
 contents 265,266
+flags 0
 room island
 owner 1
-type 1
-flags 0
-description You are stood on a small island in the middle of a fast-flowing river. The only exit is via a bridge to the west, which crosses the river into a dark, evil wood. The island itself, mysteriously enough, has no trees, but apart from that there is plenty of vegetation. 
-name Small island.
 <END>
 41
-description You are strolling through a pleasant meadow on the west bank of a fast- flowing river. The river splits further to the south, and one branch meanders northwards to end up to the west of where you stand. North is a forest, and northwest a more cultivated section which seems to be an orchard. South, by the fork in the river, stands a gazebo. 
-flags 0
-type 1
-owner 1
-contents 267,268,269,270,271
-room meadow
 name Riverside meadow.
+description You are strolling through a pleasant meadow on the west bank of a fast- flowing river. The river splits further to the south, and one branch meanders northwards to end up to the west of where you stand. North is a forest, and northwest a more cultivated section which seems to be an orchard. South, by the fork in the river, stands a gazebo. 
+contents 267,268,269,270,271
+type 1
+room meadow
+owner 1
+flags 0
 <END>
 42
-description You are on the north face of a steep, yet climbable, mountain. Above you to the south the slopes rise into the clouds, and poking out through the top you espy the peak. The mountain continues at this level to the southeast and southwest, whereas northwards is heathland. 
-flags 0
-type 1
-contents 272,273,274,275,276
-room mmtn1
 owner 1
+room mmtn1
+flags 0
 name Middle mountain.
+contents 272,273,274,275,276
+description You are on the north face of a steep, yet climbable, mountain. Above you to the south the slopes rise into the clouds, and poking out through the top you espy the peak. The mountain continues at this level to the southeast and southwest, whereas northwards is heathland. 
+type 1
 <END>
 43
+owner 1
+room mmtn2
+flags 0
+contents 277,278,279,280,281,282,283,284
 name Middle mountain.
 description This is the west face of a steep mountain. The summit lies beyond a mantle of cloud which encircles the mountain just above you. Southwards and to the northeast the mountain continues at this level, but to the southwest it descends into a deep valley. North and west lie heaths, and beyond them the mighty slopes of another mountain. 
-room mmtn2
-contents 277,278,279,280,281,282,283,284
-owner 1
 type 1
-flags 0
 <END>
 44
-description You are clambering about the southwest face of the Middle mountain. Just above you, to the northeast, lie clouds hugging the slopes and obscuring the summit. The mountain continues at roughly your present altitude to the north and east, but to the west the gradient increases dramatically and plunges into a deep valley. Southwards is a badly-paved road running east to west, and beyond that to the southeast is another mountain thrusting above the clouds. 
-flags 0
-type 1
-contents 285,286,287,288,289,290,291,292
 room mmtn3
 owner 1
+flags 0
 name Middle mountain.
+description You are clambering about the southwest face of the Middle mountain. Just above you, to the northeast, lie clouds hugging the slopes and obscuring the summit. The mountain continues at roughly your present altitude to the north and east, but to the west the gradient increases dramatically and plunges into a deep valley. Southwards is a badly-paved road running east to west, and beyond that to the southeast is another mountain thrusting above the clouds. 
+contents 285,286,287,288,289,290,291,292
+type 1
 <END>
 45
-flags 0
-type 1
-owner 1
-room mmtn4
-contents 293,294,295,296,297,298,299
-description This is a steep, yet thankfully climbable, mountain. The present height above sea level is maintained to the west and northeast, but to the north the mountain rises into the clouds and beyond. To the east you can see a stable, and further still, a deep river. To the south is a badly- paved road running east-west, on the opposite side of which there is an inn. 
 name Middle mountain.
+description This is a steep, yet thankfully climbable, mountain. The present height above sea level is maintained to the west and northeast, but to the north the mountain rises into the clouds and beyond. To the east you can see a stable, and further still, a deep river. To the south is a badly- paved road running east-west, on the opposite side of which there is an inn. 
+contents 293,294,295,296,297,298,299
+type 1
+room mmtn4
+owner 1
+flags 0
 <END>
 46
+contents 300,301,302,303,304,305,306,307
 name Middle mountain.
 description You are now scaling the rugged east face of the middle mountain. Although steep, it is still possible to ascend (into the mists which drape the mountain beneath the peak) and descend (onto the banks of a river to the east). At the same altitude, the mountain continues to the northwest and southwest, and ceases to the south where is nestled a ramshackle old stable. 
 type 1
-flags 0
 owner 1
 room mmtn5
-contents 300,301,302,303,304,305,306,307
+flags 0
 <END>
 47
-name Misty part of middle mountain.
 flags 0
+owner 1
+room mmtn6
 type 1
 contents 308,309,310,311
-room mmtn6
-owner 1
+name Misty part of middle mountain.
 <END>
 48
-name Misty part of middle mountain.
-owner 1
 room mmtn7
-contents 312,313,314,315,316
-type 1
+owner 1
 flags 0
+contents 312,313,314,315,316
+name Misty part of middle mountain.
+type 1
 <END>
 49
-type 1
-flags 0
-owner 1
 room mmtn8
-contents 317,318,319,320,321
+owner 1
+flags 0
 name Misty part of middle mountain.
+contents 317,318,319,320,321
+type 1
 <END>
 50
-type 1
-flags 0
-owner 1
-contents 322,323,324,325,326,327,328
-room mmtn9
 name Misty part of middle mountain.
+contents 322,323,324,325,326,327,328
+type 1
+owner 1
+room mmtn9
+flags 0
 <END>
 51
-name Top of middle mountain.
-contents 329,330,331,332
-room mmtn10
-owner 1
-type 1
-flags 0
 description The marvellous panoramic view this spot affords is breath-taking in its splendour. Lower down the mountain, beyond the wreaths of cloud which circle this peak, are heaths to the north, beyond which is forest. To the east at the bottom can be seen a fast-flowing river, running from the north to diverge some way south, by a meadow. South, there is an old inn close by an east-west road, and southwest is another mountain. The scene is dominated, however, by a third mountain to the northwest, so immense that it dwarfs either of the other two. Its ancient slopes are shrouded in mist, with rugged cliffs running for hundreds of feet just below. 
+contents 329,330,331,332
+name Top of middle mountain.
+type 1
+owner 1
+room mmtn10
+flags 0
 <END>
 52
-flags 0
-type 1
 room nfrst1
-contents 333,334,335,336,337
 owner 1
+flags 0
 description You are wandering around in some dense forest. East, the forest continues, and to the south lie heathlands. West are the foothills of a majestic mountain, which towers high up above the clouds. Your progress north is blocked by an ornate wall, decorated in exotic, eastern patterns, which stops at the base of an enormous cliff at roughly the same spot the forest ends to the west. 
 name Dense forest.
+contents 333,334,335,336,337
+type 1
 <END>
 53
-description You find yourself stood in a section of dense forest, which continues to the west and southeast. Through the trees to the east can be seen the tower of what looks to be a belfry, and south is heath. Northwards is a strange, ornate wall, curiously enlivened by all manner of stylised eastern symbols. 
 owner 1
-contents 338,339,340,341,342,343,344
 room nfrst2
 flags 0
-type 1
 name Dense forest.
+description You find yourself stood in a section of dense forest, which continues to the west and southeast. Through the trees to the east can be seen the tower of what looks to be a belfry, and south is heath. Northwards is a strange, ornate wall, curiously enlivened by all manner of stylised eastern symbols. 
+contents 338,339,340,341,342,343,344
+type 1
 <END>
 54
+name Dense forest.
+contents 345,346,347,348,349,350,351
 description You are wandering around in some dense forest to the north of some sprawling heathlands. Eastwards is the bank of a fast-flowing river, and northwest the forest continues. To the north, however, through the trees, can be seen a clearing containing some sort of edifice. 
 type 1
-flags 0
-contents 345,346,347,348,349,350,351
-room nfrst3
 owner 1
-name Dense forest.
+room nfrst3
+flags 0
 <END>
 55
-name Foothills.
-description These are the rolling foothills of a majestic mountain which towers high above you some way to the north, beyond some higher foothills. South is an east-west road, across which can be seen yet more foothills of a slightly smaller mountain. East lies a deep valley, which rises up into a heath to the northeast of where you stand. West is a sturdy wall, too large to scale. 
-owner 1
-room nhill1
-contents 352,353,354,355,356,357
 flags 0
+room nhill1
+owner 1
 type 1
+contents 352,353,354,355,356,357
+description These are the rolling foothills of a majestic mountain which towers high above you some way to the north, beyond some higher foothills. South is an east-west road, across which can be seen yet more foothills of a slightly smaller mountain. East lies a deep valley, which rises up into a heath to the northeast of where you stand. West is a sturdy wall, too large to scale. 
+name Foothills.
 <END>
 56
-description You are stood amongst the foothills of a majestic mountain, which rises to the north. South and northeast are more foothills, and east lies a heath. Your movement west is prevented by a large wall, built to repel intruders such as yourself. 
 owner 1
-contents 358,359,360,361,362,363,364
 room nhill2
 flags 0
-type 1
 name Foothills.
+description You are stood amongst the foothills of a majestic mountain, which rises to the north. South and northeast are more foothills, and east lies a heath. Your movement west is prevented by a large wall, built to repel intruders such as yourself. 
+contents 358,359,360,361,362,363,364
+type 1
 <END>
 57
+description You are clambering about the foothills of a majestic mountain which climbs above the clouds to the north. Unfortunately, there is a towering cliff there, too large to ascend, but part of the mountain, to the west, is accessible. Southwest lie further foothills, and southeast is all heath. Northeast is a forest. 
+contents 365,366,367,368,369,370
 name Foothills.
 type 1
-flags 0
-contents 365,366,367,368,369,370
-room nhill3
 owner 1
-description You are clambering about the foothills of a majestic mountain which climbs above the clouds to the north. Unfortunately, there is a towering cliff there, too large to ascend, but part of the mountain, to the west, is accessible. Southwest lie further foothills, and southeast is all heath. Northeast is a forest. 
+room nhill3
+flags 0
 <END>
 58
-name Forested part of north mountain.
-type 1
 flags 0
-room nmtn1
-contents 371,372,373,374,375,376
 owner 1
+room nmtn1
+type 1
+name Forested part of north mountain.
 description You are stood in amongst some trees which cloak the lower slopes of a majestic mountain, rising to the north above the timber-line. West, the forest becomes too dense for you to proceed, and south is a wall, also blocking your way. All other directions, the mountain continues, although southeast is only foothills. 
+contents 371,372,373,374,375,376
 <END>
 59
-description You are scaling the lower slopes of a majestic mountain. Its peak lies high above the clouds far to the north, although progress that way is only limited due to an interposing cliff which stands out boldly after some more climbable slopes. South are foothills. 
-type 1
 flags 0
 room nmtn2
-contents 377,378,379,380,381
 owner 1
+type 1
+description You are scaling the lower slopes of a majestic mountain. Its peak lies high above the clouds far to the north, although progress that way is only limited due to an interposing cliff which stands out boldly after some more climbable slopes. South are foothills. 
 name North mountain.
+contents 377,378,379,380,381
 <END>
 60
-name North mountain.
-type 1
-flags 0
 owner 1
 room nmtn3
+flags 0
 contents 382,383,384,385,386
 description You are standing in the lower slopes of a majestic mountain, which rises to the north and descends to the east and south into foothills. 
+name North mountain.
+type 1
 <END>
 61
-description You are scrambling up the slopes of a majestic mountain which spears through the clouds far to the north, above a steep cliff. East lie foothills, and there are lower slopes to the south. The sheer immensity of the mountain takes your breath away. 
-type 1
-flags 0
-contents 387,388,389,390
 room nmtn4
 owner 1
+flags 0
 name North mountain.
+contents 387,388,389,390
+description You are scrambling up the slopes of a majestic mountain which spears through the clouds far to the north, above a steep cliff. East lie foothills, and there are lower slopes to the south. The sheer immensity of the mountain takes your breath away. 
+type 1
 <END>
 62
-name North mountain.
-owner 1
-contents 391,392,393,394,395,396
 room nmtn5
-type 1
+owner 1
 flags 0
 description You are stood in the lower slopes of a majestic mountain beside a huge cliff to the north, which towers high above you. So rugged is the cliff that you cannot climb it, only gasp at the geological wonder of it all. The mountain slopes downwards to the south, and continues at the same level to the west. 
+name North mountain.
+contents 391,392,393,394,395,396
+type 1
 <END>
 63
 owner 1
 room nmtn6
+flags 0
+name North mountain.
+description You are in the corner of a horseshoe-shaped cliff, which curves round from the north to the west, blocking your way. All around you in other directions lie the slopes leading up to the cliff, which towers high above you, ending just below the clouds. 
 contents 397,398,399,400
 type 1
-flags 0
-description You are in the corner of a horseshoe-shaped cliff, which curves round from the north to the west, blocking your way. All around you in other directions lie the slopes leading up to the cliff, which towers high above you, ending just below the clouds. 
-name North mountain.
 <END>
 64
-contents 401,402,403,404,405
-room nmtn7
-owner 1
-flags 0
-type 1
-description You are ascending the lower slopes of a majestic mountain, which forces its way through the clouds further to the north, above a rugged cliff beyond where the slopes end. The cliff curves round, and blocks your immediate passage to the west, although in other directions the comparatively gentle slopes lead down to the foothills. 
 name North mountain.
+description You are ascending the lower slopes of a majestic mountain, which forces its way through the clouds further to the north, above a rugged cliff beyond where the slopes end. The cliff curves round, and blocks your immediate passage to the west, although in other directions the comparatively gentle slopes lead down to the foothills. 
+contents 401,402,403,404,405
+type 1
+owner 1
+room nmtn7
+flags 0
 <END>
 65
-description You are climbing the slopes of a majestic mountain, which continue to rise awesomely in the northern and western directions, and descend less spectacularly to the south and east. 
-room nmtn8
-contents 406,407,408,409,410,411,412
-owner 1
 flags 0
+room nmtn8
+owner 1
 type 1
 name North mountain.
+contents 406,407,408,409,410,411,412
+description You are climbing the slopes of a majestic mountain, which continue to rise awesomely in the northern and western directions, and descend less spectacularly to the south and east. 
 <END>
 66
-flags 0
 type 1
-owner 1
-contents 413,414,415,416,417,418,419,420
-room npstre
-description You are treading over the soft grass of a gorgeous pasture. To the north is a river, which continues to the northeast and flows beneath a mountain to the northwest. East, west and south, the pasture continues, yet to the southeast it becomes much rougher and more desolate. To the southwest lies forest. 
 name North pasture.
+description You are treading over the soft grass of a gorgeous pasture. To the north is a river, which continues to the northeast and flows beneath a mountain to the northwest. East, west and south, the pasture continues, yet to the southeast it becomes much rougher and more desolate. To the southwest lies forest. 
+contents 413,414,415,416,417,418,419,420
+flags 0
+room npstre
+owner 1
 <END>
 67
-name Ancient orchard.
-description You stand among the aged trees of an orchard. Most of them are apple trees, but there is the occasional pear tree to add character. None bear fruit or leaves, however, which makes the scene unnaturally desolate. East and west from here are normal forests, and southeast is a sweet meadow. South and southwest is a river, and north is a yard, beyond which is an inn. 
-owner 1
-room orchrd
 contents 421,422,423,424,425,426,427
+description You stand among the aged trees of an orchard. Most of them are apple trees, but there is the occasional pear tree to add character. None bear fruit or leaves, however, which makes the scene unnaturally desolate. East and west from here are normal forests, and southeast is a sweet meadow. South and southwest is a river, and north is a yard, beyond which is an inn. 
+name Ancient orchard.
 type 1
+room orchrd
+owner 1
 flags 0
 <END>
 68
+type 1
+contents 428,429,430,431,432,433,434
 name Pine forest.
 description You are pushing your way through the pine needles in a dense forest. Eastwards, the make-up of the forest changes to normal, deciduous trees. Northeast is a pasture, and north can be smelled a fuming swamp. In all other directions the pines get thicker, and you probably won't be able to get through. 
 flags 0
-type 1
 room pines1
-contents 428,429,430,431,432,433,434
 owner 1
 <END>
 69
-name You have left The Land.
-type 1
-flags 10485760
 owner 1
-contents 435
 room river1
+flags 10485760
+name You have left The Land.
+contents 435
+type 1
 <END>
 70
-name Fast-flowing river.
-description You are wading through a fast-flowing, yet shallow, river, which originates from a fork in a much faster river to the southeast, and continues to the northwest. North is an orchard, which by the northeast has become a normal forest. East is a meadow, south of which is a gazebo. To the west lies a lush pasture, but southwest it is rough and desolate. 
-type 1
+owner 1
+room river2
 flags 0
 contents 436,437,438,439,440,441,442,443
-room river2
-owner 1
+description You are wading through a fast-flowing, yet shallow, river, which originates from a fork in a much faster river to the southeast, and continues to the northwest. North is an orchard, which by the northeast has become a normal forest. East is a meadow, south of which is a gazebo. To the west lies a lush pasture, but southwest it is rough and desolate. 
+name Fast-flowing river.
+type 1
 <END>
 71
-name Fast-flowing river.
-contents 444,445,446,447,448,449,450
-room river3
 owner 1
-type 1
+room river3
 flags 0
 description This is a river flowing from the southeast to the west. On the south bank lie exclusively pastures, and on the north, forest. The forest directly to the north seems to be an orchard of some kind, and through the trees there can be seen a building. 
+contents 444,445,446,447,448,449,450
+name Fast-flowing river.
+type 1
 <END>
 72
-flags 0
-type 1
-contents 451,452,453,454,455,456,457
-room river4
-owner 1
-description You are stood by a river, flowing from the east to the west, where it disappears under a mountain. Foothills of the mountain are to the northwest, covered in forest which extends to the north of your current position, and become an orchard to the northeast. In all southerly directions are pastures of soft, deep-green grass. 
 name Fast-flowing river.
+description You are stood by a river, flowing from the east to the west, where it disappears under a mountain. Foothills of the mountain are to the northwest, covered in forest which extends to the north of your current position, and become an orchard to the northeast. In all southerly directions are pastures of soft, deep-green grass. 
+contents 451,452,453,454,455,456,457
+type 1
+owner 1
+room river4
+flags 0
 <END>
 73
-description You are stood on a badly-paved road between a mountain, to the north, and a wayside inn, to the south. East, the road fords a fast-flowing river, and west it continues. To the northeast is a ramshackle old building, and southeast there seems to be a well of some kind. 
 type 1
-flags 0
-owner 1
-room road1
-contents 458,459,460,461,462,463,464,465
 name Badly-paved road.
+contents 458,459,460,461,462,463,464,465
+description You are stood on a badly-paved road between a mountain, to the north, and a wayside inn, to the south. East, the road fords a fast-flowing river, and west it continues. To the northeast is a ramshackle old building, and southeast there seems to be a well of some kind. 
+flags 0
+room road1
+owner 1
 <END>
 74
+type 1
+description You find yourself on a badly-paved road, which continues to the east and west. North and northeast are the lower regions of a mountain, which rises up beyond the clouds. Southeast is a yard, belonging to an inn which can be seen just beyond it. South is a briar patch, and southwest the foothills of a more impressive mountain. Northwest is a deep valley, whose western slopes rise up to the foothills of a mountain more majestic still. The view is quite breathtaking. 
 name Badly-paved road.
 contents 466,467,468,469,470,471,472,473
+flags 0
 room road2
 owner 1
-type 1
-flags 0
-description You find yourself on a badly-paved road, which continues to the east and west. North and northeast are the lower regions of a mountain, which rises up beyond the clouds. Southeast is a yard, belonging to an inn which can be seen just beyond it. South is a briar patch, and southwest the foothills of a more impressive mountain. Northwest is a deep valley, whose western slopes rise up to the foothills of a mountain more majestic still. The view is quite breathtaking. 
 <END>
 75
-contents 474,475,476,477,478,479,480,481
-room road3
 owner 1
-type 1
+room road3
 flags 0
-description You are walking along a badly-paved east-west road. From here can be seen three mountains: one to the northeast; one to the south and south- west; and one to the northwest, which is the largest. To the north, between two of the mountains, lies a deep valley. The only other nearby feature is a briar patch to the southeast. 
+contents 474,475,476,477,478,479,480,481
 name Badly-paved road.
+description You are walking along a badly-paved east-west road. From here can be seen three mountains: one to the northeast; one to the south and south- west; and one to the northwest, which is the largest. To the north, between two of the mountains, lies a deep valley. The only other nearby feature is a briar patch to the southeast. 
+type 1
 <END>
 76
-name Badly-paved road.
-flags 0
-type 1
-room road4
-contents 482,483,484,485,486,487,488
-owner 1
 description You are stood on a badly-paved road, which runs from the east to stop at a large wall constructed to the west. There is a narrow gap in this blockage, but it is so tight that if you wanted to go that way you'd have to drop everything to get through. North and south are the foot- hills of a pair of majestic mountains, and northeast is a deep valley. 
+name Badly-paved road.
+contents 482,483,484,485,486,487,488
+type 1
+owner 1
+room road4
+flags 0
 <END>
 77
+type 1
+contents 489,490,491,492,493,494,495,496
 name Rough pasture.
 description You are stood in a bleak, rough pasture. This seems to be due to the presence of an evil wood to the east and south, for north and west are more pastures which seem to be far greener and lusher than here. South- west is a forest, and northeast there seems to be a fast-flowing river. 
-room rough
-contents 489,490,491,492,493,494,495,496
-owner 1
 flags 0
-type 1
+owner 1
+room rough
 <END>
 78
-description You are standing in a dense forest. It continues to the southeast at a passable level, but south it is too thick to allow movement through. Westwards it becomes a pine forest. North, northeast and east are pastures, and northwest lies a festering, fuming swamp. 
 flags 0
-type 1
 room sfrst1
-contents 497,498,499,500,501,502,503,504,505,506
 owner 1
+type 1
 name Dense forest.
+contents 497,498,499,500,501,502,503,504,505,506
+description You are standing in a dense forest. It continues to the southeast at a passable level, but south it is too thick to allow movement through. Westwards it becomes a pine forest. North, northeast and east are pastures, and northwest lies a festering, fuming swamp. 
 <END>
 79
-name Dense forest.
-description This is a forest, to the south of a pasture. The trees continue in most directions, but only to the northwest are they thinly spread enough to enable your walking through. Northwest is another pasture, but rougher than the first. 
-owner 1
-contents 507,508,509,510
-room sfrst2
 type 1
+contents 507,508,509,510
+description This is a forest, to the south of a pasture. The trees continue in most directions, but only to the northwest are they thinly spread enough to enable your walking through. Northwest is another pasture, but rougher than the first. 
+name Dense forest.
 flags 0
+owner 1
+room sfrst2
 <END>
 80
+type 1
+contents 511,512,513,514,515,516,517
 name Foothills.
 description You are stood in among the foothills of a majestic mountain to the south. North is a narrow road which runs east-west, and everywhere else is more mountain. Your progress to the west is impeded by a strong wall, built to keep out trespassers. 
-owner 1
-room shill1
-contents 511,512,513,514,515,516,517
 flags 0
-type 1
+room shill1
+owner 1
 <END>
 81
-name Foothills.
-type 1
-flags 0
-owner 1
-room shill2
 contents 518,519,520,521,522,523,524,525,526
 description You are standing in the foothills of a tall mountain, which rises away to the southwest. North is a badly-paved road, which runs east-west, and east is a briar patch. There are more foothills to the west, and to the south are forested slopes of the mountain. 
+name Foothills.
+type 1
+owner 1
+room shill2
+flags 0
 <END>
 82
-type 1
 flags 0
-room smtn1
-contents 527,528,529,530,531,532,533,534,535,536,537
 owner 1
-description You are clambering around the slopes of a tall mountain, which rises up to the northeast into the clouds. North and east the mountain is at the same level as here, and to the southeast it slops down into a gentle pasture. Southwest is a swamp, fuming with marsh-gases, and west is the top of a tall cliff, which looks very dangerous... 
+room smtn1
+type 1
 name South mountain.
+contents 527,528,529,530,531,532,533,534,535,536,537
+description You are clambering around the slopes of a tall mountain, which rises up to the northeast into the clouds. North and east the mountain is at the same level as here, and to the southeast it slops down into a gentle pasture. Southwest is a swamp, fuming with marsh-gases, and west is the top of a tall cliff, which looks very dangerous... 
 <END>
 83
-name South mountain.
-owner 1
-contents 538,539,540,541,542,543,544,545
-room smtn2
-type 1
-flags 0
 description This is a steep climb at the base of a tall mountain. Further heights are to the west and northeast at this level (the latter area covered in forest), and north and northwest where the clouds hug the slopes. The mountain lowers slowly in the southerly directions to become pastures. East, a river flows and disappears under the mountain beneath where you now stand. 
+contents 538,539,540,541,542,543,544,545
+name South mountain.
+type 1
+owner 1
+room smtn2
+flags 0
 <END>
 84
-description Your are stood amongst the trees in the forested slopes of the south mountain. There is more forest to the east, and the mountain ascends to the west, its peak hidden from view by the clouds near the top. North are foothills, and northeast a briar patch. Southeast flows a river. 
-owner 1
-contents 546,547,548,549,550,551,552,553
-room smtn3
-type 1
-flags 0
 name Forested part of south mountain.
+contents 546,547,548,549,550,551,552,553
+description Your are stood amongst the trees in the forested slopes of the south mountain. There is more forest to the east, and the mountain ascends to the west, its peak hidden from view by the clouds near the top. North are foothills, and northeast a briar patch. Southeast flows a river. 
+type 1
+owner 1
+room smtn3
+flags 0
 <END>
 85
+type 1
+contents 554,555,556,557,558,559
 name Misty part of south mountain.
 flags 0
-type 1
-room smtn4
-contents 554,555,556,557,558,559
 owner 1
+room smtn4
 <END>
 86
-room smtn5
 contents 560,561,562,563,564
-owner 1
-type 1
-flags 0
 name Misty part of south mountain.
+type 1
+owner 1
+room smtn5
+flags 0
 <END>
 87
-name Misty part of south mountain.
-type 1
 flags 0
 owner 1
-contents 565,566,567,568,569,570
 room smtn6
+type 1
+name Misty part of south mountain.
+contents 565,566,567,568,569,570
 <END>
 88
-name South mountain.
-type 1
 flags 0
-room smtn7
-contents 571,572,573,574
 owner 1
+room smtn7
+type 1
+name South mountain.
 description You are on a steep slope to the west of a tall mountain. The mountain continues in all directions, although to the east you can see nothing for the clouds, and to the west there is a large wall in the way. 
+contents 571,572,573,574
 <END>
 89
-type 1
-flags 0
-contents 575,576,577,578,579,580
 room smtn8
 owner 1
+flags 0
 name Misty part of south mountain.
+contents 575,576,577,578,579,580
+type 1
 <END>
 90
-name Top of south mountain
+contents 581,582,583,584
 description You are standing at the very peak of the south mountain. A glorious view is to be beheld all around. To the northeast is a mountain, on the opposite side of a road from some building. To the north is a third mountain much larger than either of the other two, and far more majestic. South lie pastures, and southeast is an evil-looking wood, hard up against the side of a river, in which can be seen a small island. West, over a wall just visible through the clouds, is a stange, anachronistic world, centred around a house. 
-flags 0
+name Top of south mountain
 type 1
 owner 1
-contents 581,582,583,584
 room smtn9
+flags 0
 <END>
 91
+owner 1
+room spstre
+flags 0
+contents 585,586,587,588,589,590
 name South pasture.
 description This is a pleasant pasture, which spreads far away in all the northerly directions; eastwards, it becomes rougher. There is forest everywhere else. 
-flags 0
 type 1
-room spstre
-contents 585,586,587,588,589,590
-owner 1
 <END>
 92
-name You are waylaid in a fuming swamp.
-dmove 95
-owner 1
-contents 591,592,593,594,595,596,597
-room swamp1
 flags 79691776
+owner 1
+dmove 95
+room swamp1
 type 1
+contents 591,592,593,594,595,596,597
+name You are waylaid in a fuming swamp.
 <END>
 93
-name Stable.
-flags 1
 type 1
-owner 1
-contents 598,599,600,601,602,603,604
-room stable
 description This ramshackle old stone building is what is left of a once proud stable. It has sadly fallen into disrepair, due to the constant battering of the elements, nestled as it is to the southeast of a towering mountain. To the east is a river bank, the river running north-south and forded to the southeast of where you now stand. To the southwest, running west from the ford, is a badly-paved road, beside which is an inn, the patrons of which stabled their horses here before The Land became what it is today. 
+name Stable.
+contents 598,599,600,601,602,603,604
+flags 1
+owner 1
+room stable
 <END>
 94
-name Ford across river.
-description You are stood on a ford across a fast-flowing river. To the west is a badly-paved road, which carries on into the distance. Northwest is a ramshackle old building, and southwest is some sort of well. South lies a forest, and north is the west bank of the river you now cross. The east bank leads away, out of The Land. 
-type 1
-flags 0
-room start
-contents 605,606,607,608,609,610,1
 owner 1
+room start
+flags 0
+description You are stood on a ford across a fast-flowing river. To the west is a badly-paved road, which carries on into the distance. Northwest is a ramshackle old building, and southwest is some sort of well. South lies a forest, and north is the west bank of the river you now cross. The east bank leads away, out of The Land. 
+contents 605,606,607,608,609,610
+name Ford across river.
+type 1
 <END>
 95
-flags 6291456
 type 1
+name Bottom of swamp.
+description If you can read this, you used magic! 
 contents 611
+flags 6291456
 room uswamp
 owner 1
-description If you can read this, you used magic! 
-name Bottom of swamp.
 <END>
 96
+room valley
+owner 1
+flags 0
+name Valley between mountains.
+contents 612,613,614,615,616,617,618,619
 description This is a beautiful and awesome sight. You are stood in a deep valley, carved between two tall mountains, to the west and east, eons ago. The steep slopes are barely climbable, and abound in curious fauna and strange, half-shadowed creatures. South, outside the valley, is an east-west road, and north is heathland. This place is very eerie. 
 type 1
-flags 0
-owner 1
-room valley
-contents 612,613,614,615,616,617,618,619
-name Valley between mountains.
 <END>
 97
 owner 1
 room wayout
-contents 620
 flags 67108864
-type 1
 name You force yourself through the narrow gap...
+contents 620
+type 1
 <END>
 98
-flags 0
 type 1
-owner 1
-contents 621,622,623,624,625
-room wellrm
-description You stand beside what used to be a well, but which on closer inspection seems to be blocked off now. West is an inn, for which the well was probably originally constructed, although some way to the east can be heard running water. North is an east-west road, and southwest an orchard of mainly apple trees. Southeast is dense forest. 
 name Well near inn.
+description You stand beside what used to be a well, but which on closer inspection seems to be blocked off now. West is an inn, for which the well was probably originally constructed, although some way to the east can be heard running water. North is an east-west road, and southwest an orchard of mainly apple trees. Southeast is dense forest. 
+contents 621,622,623,624,625
+flags 0
+room wellrm
+owner 1
 <END>
 99
-name Dense forest.
-room wfrst1
-contents 626,627,628,629,630,631,632
 owner 1
+room wfrst1
 flags 0
-type 1
 description This is dense forest, at the bottom of a majestic mountain to the west. The trees continue up the mountain, and there is an orchard to the east. North is a briar patch, and south is an east-west flowing river. To the Northeast is a yard adjacent to an old inn. 
+contents 626,627,628,629,630,631,632
+name Dense forest.
+type 1
 <END>
 100
+contents 633,634,635,636,637,638,639,640,641,642
 name West pasture.
 description This is a pasture which sprawls at the feet of a majestic mountain to the north. The pasture continues to the east and southeast, but south and southwest are forests. West, the pasture ends beside a fuming swamp. 
+type 1
 owner 1
 room wpstre
-contents 633,634,635,636,637,638,639,640,641,642
-type 1
 flags 0
 <END>
 101
+contents 643,644,645,646,647,648
 name Side yard of inn.
 description This is a narrow yard at the western side of an inn. North is a badly- paved raod, and west a briar patch. Southeast, the yard becomes the back yard of the inn. 
+type 1
 owner 1
-contents 643,644,645,646,647,648
 room yard1
 flags 0
-type 1
 <END>
 102
 type 1
-flags 0
+name Back yard of inn.
+description This is a wide yard to the south of an old tavern, and continues to the side of it to the northwest. South is an orchard, and southwest is a forest. To the east there seems to be a well, near the inn. 
 contents 649,650,651,652,653,654
+flags 0
 room yard2
 owner 1
-description This is a wide yard to the south of an old tavern, and continues to the side of it to the northwest. South is an orchard, and southwest is a forest. To the east there seems to be a well, near the inn. 
-name Back yard of inn.
 <END>
 103
-type 3
-location 7
 owner 1
-home 7
+location 7
 name in
 action 8
+type 3
+home 7
 <END>
 104
-owner 1
-type 3
-location 7
+name o|ne|n|e
 home 7
-name ne|n|o|e
+type 3
 action 94
+owner 1
+location 7
 <END>
 105
-action 92
-name swamp
-home 7
-location 7
 type 3
+action 92
+home 7
+name swamp
+location 7
 owner 1
 <END>
 106
-owner 1
-type 3
 location 8
+owner 1
+home 8
+type 3
 action 76
 name n;ne;e;se;s;sw;w;nw;in;o;swamp;jump;u;d
-home 8
 <END>
 107
-name o
-action 9
-home 9
-location 9
-type 3
 owner 1
 condition door
+location 9
+name o
+type 3
+action 9
+home 9
 <END>
 108
-owner 1
-type 3
-location 10
-action 10
 name n
 home 10
+action 10
+type 3
+owner 1
+location 10
 <END>
 109
+action 12
 type 3
-location 11
-owner 1
 home 11
 name nw;n;ne;u
-action 12
-<END>
-110
-home 11
-name e
-action -3
-success The river is flowing too fast for you to be able to cross.
-type 3
 location 11
 owner 1
+<END>
+110
+owner 1
+location 11
+success The river is flowing too fast for you to be able to cross.
+name e
+home 11
+type 3
+action -3
 <END>
 111
 location 11
-type 3
 owner 1
 action 94
-name se;s;sw;swamp;o;d
+type 3
 home 11
+name se;s;sw;swamp;o;d
 <END>
 112
 location 11
-type 3
 owner 1
-name w;in
-action 93
 home 11
+type 3
+action 93
+name w;in
 <END>
 113
+location 12
+owner 1
+action 13
+type 3
 home 12
 name n;ne;u
-action 13
-owner 1
-location 12
-type 3
 <END>
 114
+home 12
+type 3
 action -3
 name e
-home 12
-owner 1
-type 3
 location 12
 success The river is flowing too fast for you to be able to cross.
+owner 1
 <END>
 115
-owner 1
-type 3
-location 12
-name se;s;swamp;o;d
 action 11
+type 3
 home 12
+name se;s;swamp;o;d
+location 12
+owner 1
 <END>
 116
 owner 1
 location 12
+name sw;in
+action 93
 type 3
 home 12
-action 93
-name sw;in
 <END>
 117
-name w;nw
-action 46
-home 12
 owner 1
 location 12
+name w;nw
+home 12
 type 3
+action 46
 <END>
 118
-location 13
-type 3
-owner 1
 action 14
-name n;ne;u
+type 3
 home 13
+name n;ne;u
+location 13
+owner 1
 <END>
 119
+type 3
+action -3
 home 13
 name e
-action -3
 success The river is flowing too fast for you to be able to cross.
 location 13
-type 3
 owner 1
 <END>
 120
-home 13
-name se;s;swamp;o;d
-action 12
 owner 1
-type 3
 location 13
+name se;s;swamp;o;d
+type 3
+action 12
+home 13
 <END>
 121
+home 13
+action 46
 type 3
+name sw;w;nw
 location 13
 owner 1
-action 46
-name sw;w;nw
-home 13
 <END>
 122
-type 3
-location 14
-owner 1
-home 14
 name n;ne;u
+home 14
+type 3
 action 15
+owner 1
+location 14
 <END>
 123
+owner 1
+location 14
+success The river is flowing too fast for you to be able to cross.
+name e
 home 14
 action -3
-name e
-success The river is flowing too fast for you to be able to cross.
 type 3
-location 14
-owner 1
 <END>
 124
-location 14
-type 3
-owner 1
-action 13
 name se;s;o;d
 home 14
+action 13
+type 3
+owner 1
+location 14
 <END>
 125
 home 14
 action 46
-name sw;swamp
-owner 1
-location 14
 type 3
+name sw;swamp
+location 14
+owner 1
 <END>
 126
+location 14
 owner 1
 type 3
-location 14
 action 35
-name w
 home 14
+name w
 <END>
 127
+home 14
+type 3
 action 54
 name nw
-home 14
-owner 1
 location 14
-type 3
+owner 1
 <END>
 128
-success Your way is blocked by the ornate wall.
-type 3
 location 15
+success Your way is blocked by the ornate wall.
 owner 1
 home 15
 action -3
+type 3
 name nw;n
 <END>
 129
 name ne;e;u
-action -3
 home 15
 type 3
-location 15
+action -3
 owner 1
+location 15
 success The river is flowing too fast for you to be able to cross.
 <END>
 130
 location 15
-type 3
 owner 1
+home 15
+type 3
 action 14
 name se;s;swamp;o;d
-home 15
 <END>
 131
 name sw
-action 54
 home 15
-owner 1
 type 3
+action 54
+owner 1
 location 15
 <END>
 132
-name w
+type 3
 action -3
 home 15
-owner 1
-location 15
-type 3
+name w
 success You cannot move that way for the tall hedge.
+location 15
+owner 1
 <END>
 133
-owner 1
-type 3
-location 16
 success Your way is blocked by the ornate wall.
-name n;ne
+location 16
+owner 1
 action -3
+type 3
 home 16
+name n;ne
 <END>
 134
-location 16
-type 3
 owner 1
 success You cannot move that way for the tall hedge.
-action -3
+location 16
 name e;se
+type 3
+action -3
 home 16
 <END>
 135
+home 16
+action 54
 type 3
+name s;sw;swamp;o;d
 location 16
 owner 1
-home 16
-name s;sw;swamp;o;d
-action 54
 <END>
 136
 home 16
 action 53
-name w;nw
-owner 1
 type 3
+name w;nw
 location 16
+owner 1
 <END>
 137
+owner 1
+location 17
 name n
+type 3
 action 74
 home 17
-owner 1
-type 3
-location 17
 <END>
 138
-home 17
-action 73
-name ne;o
 owner 1
 location 17
+name ne;o
+action 73
 type 3
+home 17
 <END>
 139
 home 17
-name e
-action 101
-owner 1
 type 3
+action 101
+name e
 location 17
+owner 1
 <END>
 140
 type 3
-location 17
-owner 1
+action 102
 home 17
 name se
-action 102
+location 17
+owner 1
 <END>
 141
-type 3
-location 17
 owner 1
-home 17
+location 17
 name s
 action 99
+type 3
+home 17
 <END>
 142
+action 84
 type 3
+home 17
+name sw;swamp;u
 location 17
 owner 1
-action 84
-name sw;swamp;u
-home 17
 <END>
 143
-name w
-action 81
 home 17
 type 3
+action 81
+name w
 location 17
 owner 1
 <END>
 144
-home 17
-action 75
 name nw
-owner 1
+home 17
 type 3
+action 75
+owner 1
 location 17
 <END>
 145
-home 18
-action -3
-name n;ne;se;s;sw;nw;u;d
+location 18
 success The river is flowing too fast for you to be able to cross.
 owner 1
+home 18
+action -3
 type 3
-location 18
+name n;ne;se;s;sw;nw;u;d
 <END>
 146
-type 3
-location 18
-owner 1
 name e
-action 40
 home 18
+type 3
+action 40
+owner 1
+location 18
 <END>
 147
-type 3
-location 18
-owner 1
-action 31
 name w;swamp;o
+action 31
+type 3
 home 18
+owner 1
+location 18
 <END>
 148
-type 3
 location 19
 owner 1
 home 19
 action 20
+type 3
 name n
 <END>
 149
-action 21
-name n
-home 20
-type 3
-location 20
 owner 1
+location 20
+name n
+type 3
+action 21
+home 20
 <END>
 150
-owner 1
-type 3
 location 21
-name n
-action 19
+owner 1
 home 21
+type 3
+action 19
+name n
 <END>
 151
-name n;ne;o;u
-action 94
-home 22
-type 3
 location 22
 owner 1
+home 22
+type 3
+action 94
+name n;ne;o;u
 <END>
 152
+name e
+action -3
 type 3
-location 22
+home 22
 owner 1
 success The river is flowing too fast for you to be able to cross.
-action -3
-name e
-home 22
+location 22
 <END>
 153
 location 22
-type 3
 owner 1
 home 22
-name se;s;d
+type 3
 action 41
+name se;s;d
 <END>
 154
-location 22
-type 3
 owner 1
-home 22
+location 22
 name sw;swamp
+home 22
 action 70
+type 3
 <END>
 155
-location 22
-type 3
-owner 1
-home 22
-action 67
 name w;in
+home 22
+type 3
+action 67
+owner 1
+location 22
 <END>
 156
 home 22
-name nw
 action 98
-owner 1
-location 22
 type 3
+name nw
+location 22
+owner 1
 <END>
 157
-owner 1
 type 3
-location 23
-home 23
 action 71
+home 23
 name n;ne
+location 23
+owner 1
 <END>
 158
-home 23
+owner 1
+location 23
 name e;o
 action 70
 type 3
-location 23
-owner 1
+home 23
 <END>
 159
-name se;s
 action 77
-home 23
-location 23
 type 3
+home 23
+name se;s
+location 23
 owner 1
 <END>
 160
+location 23
+owner 1
 home 23
+type 3
 action 91
 name sw
-owner 1
-location 23
-type 3
 <END>
 161
-home 23
-action 66
 name w;swamp
+action 66
+type 3
+home 23
 owner 1
 location 23
-type 3
 <END>
 162
-location 23
-type 3
 owner 1
-home 23
-action 72
+location 23
 name nw
+type 3
+action 72
+home 23
 <END>
 163
 owner 1
 condition serpent
-type 3
 location 24
-action -3
 name n;ne;o;u;w;nw;swamp
+type 3
+action -3
 home 24
 <END>
 164
 location 24
-type 3
-owner 1
 condition bats
+owner 1
+action -3
+type 3
 home 24
 name n;ne;o;u;w;nw;swamp
-action -3
 <END>
 165
-name n;ne;o;u;w;nw;swamp
-action -3
-home 24
-owner 1
-condition undead
 location 24
+condition undead
+owner 1
+home 24
+action -3
 type 3
+name n;ne;o;u;w;nw;swamp
 <END>
 166
-type 3
-location 24
 owner 1
-action 70
+location 24
 name n;ne;o;u
 home 24
+action 70
+type 3
 <END>
 167
+owner 1
+success The river is flowing too fast for you to be able to cross.
+location 24
 name e;d
+type 3
 action -3
 home 24
-owner 1
-type 3
-location 24
-success The river is flowing too fast for you to be able to cross.
 <END>
 168
+name se
+home 24
+action 25|32|31
+type 3
 owner 1
 location 24
-type 3
-name se
-action 32|25|31
-home 24
 <END>
 169
-home 24
-action 32
-name s
-location 24
-type 3
 owner 1
+location 24
+name s
+type 3
+action 32
+home 24
 <END>
 170
-type 3
-location 24
 owner 1
-home 24
+location 24
 name sw
+type 3
 action 25
+home 24
 <END>
 171
-home 24
-name w;nw;swamp
-action 77
-type 3
 location 24
 owner 1
+action 77
+type 3
+home 24
+name w;nw;swamp
 <END>
 172
-location 25
-type 3
 condition serpent
+location 25
 owner 1
-name w;nw;n;swamp
-action -3
 home 25
+type 3
+action -3
+name w;nw;n;swamp
 <END>
 173
-condition bats
-owner 1
-type 3
-location 25
-name w;nw;n;swamp
-action -3
 home 25
+action -3
+type 3
+name w;nw;n;swamp
+condition bats
+location 25
+owner 1
 <END>
 174
-location 25
+name w;nw;n;swamp
 type 3
+action -3
+home 25
 owner 1
 condition undead
-action -3
-name w;nw;n;swamp
-home 25
+location 25
 <END>
 175
-home 25
-name w;nw;n;swamp
-action 77
 owner 1
 location 25
+name w;nw;n;swamp
+action 77
 type 3
+home 25
 <END>
 176
+type 3
+action 32|24|33
 home 25
 name ne;o
-action 32|33|24
-type 3
 location 25
 owner 1
 <END>
 177
-name e
-action 32
-home 25
 owner 1
 location 25
+name e
+home 25
 type 3
+action 32
 <END>
 178
-name se
-action 33
-home 25
 owner 1
-type 3
 location 25
+name se
+home 25
+action 33
+type 3
 <END>
 179
-owner 1
-location 25
 type 3
+action 27
 home 25
 name s
-action 27
+location 25
+owner 1
 <END>
 180
-home 25
-name sw
-action 26
-location 25
-type 3
 owner 1
+location 25
+name sw
+type 3
+action 26
+home 25
 <END>
 181
-name nw;n;swamp;o
-action -3
-home 26
 condition serpent
-owner 1
-type 3
 location 26
+owner 1
+action -3
+type 3
+home 26
+name nw;n;swamp;o
 <END>
 182
-action -3
-name nw;n;swamp;o
-home 26
-owner 1
 condition bats
-type 3
 location 26
+owner 1
+home 26
+action -3
+type 3
+name nw;n;swamp;o
 <END>
 183
-location 26
-type 3
 condition undead
+location 26
 owner 1
 home 26
 action -3
+type 3
 name nw;n;swamp;o
 <END>
 184
 name nw;n;swamp;o
+type 3
 action 77
 home 26
-type 3
-location 26
 owner 1
+location 26
 <END>
 185
-type 3
-location 26
-owner 1
-home 26
 name ne;e
 action 25
+type 3
+home 26
+owner 1
+location 26
 <END>
 186
+type 3
+action 27
 home 26
 name se
-action 27
 location 26
-type 3
 owner 1
 <END>
 187
-success The forest becomes too dense to move in that direction.
-owner 1
-location 26
+name s;sw;w
+action -3
 type 3
 home 26
-action -3
-name s;sw;w
+owner 1
+success The forest becomes too dense to move in that direction.
+location 26
 <END>
 188
-action 25
-name n
-home 27
 location 27
-type 3
 owner 1
+type 3
+action 25
+home 27
+name n
 <END>
 189
 owner 1
 location 27
-type 3
 name ne;o
+type 3
 action 32
 home 27
 <END>
 190
-action 33
+owner 1
+location 27
 name e
 home 27
 type 3
-location 27
-owner 1
+action 33
 <END>
 191
-name se
-action 30
-home 27
 location 27
-type 3
 owner 1
+home 27
+action 30
+type 3
+name se
 <END>
 192
+name s;sw
+action -3
 type 3
-location 27
+home 27
 owner 1
 success The forest becomes too dense to move in that direction.
-action -3
-name s;sw
-home 27
+location 27
 <END>
 193
-name w;nw;swamp
-action 26
-home 27
-type 3
 location 27
 owner 1
+action 26
+type 3
+home 27
+name w;nw;swamp
 <END>
 194
-home 28
-action 30
-name n;o
 owner 1
 location 28
+name n;o
 type 3
+action 30
+home 28
 <END>
 195
-type 3
-location 28
 owner 1
+location 28
+name ne;e;se
 home 28
 action 29
-name ne;e;se
+type 3
 <END>
 196
-home 28
-action -3
-name s;sw;w
-success The forest becomes too dense to move in that direction.
 owner 1
+success The forest becomes too dense to move in that direction.
 location 28
+name s;sw;w
 type 3
+action -3
+home 28
 <END>
 197
-type 3
 location 28
 owner 1
-home 28
 action 27
+type 3
+home 28
 name nw;swamp
 <END>
 198
-location 29
-type 3
 owner 1
-home 29
-action 31
+location 29
 name n;o;u
+type 3
+action 31
+home 29
 <END>
 199
-action -3
-name ne;e;se;d
-home 29
 owner 1
-type 3
 location 29
 success The river is flowing too fast for you to be able to cross.
+name ne;e;se;d
+home 29
+action -3
+type 3
 <END>
 200
-action -3
-name s
 home 29
-owner 1
-location 29
+action -3
 type 3
+name s
+location 29
 success The forest becomes too dense to move in that direction.
+owner 1
 <END>
 201
-home 29
-name sw
-action 28
 owner 1
-type 3
 location 29
+name sw
+home 29
+action 28
+type 3
 <END>
 202
-owner 1
-type 3
 location 29
+owner 1
+home 29
+type 3
 action 30
 name w
-home 29
 <END>
 203
-action 33
-name nw;swamp
-home 29
 owner 1
 location 29
+name nw;swamp
+home 29
+action 33
 type 3
 <END>
 204
-owner 1
-location 30
 type 3
-home 30
 action 33
+home 30
 name n
+location 30
+owner 1
 <END>
 205
-owner 1
-location 30
 type 3
-home 30
 action 31
+home 30
 name ne;o
+location 30
+owner 1
 <END>
 206
 owner 1
-type 3
 location 30
 name e;se
 action 29
+type 3
 home 30
 <END>
 207
-action 28
-name s
-home 30
-type 3
-location 30
 owner 1
+location 30
+name s
+type 3
+action 28
+home 30
 <END>
 208
 owner 1
 location 30
-type 3
 success The forest becomes too dense to move in that direction.
 name sw
-action -3
 home 30
+action -3
+type 3
 <END>
 209
-home 30
-action 27
 name w;nw;swamp
-owner 1
+home 30
 type 3
+action 27
+owner 1
 location 30
 <END>
 210
-action -3
-name e
-home 31
-owner 1
 condition serpent
 location 31
+owner 1
+home 31
+action -3
 type 3
+name e
 <END>
 211
-action -3
-name e
-home 31
-type 3
 location 31
 condition bats
 owner 1
+home 31
+action -3
+type 3
+name e
 <END>
 212
-location 31
+name e
+home 31
+action -3
 type 3
 owner 1
 condition undead
-home 31
-action -3
-name e
+location 31
 <END>
 213
-success The river is flowing too fast for you to be able to cross.
-type 3
-location 31
 owner 1
-home 31
-action -3
+success The river is flowing too fast for you to be able to cross.
+location 31
 name ne;se;u
+action -3
+type 3
+home 31
 <END>
 214
+location 31
+owner 1
+home 31
+type 3
 action 18
 name e
-home 31
-location 31
-type 3
-owner 1
 <END>
 215
-location 31
+action 29
 type 3
-owner 1
 home 31
 name s;d
-action 29
+location 31
+owner 1
 <END>
 216
-type 3
 location 31
 owner 1
+action 33
+type 3
 home 31
 name sw
-action 33
 <END>
 217
-home 31
-action 32
 name w
+action 32
 type 3
-location 31
+home 31
 owner 1
+location 31
 <END>
 218
-action 24
 name nw;swamp;o
 home 31
+action 24
 type 3
-location 31
 owner 1
+location 31
 <END>
 219
-action 24|27
-name n;ne;o
-home 32
+location 32
 owner 1
 type 3
-location 32
+action 24|27
+home 32
+name n;ne;o
 <END>
 220
 name e;se
-action 31
 home 32
-owner 1
+action 31
 type 3
+owner 1
 location 32
 <END>
 221
-name s
-action 33
-home 32
-type 3
-location 32
 owner 1
+location 32
+name s
+home 32
+action 33
+type 3
 <END>
 222
 owner 1
 location 32
-type 3
-home 32
 name sw
+home 32
 action 27
+type 3
 <END>
 223
-action 25
-name w;nw;swamp
-home 32
 owner 1
-type 3
 location 32
+name w;nw;swamp
+type 3
+action 25
+home 32
 <END>
 224
-action 32
 name n;o
 home 33
-location 33
+action 32
 type 3
 owner 1
+location 33
 <END>
 225
-home 33
-action 30|27|29|31
-name ne;e
 type 3
+action 31|27|29|30
+home 33
+name ne;e
 location 33
 owner 1
 <END>
 226
-owner 1
-type 3
-location 33
-home 33
-action 29
 name se
+home 33
+type 3
+action 29
+owner 1
+location 33
 <END>
 227
-owner 1
-type 3
-location 33
-action 30
 name s
 home 33
+action 30
+type 3
+owner 1
+location 33
 <END>
 228
-owner 1
-location 33
+action 27
 type 3
 home 33
-action 27
 name sw;w
+location 33
+owner 1
 <END>
 229
-owner 1
-type 3
-location 33
 home 33
 action 25
+type 3
 name nw;swamp
+location 33
+owner 1
 <END>
 230
+location 34
+owner 1
+home 34
+type 3
 action 41
 name n;ne;o;u
-home 34
-type 3
-location 34
-owner 1
 <END>
 231
-action -3
-name e;se;s;sw;d
-home 34
-location 34
-type 3
 owner 1
 success The river is flowing too fast for you to be able to cross.
+location 34
+name e;se;s;sw;d
+action -3
+type 3
+home 34
 <END>
 232
 location 34
-type 3
 owner 1
 home 34
 action 70
+type 3
 name w;nw;swamp
 <END>
 233
+home 35
+action 54
 type 3
+name n
 location 35
 owner 1
-home 35
-name n
-action 54
 <END>
 234
-type 3
-location 35
 owner 1
+location 35
 name ne;e
-action 14
 home 35
+type 3
+action 14
 <END>
 235
-owner 1
-type 3
-location 35
 name se;swamp;o
-action 46
 home 35
+type 3
+action 46
+owner 1
+location 35
 <END>
 236
-name s;sw;u
+location 35
+owner 1
+type 3
 action 42
 home 35
-owner 1
-type 3
-location 35
+name s;sw;u
 <END>
 237
-action 36
-name w;nw
 home 35
-owner 1
-location 35
+action 36
 type 3
+name w;nw
+location 35
+owner 1
 <END>
 238
+location 36
 owner 1
 type 3
-location 36
-home 36
 action 53
+home 36
 name n
 <END>
 239
-owner 1
 location 36
+owner 1
 type 3
+action 54
 home 36
 name ne
-action 54
 <END>
 240
-home 36
-action 35
-name e
 owner 1
 location 36
+name e
+home 36
 type 3
+action 35
 <END>
 241
 name se
-action 42
 home 36
+action 42
 type 3
-location 36
 owner 1
+location 36
 <END>
 242
-action 43
 name s;o
 home 36
+action 43
+type 3
 owner 1
 location 36
-type 3
 <END>
 243
+owner 1
+location 36
+name sw;swamp;u
 home 36
 action 38
-name sw;swamp;u
-location 36
 type 3
-owner 1
 <END>
 244
-home 36
 action 37
+type 3
+home 36
 name w
 location 36
-type 3
 owner 1
 <END>
 245
-type 3
 location 36
 owner 1
 home 36
+type 3
 action 52
 name nw
 <END>
 246
+location 37
+owner 1
+home 37
+type 3
 action 52
 name n
-home 37
-location 37
-type 3
-owner 1
 <END>
 247
-owner 1
-location 37
+home 37
+action 53
 type 3
 name ne
-action 53
-home 37
+location 37
+owner 1
 <END>
 248
-action 36
-name e
 home 37
 type 3
+action 36
+name e
 location 37
 owner 1
 <END>
 249
-home 37
-name se;u
-action 43
 owner 1
-type 3
 location 37
+name se;u
+home 37
+type 3
+action 43
 <END>
 250
-home 37
-action 38
-name s;swamp;o
-location 37
-type 3
 owner 1
+location 37
+name s;swamp;o
+action 38
+type 3
+home 37
 <END>
 251
-location 37
-type 3
 owner 1
-action 56
+location 37
 name sw
+action 56
+type 3
 home 37
 <END>
 252
 owner 1
 location 37
-type 3
-home 37
 name w;nw
+home 37
 action 57
+type 3
 <END>
 253
-owner 1
-type 3
-location 38
 name n
-action 37
 home 38
+action 37
+type 3
+owner 1
+location 38
 <END>
 254
-owner 1
 location 38
-type 3
+owner 1
 home 38
+type 3
 action 36
 name ne
 <END>
 255
-home 38
-action 43
-name e;u
 location 38
-type 3
 owner 1
+action 43
+type 3
+home 38
+name e;u
 <END>
 256
-owner 1
 location 38
+owner 1
 type 3
+action 44
 home 38
 name se;o
-action 44
 <END>
 257
 home 38
-name s;swamp;d
 action 96
 type 3
+name s;swamp;d
 location 38
 owner 1
 <END>
 258
 home 38
 action 55
-name sw
-owner 1
 type 3
+name sw
 location 38
+owner 1
 <END>
 259
-name w;nw
 action 56
-home 38
 type 3
+home 38
+name w;nw
 location 38
 owner 1
 <END>
 260
-action 73
-name nw;n
-home 39
-owner 1
-type 3
 location 39
+owner 1
+home 39
+action 73
+type 3
+name nw;n
 <END>
 261
 location 39
-type 3
 owner 1
+type 3
 action 94
-name ne;o
 home 39
+name ne;o
 <END>
 262
-home 39
-name e;se
 action 98
 type 3
+home 39
+name e;se
 location 39
 owner 1
 <END>
 263
+location 39
 owner 1
 type 3
-location 39
-name s;sw;swamp
 action 102
 home 39
+name s;sw;swamp
 <END>
 264
-owner 1
-type 3
-location 39
 home 39
 action 101
+type 3
 name w
+location 39
+owner 1
 <END>
 265
 success The river is flowing too fast for you to be able to cross.
 location 40
-type 3
 owner 1
-home 40
 action -3
+type 3
+home 40
 name nw;n;ne;e;se;s;sw;u;d
 <END>
 266
-name w;swamp;o
-action 18
-home 40
 location 40
-type 3
 owner 1
+home 40
+action 18
+type 3
+name w;swamp;o
 <END>
 267
+owner 1
+location 41
 name n;ne;o;u
 action 22
-home 41
-owner 1
-location 41
 type 3
+home 41
 <END>
 268
-home 41
-name e
-action -3
-success The river is flowing too fast for you to be able to cross.
 location 41
-type 3
+success The river is flowing too fast for you to be able to cross.
 owner 1
+home 41
+type 3
+action -3
+name e
 <END>
 269
-action 34
-name se;s;in;d
 home 41
-owner 1
+action 34
 type 3
+name se;s;in;d
 location 41
+owner 1
 <END>
 270
-action 70
+owner 1
+location 41
 name sw;w;swamp
 home 41
-location 41
+action 70
 type 3
-owner 1
 <END>
 271
-home 41
-action 67
-name nw
-location 41
-type 3
 owner 1
+location 41
+name nw
+action 67
+type 3
+home 41
 <END>
 272
-home 42
-action 35
-name n;ne;d
-owner 1
-type 3
 location 42
+owner 1
+action 35
+type 3
+home 42
+name n;ne;d
 <END>
 273
-action 46
-name e;se;o
-home 42
 location 42
-type 3
 owner 1
+home 42
+action 46
+type 3
+name e;se;o
 <END>
 274
-home 42
+owner 1
+location 42
 name s;u
 action 48
 type 3
-location 42
-owner 1
+home 42
 <END>
 275
+owner 1
+location 42
 name sw;swamp
+type 3
 action 43
 home 42
-type 3
-location 42
-owner 1
 <END>
 276
-owner 1
 location 42
+owner 1
+home 42
 type 3
 action 36
 name w;nw
-home 42
 <END>
 277
-home 43
-action 36
 name n
 type 3
-location 43
+action 36
+home 43
 owner 1
+location 43
 <END>
 278
-action 42
 name ne
-home 43
-location 43
 type 3
+action 42
+home 43
 owner 1
+location 43
 <END>
 279
-home 43
-action 48
-name e
 owner 1
 location 43
+name e
+home 43
 type 3
+action 48
 <END>
 280
 owner 1
 location 43
+name se;u
 type 3
 action 49
-name se;u
 home 43
 <END>
 281
-home 43
-action 44
-name s;o
-type 3
-location 43
 owner 1
+location 43
+name s;o
+action 44
+type 3
+home 43
 <END>
 282
-location 43
 type 3
-owner 1
+action 96
 home 43
 name sw;swamp;in;d
-action 96
+location 43
+owner 1
 <END>
 283
-home 43
-name w
-action 38
 owner 1
-type 3
 location 43
+name w
+type 3
+action 38
+home 43
 <END>
 284
-type 3
-location 43
 owner 1
-action 37
+location 43
 name nw
 home 43
+type 3
+action 37
 <END>
 285
 owner 1
 location 44
-type 3
-home 44
 name n
 action 43
+type 3
+home 44
 <END>
 286
-action 50
 name ne;u
+action 50
+type 3
 home 44
 owner 1
-type 3
 location 44
 <END>
 287
+home 44
+type 3
 action 45
 name e
-home 44
-owner 1
 location 44
-type 3
+owner 1
 <END>
 288
 name se;o
-action 73
 home 44
-owner 1
+action 73
 type 3
+owner 1
 location 44
 <END>
 289
-home 44
-name s
-action 74
 location 44
-type 3
 owner 1
+home 44
+action 74
+type 3
+name s
 <END>
 290
-type 3
-location 44
 owner 1
-action 75
+location 44
 name sw;swamp
+type 3
+action 75
 home 44
 <END>
 291
-location 44
-type 3
 owner 1
-action 96
+location 44
 name w;in;d
+action 96
+type 3
 home 44
 <END>
 292
-type 3
-location 44
-owner 1
 home 44
+type 3
 action 38
 name nw
+location 44
+owner 1
 <END>
 293
+owner 1
+location 45
 name n;u
 action 50
-home 45
-owner 1
 type 3
-location 45
+home 45
 <END>
 294
-home 45
 name ne
 action 46
 type 3
-location 45
+home 45
 owner 1
+location 45
 <END>
 295
-owner 1
-type 3
 location 45
+owner 1
 home 45
-name e;se;in
+type 3
 action 93
+name e;se;in
 <END>
 296
-name s;o;d
-action 73
 home 45
 type 3
+action 73
+name s;o;d
 location 45
 owner 1
 <END>
 297
-owner 1
-location 45
 type 3
-name sw;swamp
 action 74
 home 45
+name sw;swamp
+location 45
+owner 1
 <END>
 298
-name w
+location 45
+owner 1
+type 3
 action 44
 home 45
-type 3
-location 45
-owner 1
+name w
 <END>
 299
+name nw
+home 45
+type 3
+action 49
 owner 1
 location 45
-type 3
-name nw
-action 49
-home 45
 <END>
 300
-owner 1
-type 3
-location 46
-home 46
 name n
+home 46
 action 35
+type 3
+owner 1
+location 46
 <END>
 301
-action 14
-name ne
-home 46
-type 3
 location 46
 owner 1
+type 3
+action 14
+home 46
+name ne
 <END>
 302
+action 13
 type 3
+home 46
+name e;d
 location 46
 owner 1
-home 46
-action 13
-name e;d
 <END>
 303
-type 3
-location 46
-owner 1
 name se
+type 3
 action 12
 home 46
+owner 1
+location 46
 <END>
 304
+location 46
+owner 1
 home 46
 action 93
-name s;o;in
 type 3
-location 46
-owner 1
+name s;o;in
 <END>
 305
-home 46
-action 45
 name sw;swamp
+action 45
+type 3
+home 46
 owner 1
 location 46
-type 3
 <END>
 306
-action 47
-name w;u
 home 46
-location 46
+action 47
 type 3
+name w;u
+location 46
 owner 1
 <END>
 307
-type 3
 location 46
 owner 1
-action 42
-name nw
 home 46
+action 42
+type 3
+name nw
 <END>
 308
+owner 1
+location 47
+name nw;n
 home 47
 action 42
-name nw;n
-location 47
 type 3
-owner 1
 <END>
 309
-owner 1
 location 47
+owner 1
 type 3
-home 47
 action 46
+home 47
 name ne;e;se;o;d
 <END>
 310
-home 47
-action 50
-name s;sw;swamp
+location 47
 owner 1
 type 3
-location 47
+action 50
+home 47
+name s;sw;swamp
 <END>
 311
-owner 1
-type 3
-location 47
 home 47
+type 3
 action 48
 name w;u
+location 47
+owner 1
 <END>
 312
 name nw;n;ne;d
 action 42
-home 48
 type 3
-location 48
+home 48
 owner 1
+location 48
 <END>
 313
 home 48
-name e
 action 47
-owner 1
-location 48
 type 3
+name e
+location 48
+owner 1
 <END>
 314
-home 48
-action 51
-name se;s;u
-owner 1
 type 3
+action 51
+home 48
+name se;s;u
 location 48
+owner 1
 <END>
 315
-home 48
 action 49
-name sw;swamp;o
 type 3
+home 48
+name sw;swamp;o
 location 48
 owner 1
 <END>
 316
 name w
+type 3
 action 43
 home 48
-location 48
-type 3
 owner 1
+location 48
 <END>
 317
-name n;ne
-action 48
-home 49
-location 49
-type 3
 owner 1
+location 49
+name n;ne
+home 49
+action 48
+type 3
 <END>
 318
+location 49
+owner 1
+type 3
+action 51
 home 49
 name e;u
-action 51
-owner 1
-location 49
-type 3
 <END>
 319
+action 45
 type 3
-location 49
-owner 1
 home 49
 name se;o
-action 45
-<END>
-320
-type 3
 location 49
 owner 1
-name s;sw;swamp
-action 44
-home 49
 <END>
-321
-name w;nw;d
-action 43
+320
 home 49
 type 3
+action 44
+name s;sw;swamp
+location 49
+owner 1
+<END>
+321
+home 49
+type 3
+action 43
+name w;nw;d
 location 49
 owner 1
 <END>
 322
-action 51
 name n;u
 home 50
-location 50
 type 3
+action 51
 owner 1
+location 50
 <END>
 323
-name ne
-action 47
 home 50
+action 47
 type 3
+name ne
 location 50
 owner 1
 <END>
 324
-name e
+location 50
+owner 1
+type 3
 action 46
 home 50
-type 3
-location 50
-owner 1
+name e
 <END>
 325
+owner 1
+location 50
+name se;o;in;d
 home 50
 action 93
-name se;o;in;d
 type 3
-location 50
-owner 1
 <END>
 326
-home 50
 name s
+home 50
 action 45
-owner 1
 type 3
+owner 1
 location 50
 <END>
 327
+owner 1
+location 50
 name sw;swamp
 action 44
-home 50
-owner 1
-location 50
 type 3
+home 50
 <END>
 328
+action 49
 type 3
+home 50
+name w;nw
 location 50
 owner 1
-action 49
-name w;nw
-home 50
 <END>
 329
 home 51
-name nw;n;d
 action 48
 type 3
+name nw;n;d
 location 51
 owner 1
 <END>
 330
-home 51
-name ne;e
-action 47
 owner 1
 location 51
+name ne;e
 type 3
+action 47
+home 51
 <END>
 331
-type 3
-location 51
 owner 1
-action 50
+location 51
 name se;s;swamp;o
+action 50
+type 3
 home 51
 <END>
 332
-location 51
-type 3
-owner 1
-home 51
 action 49
+type 3
+home 51
 name sw;w
+location 51
+owner 1
 <END>
 333
-location 52
-type 3
 owner 1
+location 52
 success Your way is blocked by the ornate wall.
 name n
-action -3
 home 52
+action -3
+type 3
 <END>
 334
 owner 1
-type 3
 location 52
 name ne;e
 action 53
+type 3
 home 52
 <END>
 335
-name se;o
-action 36
-home 52
-type 3
-location 52
 owner 1
+location 52
+name se;o
+home 52
+action 36
+type 3
 <END>
 336
-owner 1
-type 3
-location 52
 home 52
-name s;swamp
 action 37
+type 3
+name s;swamp
+location 52
+owner 1
 <END>
 337
-action 57
-name sw;w;nw;u
-home 52
 location 52
-type 3
 owner 1
+home 52
+action 57
+type 3
+name sw;w;nw;u
 <END>
 338
-action -3
 name s;o;sw;swamp;w;nw
 home 53
-condition bats
-owner 1
 type 3
+action -3
+owner 1
 location 53
+condition bats
 <END>
 339
-action -3
-name n
-home 53
 location 53
-type 3
-owner 1
 success Your way is blocked by the ornate wall.
+owner 1
+home 53
+action -3
+type 3
+name n
 <END>
 340
-location 53
+action 16
 type 3
-owner 1
 home 53
 name ne;e;in
-action 16
+location 53
+owner 1
 <END>
 341
 name se
-action 54
 home 53
+type 3
+action 54
 owner 1
 location 53
-type 3
 <END>
 342
-type 3
-location 53
 owner 1
-action 36
+location 53
 name s;o
 home 53
+type 3
+action 36
 <END>
 343
-name sw;swamp
-action 37
-home 53
-owner 1
-type 3
 location 53
+owner 1
+home 53
+type 3
+action 37
+name sw;swamp
 <END>
 344
-type 3
 location 53
 owner 1
+action 52
+type 3
 home 53
 name w;nw
-action 52
 <END>
 345
-condition bats
-owner 1
-type 3
-location 54
-home 54
 name ne;e;se;o;s;sw;w;swamp
 action -3
-<END>
-346
-owner 1
-location 54
 type 3
 home 54
+owner 1
+condition bats
+location 54
+<END>
+346
+location 54
+owner 1
+home 54
 action 16
+type 3
 name n;in
 <END>
 347
-name ne;e
-action 15
-home 54
 location 54
-type 3
 owner 1
+home 54
+action 15
+type 3
+name ne;e
 <END>
 348
 home 54
-name se;o
 action 14
-location 54
 type 3
+name se;o
+location 54
 owner 1
 <END>
 349
-action 35
 name s
-home 54
-location 54
 type 3
+action 35
+home 54
 owner 1
+location 54
 <END>
 350
+owner 1
+location 54
+name sw;w;swamp
 home 54
 action 36
-name sw;w;swamp
-owner 1
 type 3
-location 54
 <END>
 351
+name nw
+action 53
+type 3
+home 54
 owner 1
 location 54
-type 3
-action 53
-name nw
-home 54
 <END>
 352
-action 56
-name nw;n;u
-home 55
-owner 1
 location 55
+owner 1
+action 56
 type 3
+home 55
+name nw;n;u
 <END>
 353
-owner 1
-type 3
-location 55
 home 55
-name ne
+type 3
 action 38
+name ne
+location 55
+owner 1
 <END>
 354
-owner 1
-type 3
-location 55
-name e;in;d
-action 96
 home 55
+action 96
+type 3
+name e;in;d
+location 55
+owner 1
 <END>
 355
-name se;o
-action 75
-home 55
-location 55
-type 3
 owner 1
+location 55
+name se;o
+home 55
+action 75
+type 3
 <END>
 356
 owner 1
-type 3
 location 55
-home 55
-action 76
 name s;sw;swamp
+type 3
+action 76
+home 55
 <END>
 357
-success The wall is too high to climb.
 owner 1
-type 3
+success The wall is too high to climb.
 location 55
-home 55
 name w
 action -3
+type 3
+home 55
 <END>
 358
-home 56
-name n;u
 action 59
 type 3
+home 56
+name n;u
 location 56
 owner 1
 <END>
 359
 owner 1
-type 3
 location 56
-action 57
 name ne
+action 57
+type 3
 home 56
 <END>
 360
-name e
-action 38
-home 56
-location 56
-type 3
 owner 1
+location 56
+name e
+home 56
+action 38
+type 3
 <END>
 361
-action 96
-name se;o;in;d
-home 56
 owner 1
 location 56
+name se;o;in;d
 type 3
+action 96
+home 56
 <END>
 362
-owner 1
-type 3
-location 56
-name s;sw;swamp
-action 55
 home 56
+action 55
+type 3
+name s;sw;swamp
+location 56
+owner 1
 <END>
 363
-location 56
-type 3
 owner 1
 success The wall is too high to climb.
-action -3
+location 56
 name w
+type 3
+action -3
 home 56
 <END>
 364
-name nw
+type 3
 action 58
 home 56
-owner 1
-type 3
+name nw
 location 56
+owner 1
 <END>
 365
-owner 1
+home 57
+action -3
 type 3
+name n;u
 location 57
 success The mountain is too steep to ascend in that direction.
-name n;u
-action -3
-home 57
+owner 1
 <END>
 366
-owner 1
-type 3
-location 57
 home 57
 action 52
+type 3
 name ne
+location 57
+owner 1
 <END>
 367
-name e;se;d
-action 37
-home 57
-location 57
-type 3
 owner 1
+location 57
+name e;se;d
+home 57
+type 3
+action 37
 <END>
 368
-action 56
-name s;sw;swamp;o
-home 57
+location 57
 owner 1
 type 3
-location 57
+action 56
+home 57
+name s;sw;swamp;o
 <END>
 369
+home 57
+action 61
 type 3
+name w
 location 57
 owner 1
-name w
-action 61
-home 57
 <END>
 370
-action 62
 name nw
+action 62
+type 3
 home 57
 owner 1
 location 57
-type 3
 <END>
 371
-owner 1
-type 3
-location 58
 home 58
+type 3
 action 64
 name nw;n
+location 58
+owner 1
 <END>
 372
-home 58
-action 65
-name ne;u
 owner 1
 location 58
+name ne;u
 type 3
+action 65
+home 58
 <END>
 373
-home 58
 name e
+type 3
 action 59
+home 58
 owner 1
 location 58
-type 3
 <END>
 374
-type 3
-location 58
-owner 1
 name se;swamp;o;d
-action 56
 home 58
+action 56
+type 3
+owner 1
+location 58
 <END>
 375
-owner 1
-location 58
-type 3
-success The wall is too high to climb.
-name s;sw
 action -3
+type 3
 home 58
+name s;sw
+success The wall is too high to climb.
+location 58
+owner 1
 <END>
 376
-name w
-action -3
 home 58
-location 58
+action -3
 type 3
-owner 1
+name w
+location 58
 success The forest becomes too dense to move in that direction.
+owner 1
 <END>
 377
-owner 1
 location 59
-type 3
+owner 1
 home 59
 action 65
+type 3
 name n;u
 <END>
 378
-location 59
-type 3
-owner 1
 home 59
 action 60
-name ne;e
-<END>
-379
-name se;s;sw;swamp;o;d
-action 56
-home 59
 type 3
+name ne;e
 location 59
 owner 1
+<END>
+379
+owner 1
+location 59
+name se;s;sw;swamp;o;d
+home 59
+action 56
+type 3
 <END>
 380
 home 59
 action 58
-name w
 type 3
+name w
 location 59
 owner 1
 <END>
 381
-home 59
-action 64
-name nw
 owner 1
 location 59
+name nw
+home 59
 type 3
+action 64
 <END>
 382
-type 3
 location 60
 owner 1
-name n
-action 61
 home 60
+action 61
+type 3
+name n
 <END>
 383
+location 60
+owner 1
+action 57
+type 3
 home 60
 name ne;e;d
-action 57
-location 60
-type 3
-owner 1
 <END>
 384
-action 56
-name se;s;swamp;o
-home 60
 type 3
+action 56
+home 60
+name se;s;swamp;o
 location 60
 owner 1
 <END>
 385
 owner 1
-type 3
 location 60
-home 60
-action 59
 name sw;w
+action 59
+type 3
+home 60
 <END>
 386
-action 65
-name nw;u
 home 60
-location 60
+action 65
 type 3
+name nw;u
+location 60
 owner 1
 <END>
 387
 name nw;n;u
-action 62
 home 61
 type 3
-location 61
+action 62
 owner 1
+location 61
 <END>
 388
-owner 1
-location 61
+action 57
 type 3
 home 61
 name ne;e;se;o;d
-action 57
+location 61
+owner 1
 <END>
 389
-action 59
-name s;sw;swamp
-home 61
-owner 1
-type 3
 location 61
+owner 1
+action 59
+type 3
+home 61
+name s;sw;swamp
 <END>
 390
-location 61
-type 3
 owner 1
-action 65
+location 61
 name w
+action 65
+type 3
 home 61
 <END>
 391
-type 3
-location 62
-owner 1
-success The mountain is too steep to ascend in that direction.
-action -3
 name n;ne;u
 home 62
+action -3
+type 3
+owner 1
+location 62
+success The mountain is too steep to ascend in that direction.
 <END>
 392
-location 62
-type 3
 owner 1
+location 62
 name e;o;d
-action 57
 home 62
+type 3
+action 57
 <END>
 393
+home 62
 type 3
+action 61
+name se
 location 62
 owner 1
-name se
-action 61
-home 62
 <END>
 394
 home 62
 action 65
-name s;swamp
 type 3
+name s;swamp
 location 62
 owner 1
 <END>
 395
+location 62
+owner 1
+action 64
+type 3
 home 62
 name sw
-action 64
-owner 1
-type 3
-location 62
 <END>
 396
-owner 1
-location 62
-type 3
 home 62
-name w;nw
+type 3
 action 63
+name w;nw
+location 62
+owner 1
 <END>
 397
-action -3
-name w;nw;n;u
-home 63
 location 63
-type 3
-owner 1
 success The mountain is too steep to ascend in that direction.
+owner 1
+home 63
+action -3
+type 3
+name w;nw;n;u
 <END>
 398
-owner 1
+action 62
 type 3
-location 63
 home 63
 name ne;e
-action 62
+location 63
+owner 1
 <END>
 399
 type 3
+action 65
+home 63
+name se;o;d
 location 63
 owner 1
-home 63
-action 65
-name se;o;d
 <END>
 400
 owner 1
 location 63
-type 3
-action 64
 name s;sw;swamp
 home 63
+type 3
+action 64
 <END>
 401
-owner 1
 location 64
-type 3
-name nw;n;u
-action 63
+owner 1
 home 64
+type 3
+action 63
+name nw;n;u
 <END>
 402
-name ne
-action 62
 home 64
-owner 1
-location 64
+action 62
 type 3
+name ne
+location 64
+owner 1
 <END>
 403
-home 64
-action 65
 name e
+action 65
+type 3
+home 64
 owner 1
 location 64
-type 3
 <END>
 404
 owner 1
-type 3
 location 64
 name se;o;d
 action 59
+type 3
 home 64
 <END>
 405
-name s;sw;swamp
-action 58
-home 64
-owner 1
 location 64
+owner 1
+home 64
 type 3
+action 58
+name s;sw;swamp
 <END>
 406
 owner 1
-type 3
 location 65
-home 65
 name n;ne
 action 62
+type 3
+home 65
 <END>
 407
+action 61
+type 3
 home 65
 name e
-action 61
 location 65
-type 3
 owner 1
 <END>
 408
-owner 1
 location 65
-type 3
-name se;o
+owner 1
 action 60
+type 3
 home 65
+name se;o
 <END>
 409
-location 65
-type 3
 owner 1
-home 65
-action 59
+location 65
 name s;swamp;d
+action 59
+type 3
+home 65
 <END>
 410
-type 3
-location 65
 owner 1
-action 58
+location 65
 name sw
+action 58
+type 3
 home 65
 <END>
 411
-owner 1
 location 65
-type 3
+owner 1
 home 65
-name w
 action 64
+type 3
+name w
 <END>
 412
-owner 1
-type 3
-location 65
 name nw;u
+type 3
 action 63
 home 65
+owner 1
+location 65
 <END>
 413
-home 66
-action 72
+owner 1
+location 66
 name n
 type 3
-location 66
-owner 1
+action 72
+home 66
 <END>
 414
+action 71
+type 3
 home 66
 name ne;o
-action 71
-owner 1
 location 66
-type 3
+owner 1
 <END>
 415
-home 66
+owner 1
+location 66
 name e
 action 23
-owner 1
-location 66
 type 3
+home 66
 <END>
 416
-home 66
-action 77
+owner 1
+location 66
 name se
 type 3
-location 66
-owner 1
+action 77
+home 66
 <END>
 417
 home 66
-name s
 action 91
-owner 1
-location 66
 type 3
+name s
+location 66
+owner 1
 <END>
 418
 owner 1
 location 66
-type 3
-home 66
 name sw
 action 78
+type 3
+home 66
 <END>
 419
 owner 1
-type 3
 location 66
-action 100
 name w;swamp
 home 66
+type 3
+action 100
 <END>
 420
-action 83
-name nw;u
-home 66
 owner 1
 location 66
+name nw;u
+action 83
 type 3
+home 66
 <END>
 421
-location 67
-type 3
-owner 1
-action 102
-name nw;n
 home 67
+action 102
+type 3
+name nw;n
+location 67
+owner 1
 <END>
 422
-type 3
-location 67
 owner 1
-action 98
+location 67
 name ne;o
+type 3
+action 98
 home 67
 <END>
 423
+owner 1
+location 67
 name e
 action 22
-home 67
 type 3
-location 67
-owner 1
+home 67
 <END>
 424
-owner 1
-type 3
-location 67
 home 67
 action 41
+type 3
 name se
+location 67
+owner 1
 <END>
 425
 name s;swamp
 action 71
+type 3
 home 67
 owner 1
-type 3
 location 67
 <END>
 426
-owner 1
-type 3
 location 67
-name sw
+owner 1
 action 72
+type 3
 home 67
+name sw
 <END>
 427
-home 67
-action 99
 name w
+home 67
+type 3
+action 99
 owner 1
 location 67
-type 3
 <END>
 428
-type 3
+owner 1
 location 68
 condition torch
-owner 1
-home 68
 name nw;n;swamp;in
+type 3
 action 21
+home 68
 <END>
 429
-type 3
 location 68
 condition lucifer
 owner 1
 home 68
+type 3
 action 21
 name nw;n;swamp;in
 <END>
 430
+condition spark
+location 68
+owner 1
 home 68
+type 3
 action 21
 name nw;n;swamp;in
-type 3
-location 68
-owner 1
-condition spark
 <END>
 431
-owner 1
-location 68
-type 3
-name nw;n;swamp;in
 action 92
+type 3
 home 68
+name nw;n;swamp;in
+location 68
+owner 1
 <END>
 432
-home 68
-name ne;o
-action 100
 owner 1
-type 3
 location 68
+name ne;o
+home 68
+action 100
+type 3
 <END>
 433
 type 3
-location 68
-owner 1
-name e;se
 action 78
 home 68
-<END>
-434
-name s;sw;w
-action -3
-home 68
-type 3
+name e;se
 location 68
 owner 1
+<END>
+434
+owner 1
 success The pines are too thick for you to go that way.
+location 68
+name s;sw;w
+action -3
+type 3
+home 68
 <END>
 435
-action 94
-name w;swamp
-home 69
 type 3
-location 69
+action 94
+home 69
+name w;swamp
 condition e
+location 69
 owner 1
 <END>
 436
-home 70
-action 67
 name nw;n;in
-location 70
+home 70
 type 3
+action 67
 owner 1
+location 70
 <END>
 437
+location 70
 owner 1
 type 3
-location 70
+action 22
 home 70
 name ne;o
-action 22
 <END>
 438
 name e
-action 41
 home 70
-owner 1
+action 41
 type 3
+owner 1
 location 70
 <END>
 439
-name se;in;u
-action 34
-home 70
 owner 1
-type 3
 location 70
+name se;in;u
+home 70
+type 3
+action 34
 <END>
 440
-name s
-action 24
-home 70
-type 3
-location 70
 owner 1
+location 70
+name s
+home 70
+action 24
+type 3
 <END>
 441
-type 3
 location 70
 owner 1
-name sw
+type 3
 action 77
 home 70
+name sw
 <END>
 442
-home 70
-name w;swamp
-action 23
-owner 1
-type 3
 location 70
+owner 1
+home 70
+type 3
+action 23
+name w;swamp
 <END>
 443
-type 3
-location 70
 owner 1
-action 71
+location 70
 name nw;d
+action 71
+type 3
 home 70
 <END>
 444
-owner 1
-location 71
-type 3
-home 71
 name n;ne;o
 action 67
+type 3
+home 71
+owner 1
+location 71
 <END>
 445
-action 41
-name e
-home 71
-owner 1
 location 71
+owner 1
+action 41
 type 3
+home 71
+name e
 <END>
 446
-type 3
-location 71
-owner 1
-action 70
 name se;u
 home 71
+action 70
+type 3
+owner 1
+location 71
 <END>
 447
-owner 1
-type 3
-location 71
-action 23
 name s
+action 23
+type 3
 home 71
+owner 1
+location 71
 <END>
 448
-action 66
-name sw;swamp
-home 71
 owner 1
-type 3
 location 71
+name sw;swamp
+type 3
+action 66
+home 71
 <END>
 449
-owner 1
-type 3
 location 71
+owner 1
 action 72
-name w;d
+type 3
 home 71
+name w;d
 <END>
 450
-action 99
-name nw
-home 71
 type 3
+action 99
+home 71
+name nw
 location 71
 owner 1
 <END>
 451
-owner 1
-location 72
-type 3
-name n
 action 99
+type 3
 home 72
+name n
+location 72
+owner 1
 <END>
 452
-home 72
-action 67
-name ne;o;in
 owner 1
 location 72
+name ne;o;in
 type 3
+action 67
+home 72
 <END>
 453
-action 71
+owner 1
+location 72
 name e;u
 home 72
 type 3
-location 72
-owner 1
+action 71
 <END>
 454
-action 23
+owner 1
+location 72
 name se
 home 72
-owner 1
 type 3
-location 72
+action 23
 <END>
 455
 home 72
+type 3
 action 66
 name s;sw;swamp
-type 3
 location 72
 owner 1
 <END>
 456
 owner 1
-type 3
 location 72
-home 72
-action 83
 name w
+home 72
+type 3
+action 83
 <END>
 457
-owner 1
-type 3
 location 72
+owner 1
 home 72
-name nw
+type 3
 action 84
+name nw
 <END>
 458
-home 73
 name n;u
+home 73
+type 3
 action 45
 owner 1
 location 73
-type 3
 <END>
 459
-owner 1
-type 3
-location 73
-action 93
 name ne
 home 73
+type 3
+action 93
+owner 1
+location 73
 <END>
 460
-action 94
-name e;o
-home 73
 type 3
+action 94
+home 73
+name e;o
 location 73
 owner 1
 <END>
 461
-owner 1
-type 3
-location 73
-name se
 action 98
+type 3
 home 73
+name se
+location 73
+owner 1
 <END>
 462
+owner 1
+location 73
+name s;in
 home 73
 action 39
-name s;in
 type 3
-location 73
-owner 1
 <END>
 463
-location 73
-type 3
-owner 1
-action 101
 name sw;swamp
+type 3
+action 101
 home 73
+owner 1
+location 73
 <END>
 464
-owner 1
-type 3
-location 73
-name w
-action 74
 home 73
+type 3
+action 74
+name w
+location 73
+owner 1
 <END>
 465
+action 44
 type 3
-location 73
-owner 1
 home 73
 name nw
-action 44
+location 73
+owner 1
 <END>
 466
-name n;u
-action 44
 home 74
-owner 1
+action 44
 type 3
+name n;u
 location 74
+owner 1
 <END>
 467
-name ne
-action 45
-home 74
 owner 1
-type 3
 location 74
+name ne
+home 74
+type 3
+action 45
 <END>
 468
+type 3
+action 73
 home 74
 name e;o
-action 73
-owner 1
-type 3
 location 74
+owner 1
 <END>
 469
 owner 1
 location 74
-type 3
-action 101
 name se
+action 101
+type 3
 home 74
 <END>
 470
-owner 1
-location 74
+action 17
 type 3
 home 74
-action 17
 name s
+location 74
+owner 1
 <END>
 471
-action 81
 name sw;swamp
 home 74
-location 74
 type 3
+action 81
 owner 1
+location 74
 <END>
 472
-home 74
-action 75
-name w
-owner 1
 location 74
+owner 1
+action 75
 type 3
+home 74
+name w
 <END>
 473
-owner 1
-location 74
 type 3
 action 96
-name nw;in
 home 74
+name nw;in
+location 74
+owner 1
 <END>
 474
-location 75
-type 3
 owner 1
-home 75
-action 96
+location 75
 name n;in;d
+home 75
+type 3
+action 96
 <END>
 475
-location 75
-type 3
-owner 1
 name ne;u
 action 44
+type 3
 home 75
+owner 1
+location 75
 <END>
 476
-owner 1
-location 75
+name e;o
 type 3
 action 74
-name e;o
 home 75
-<END>
-477
 owner 1
 location 75
-type 3
-home 75
+<END>
+477
 name se
+type 3
 action 17
+home 75
+owner 1
+location 75
 <END>
 478
 home 75
-name s;swamp
-action 81
-owner 1
 type 3
+action 81
+name s;swamp
 location 75
+owner 1
 <END>
 479
-home 75
-name sw
-action 80
-owner 1
-type 3
 location 75
+owner 1
+home 75
+type 3
+action 80
+name sw
 <END>
 480
-type 3
-location 75
-owner 1
-home 75
-action 76
 name w
+home 75
+type 3
+action 76
+owner 1
+location 75
 <END>
 481
-name nw
-action 55
-home 75
-type 3
 location 75
 owner 1
+home 75
+type 3
+action 55
+name nw
 <END>
 482
-type 3
 location 76
 owner 1
-name nw;n
-action 55
 home 76
+type 3
+action 55
+name nw;n
 <END>
 483
-action 96
 name ne;in;d
-home 76
-location 76
+action 96
 type 3
+home 76
 owner 1
+location 76
 <END>
 484
-name e;o
-action 75
 home 76
-owner 1
 type 3
+action 75
+name e;o
 location 76
+owner 1
 <END>
 485
+owner 1
+location 76
 name se
 action 81
-home 76
 type 3
-location 76
-owner 1
+home 76
 <END>
 486
 owner 1
-type 3
 location 76
-home 76
-action 80
 name s;sw;u;swamp
+type 3
+action 80
+home 76
 <END>
 487
 condition e
-owner 1
 location 76
-type 3
+owner 1
 action 97
-name west
+type 3
 home 76
+name west
 <END>
 488
-action -3
 name west
+action -3
+type 3
 home 76
 owner 1
-type 3
-location 76
 success The gap is too narrow, you'll have to drop everything to get through.
+location 76
 <END>
 489
-action 23
-name n
-home 77
-owner 1
-type 3
 location 77
+owner 1
+home 77
+action 23
+type 3
+name n
 <END>
 490
-action 70
-name ne;o
 home 77
 type 3
+action 70
+name ne;o
 location 77
 owner 1
 <END>
 491
-action 24
-name e
-home 77
 owner 1
 location 77
+name e
 type 3
+action 24
+home 77
 <END>
 492
 home 77
+type 3
 action 25
 name se
-owner 1
-type 3
 location 77
+owner 1
 <END>
 493
-owner 1
-type 3
-location 77
-home 77
-action 26
 name s
+action 26
+type 3
+home 77
+owner 1
+location 77
 <END>
 494
-owner 1
-type 3
 location 77
+owner 1
 home 77
+type 3
 action 79
 name sw
 <END>
 495
+location 77
+owner 1
 home 77
+type 3
 action 91
 name w;swamp
-owner 1
-location 77
-type 3
 <END>
 496
-home 77
 action 91
-name nw
-owner 1
-location 77
 type 3
+home 77
+name nw
+location 77
+owner 1
 <END>
 497
-type 3
 location 78
 owner 1
-home 78
 action 100
+type 3
+home 78
 name n
 <END>
 498
-location 78
-type 3
 owner 1
-home 78
-action 66
+location 78
 name ne;o
+type 3
+action 66
+home 78
 <END>
 499
-location 78
-type 3
-owner 1
-name e
 action 91
+type 3
 home 78
+name e
+location 78
+owner 1
 <END>
 500
 location 78
-type 3
 owner 1
 home 78
-name se
 action 79
+type 3
+name se
 <END>
 501
+location 78
 success The forest becomes too dense to move in that direction.
 owner 1
-location 78
-type 3
 home 78
 action -3
+type 3
 name s
 <END>
 502
-home 78
-action 68
-name sw;w
 location 78
-type 3
 owner 1
+action 68
+type 3
+home 78
+name sw;w
 <END>
 503
-name nw;swamp;in
+type 3
 action 21
 home 78
-location 78
-type 3
-owner 1
+name nw;swamp;in
 condition torch
+location 78
+owner 1
 <END>
 504
+location 78
+condition lucifer
+owner 1
+action 21
+type 3
 home 78
 name nw;swamp;in
-action 21
-owner 1
-condition lucifer
-location 78
-type 3
 <END>
 505
-action 21
-name nw;swamp;in
-home 78
+location 78
 condition spark
 owner 1
-location 78
+home 78
+action 21
 type 3
+name nw;swamp;in
 <END>
 506
-home 78
+type 3
 action 92
+home 78
 name nw;swamp;in
 location 78
-type 3
 owner 1
 <END>
 507
-owner 1
 location 79
+owner 1
 type 3
-home 79
 action 91
+home 79
 name n
 <END>
 508
 home 79
-name ne;o
 action 77
 type 3
+name ne;o
 location 79
 owner 1
 <END>
 509
-action -3
 name e;se;s;sw;w
 home 79
+type 3
+action -3
 owner 1
 location 79
-type 3
 success The forest becomes too dense to move in that direction.
 <END>
 510
-location 79
-type 3
-owner 1
-action 78
-name nw;swamp
 home 79
+action 78
+type 3
+name nw;swamp
+location 79
+owner 1
 <END>
 511
-location 80
 type 3
+action -3
+home 80
+name n;ne;nw;o;d
+location 80
 condition sheep
 owner 1
-action -3
-name n;ne;nw;o;d
-home 80
 <END>
 512
-home 80
 name nw;n;d
-action 76
-location 80
 type 3
+action 76
+home 80
 owner 1
+location 80
 <END>
 513
-owner 1
-location 80
-type 3
-action 75
-name ne;o
 home 80
+action 75
+type 3
+name ne;o
+location 80
+owner 1
 <END>
 514
-owner 1
-location 80
-type 3
 home 80
-name e
 action 81
+type 3
+name e
+location 80
+owner 1
 <END>
 515
-action 86
 name se;u
 home 80
+action 86
 type 3
-location 80
 owner 1
+location 80
 <END>
 516
 action 87
-name s;sw;swamp
-home 80
-location 80
 type 3
+home 80
+name s;sw;swamp
+location 80
 owner 1
 <END>
 517
+location 80
+success The wall is too high to climb.
+owner 1
 home 80
 action -3
-name w
-success The wall is too high to climb.
-location 80
 type 3
-owner 1
+name w
 <END>
 518
-home 81
-name n;ne;e;se;nw;o;d
-action -3
+location 81
 condition sheep
 owner 1
+home 81
 type 3
-location 81
+action -3
+name n;ne;e;se;nw;o;d
 <END>
 519
-owner 1
-type 3
-location 81
 name n;d
-action 75
 home 81
+type 3
+action 75
+owner 1
+location 81
 <END>
 520
-owner 1
-location 81
 type 3
+action 74
 home 81
 name ne;o
-action 74
+location 81
+owner 1
 <END>
 521
 owner 1
-type 3
 location 81
-home 81
 name e
 action 17
+type 3
+home 81
 <END>
 522
-owner 1
-type 3
 location 81
+owner 1
+home 81
+type 3
 action 99
 name se
-home 81
 <END>
 523
-owner 1
-location 81
-type 3
-name s;swamp
-action 84
 home 81
+type 3
+action 84
+name s;swamp
+location 81
+owner 1
 <END>
 524
 location 81
-type 3
 owner 1
 home 81
 action 85
+type 3
 name sw;u
 <END>
 525
-name w
+location 81
+owner 1
+type 3
 action 80
 home 81
-location 81
-type 3
-owner 1
+name w
 <END>
 526
-home 81
-name nw
-action 76
 owner 1
-type 3
 location 81
+name nw
+home 81
+action 76
+type 3
 <END>
 527
 condition sheep
-owner 1
 location 82
+owner 1
 type 3
+action -3
 home 82
 name se;s;sw;swamp;in;d;jump
-action -3
 <END>
 528
 location 82
-type 3
 owner 1
+action 88
+type 3
 home 82
 name nw;n
-action 88
 <END>
 529
-action 89
-name ne;u
 home 82
-owner 1
-location 82
+action 89
 type 3
+name ne;u
+location 82
+owner 1
 <END>
 530
-owner 1
+home 82
 type 3
-location 82
 action 83
 name e;o
-home 82
+location 82
+owner 1
 <END>
 531
-owner 1
-location 82
+name se;s
 type 3
 action 100
-name se;s
 home 82
+owner 1
+location 82
 <END>
 532
 location 82
-type 3
-owner 1
 condition torch
+owner 1
 home 82
 action 21
+type 3
 name sw;swamp;in;d
 <END>
 533
-home 82
-action 21
 name sw;swamp;in;d
-condition lucifer
-owner 1
+action 21
 type 3
+home 82
+owner 1
+condition lucifer
 location 82
 <END>
 534
-owner 1
-condition spark
-location 82
 type 3
 action 21
-name sw;swamp;in;d
 home 82
+name sw;swamp;in;d
+condition spark
+location 82
+owner 1
 <END>
 535
-home 82
-name sw;swamp;in;d
-action 92
 owner 1
 location 82
+name sw;swamp;in;d
 type 3
+action 92
+home 82
 <END>
 536
-home 82
 name w
+home 82
 action -3
-success You can't go that way! It's an enormous cliff!
-location 82
 type 3
 owner 1
+location 82
+success You can't go that way! It's an enormous cliff!
 <END>
 537
+type 3
+action 19
 home 82
 name jump
-action 19
-owner 1
 location 82
-type 3
+owner 1
 <END>
 538
-owner 1
-condition sheep
-type 3
 location 83
-home 83
+condition sheep
+owner 1
+type 3
 action -3
+home 83
 name e;se;s;sw;swamp;d
 <END>
 539
 location 83
-type 3
 owner 1
 home 83
 action 85
+type 3
 name n
 <END>
 540
-location 83
-type 3
-owner 1
 action 84
-name ne;o
+type 3
 home 83
+name ne;o
+location 83
+owner 1
 <END>
 541
-action 72
 name e
 home 83
-location 83
 type 3
+action 72
 owner 1
+location 83
 <END>
 542
-action 66
-name se;s;d
-home 83
 owner 1
 location 83
+name se;s;d
+home 83
+action 66
 type 3
 <END>
 543
-type 3
 location 83
 owner 1
 home 83
-name sw;swamp
 action 100
+type 3
+name sw;swamp
 <END>
 544
 owner 1
 location 83
+name w
+action 82
 type 3
 home 83
-action 82
-name w
 <END>
 545
-location 83
-type 3
 owner 1
-home 83
+location 83
 name nw;u
+home 83
 action 89
+type 3
 <END>
 546
-condition sheep
 owner 1
+condition sheep
 location 84
-type 3
 name ne;e;se;s;swamp;o;d
 action -3
+type 3
 home 84
 <END>
 547
 name n
-action 81
 home 84
 type 3
-location 84
+action 81
 owner 1
+location 84
 <END>
 548
 location 84
-type 3
 owner 1
-home 84
 action 17
+type 3
+home 84
 name ne;o
 <END>
 549
-location 84
 type 3
-owner 1
+action 99
 home 84
 name e;d
-action 99
+location 84
+owner 1
 <END>
 550
 name se
-action 72
 home 84
 type 3
-location 84
+action 72
 owner 1
+location 84
 <END>
 551
 name s;swamp
+type 3
 action 66
 home 84
-type 3
-location 84
 owner 1
+location 84
 <END>
 552
-owner 1
-location 84
+name sw
+action 83
 type 3
 home 84
-action 83
-name sw
+owner 1
+location 84
 <END>
 553
-owner 1
-location 84
 type 3
 action 85
-name w;nw;u
 home 84
+name w;nw;u
+location 84
+owner 1
 <END>
 554
-name n;ne;o;d
-action 81
-home 85
-type 3
-location 85
 owner 1
+location 85
+name n;ne;o;d
+home 85
+action 81
+type 3
 <END>
 555
-type 3
-location 85
 owner 1
-home 85
-action 84
+location 85
 name e;se
+action 84
+type 3
+home 85
 <END>
 556
+location 85
 owner 1
 type 3
-location 85
 action 83
-name s;swamp
 home 85
+name s;swamp
 <END>
 557
-type 3
-location 85
-owner 1
-home 85
 name sw
+home 85
 action 89
+type 3
+owner 1
+location 85
 <END>
 558
-owner 1
 location 85
-type 3
+owner 1
 action 90
-name w;u
+type 3
 home 85
+name w;u
 <END>
 559
-owner 1
 location 85
-type 3
+owner 1
 home 85
-name nw
+type 3
 action 86
+name nw
 <END>
 560
 name w;nw;n;d
-action 80
 home 86
-location 86
 type 3
+action 80
 owner 1
+location 86
 <END>
 561
+action 81
 type 3
+home 86
+name ne;e;o
 location 86
 owner 1
-action 81
-name ne;e;o
-home 86
 <END>
 562
-home 86
-name se
-action 85
 location 86
-type 3
 owner 1
+home 86
+action 85
+type 3
+name se
 <END>
 563
-home 86
-action 90
-name s;d
-type 3
-location 86
 owner 1
+location 86
+name s;d
+action 90
+type 3
+home 86
 <END>
 564
-home 86
-action 87
-name sw;swamp
-type 3
 location 86
 owner 1
+action 87
+type 3
+home 86
+name sw;swamp
 <END>
 565
+location 87
+owner 1
+type 3
+action 80
 home 87
 name nw;n;d
-action 80
-location 87
-type 3
-owner 1
 <END>
 566
-home 87
 name ne;o
+home 87
+type 3
 action 86
 owner 1
-type 3
 location 87
 <END>
 567
-owner 1
 type 3
-location 87
+action 90
 home 87
 name e;u
-action 90
+location 87
+owner 1
 <END>
 568
-type 3
-location 87
-owner 1
-home 87
 name se
+home 87
 action 89
+type 3
+owner 1
+location 87
 <END>
 569
-owner 1
-location 87
 type 3
+action 88
 home 87
 name s;swamp
-action 88
+location 87
+owner 1
 <END>
 570
-success The wall is too high to climb.
-owner 1
 type 3
-location 87
-home 87
 action -3
+home 87
 name sw;w
+success The wall is too high to climb.
+location 87
+owner 1
 <END>
 571
-action 87
-name n;ne
-home 88
 owner 1
 location 88
+name n;ne
+action 87
 type 3
+home 88
 <END>
 572
-type 3
-location 88
 owner 1
+location 88
+name e;o;u
 home 88
 action 89
-name e;o;u
+type 3
 <END>
 573
-type 3
-location 88
-owner 1
 name se;s;sw;swamp;d
-action 82
 home 88
+action 82
+type 3
+owner 1
+location 88
 <END>
 574
-success The wall is too high to climb.
 location 88
-type 3
+success The wall is too high to climb.
 owner 1
 home 88
-name w;nw
+type 3
 action -3
+name w;nw
 <END>
 575
 name n;ne;u
+type 3
 action 90
 home 89
 owner 1
 location 89
-type 3
 <END>
 576
-action 85
+owner 1
+location 89
 name ne;e;o
 home 89
-owner 1
-location 89
 type 3
+action 85
 <END>
 577
-action 83
-name se;s;d
-home 89
 owner 1
 location 89
+name se;s;d
 type 3
+action 83
+home 89
 <END>
 578
+name sw;swamp
+home 89
+type 3
+action 82
 owner 1
 location 89
-type 3
-home 89
-action 82
-name sw;swamp
 <END>
 579
-home 89
 name w
-action 88
-location 89
 type 3
+action 88
+home 89
 owner 1
+location 89
 <END>
 580
-name nw
-action 87
-home 89
-owner 1
 location 89
+owner 1
+home 89
+action 87
 type 3
+name nw
 <END>
 581
-type 3
-location 90
-owner 1
-action 86
 name n
 home 90
+action 86
+type 3
+owner 1
+location 90
 <END>
 582
 name ne;e;se;o;d
-action 85
 home 90
+action 85
 type 3
-location 90
 owner 1
+location 90
 <END>
 583
-name s;sw;swamp
-action 89
-home 90
-type 3
-location 90
 owner 1
+location 90
+name s;sw;swamp
+home 90
+action 89
+type 3
 <END>
 584
 owner 1
 location 90
-type 3
-home 90
 name w;nw
+home 90
+type 3
 action 87
 <END>
 585
-name n
+location 91
+owner 1
+type 3
 action 66
 home 91
-owner 1
-location 91
-type 3
+name n
 <END>
 586
-name ne;o
-action 23
-home 91
-type 3
 location 91
 owner 1
+home 91
+type 3
+action 23
+name ne;o
 <END>
 587
-owner 1
-type 3
-location 91
-action 77
 name e
+type 3
+action 77
 home 91
+owner 1
+location 91
 <END>
 588
-action 79
 name s;se;sw
 home 91
+action 79
+type 3
 owner 1
 location 91
-type 3
 <END>
 589
-owner 1
-location 91
-type 3
 home 91
+type 3
 action 78
 name w;swamp
-<END>
-590
-type 3
 location 91
 owner 1
-action 100
+<END>
+590
+owner 1
+location 91
 name nw
 home 91
+action 100
+type 3
 <END>
 591
-location 92
-type 3
-owner 1
-success The swamp is too treacherous to travel in that direction.
-action -3
 name w;nw;n
 home 92
+action -3
+type 3
+owner 1
+location 92
+success The swamp is too treacherous to travel in that direction.
 <END>
 592
-type 3
-location 92
-owner 1
-home 92
 name ne;u
+home 92
 action 82
+type 3
+owner 1
+location 92
 <END>
 593
-name e;o
-action 100
-home 92
-owner 1
-type 3
 location 92
+owner 1
+home 92
+action 100
+type 3
+name e;o
 <END>
 594
-owner 1
-type 3
-location 92
-home 92
-action 78
 name se
+type 3
+action 78
+home 92
+owner 1
+location 92
 <END>
 595
 name s;sw
-action 68
 home 92
+action 68
+type 3
 owner 1
 location 92
-type 3
 <END>
 596
-type 3
-location 92
-owner 1
-success You're already here! Have a look around if you don't believe me!
-name swamp
-action -3
 home 92
+action -3
+type 3
+name swamp
+location 92
+success You're already here! Have a look around if you don't believe me!
+owner 1
 <END>
 597
 type 3
-location 92
-owner 1
+action 20
 home 92
 name jump
-action 20
+location 92
+owner 1
 <END>
 598
+home 93
+type 3
 action 46
 name n
-home 93
 location 93
-type 3
 owner 1
 <END>
 599
-action 12
-name ne
-home 93
-type 3
-location 93
 owner 1
+location 93
+name ne
+action 12
+type 3
+home 93
 <END>
 600
-action 11
 name e
-home 93
-location 93
 type 3
+action 11
+home 93
 owner 1
+location 93
 <END>
 601
-home 93
-action 94
-name se;s;o
 location 93
-type 3
 owner 1
+type 3
+action 94
+home 93
+name se;s;o
 <END>
 602
-action 73
-name sw;swamp
-home 93
-owner 1
-type 3
 location 93
+owner 1
+action 73
+type 3
+home 93
+name sw;swamp
 <END>
 603
+type 3
+action 45
 home 93
 name w
-action 45
-owner 1
-type 3
 location 93
+owner 1
 <END>
 604
-name nw;u
-action 50
-home 93
-location 93
-type 3
 owner 1
+location 93
+name nw;u
+home 93
+type 3
+action 50
 <END>
 605
-action 11
-name n;ne;u
-home 94
-owner 1
 type 3
+action 11
+home 94
+name n;ne;u
 location 94
+owner 1
 <END>
 606
-home 94
-action 69
-name e;o
-condition e
 owner 1
 location 94
+condition e
+name e;o
+home 94
+action 69
 type 3
 <END>
 607
 owner 1
 location 94
+name se;s;swamp;d
 type 3
 action 22
-name se;s;swamp;d
 home 94
 <END>
 608
-type 3
 location 94
 owner 1
 action 98
-name sw
+type 3
 home 94
+name sw
 <END>
 609
+home 94
+type 3
 action 73
 name w
-home 94
-owner 1
 location 94
-type 3
+owner 1
 <END>
 610
-location 94
-type 3
-owner 1
-home 94
-action 93
 name nw;in
+type 3
+action 93
+home 94
+owner 1
+location 94
 <END>
 611
-type 3
-location 95
-owner 1
-home 95
 name o;u;swamp;in
 action 92
+type 3
+home 95
+owner 1
+location 95
 <END>
 612
 home 96
-name n
 action 38
-location 96
 type 3
+name n
+location 96
 owner 1
 <END>
 613
 action 43
-name ne
-home 96
-owner 1
 type 3
+home 96
+name ne
 location 96
+owner 1
 <END>
 614
-action 44
-name e;u
-home 96
 type 3
+action 44
+home 96
+name e;u
 location 96
 owner 1
 <END>
 615
-name se;o
-action 74
-home 96
-owner 1
-type 3
 location 96
+owner 1
+action 74
+type 3
+home 96
+name se;o
 <END>
 616
-home 96
+owner 1
+location 96
 name s;swamp
 action 75
-owner 1
 type 3
-location 96
+home 96
 <END>
 617
-owner 1
-location 96
-type 3
-action 76
 name sw
 home 96
+action 76
+type 3
+owner 1
+location 96
 <END>
 618
+location 96
+owner 1
 home 96
+type 3
 action 55
 name w
-location 96
-type 3
-owner 1
 <END>
 619
-type 3
-location 96
-owner 1
 name nw
-action 56
 home 96
+type 3
+action 56
+owner 1
+location 96
 <END>
 620
-name e;o
-action 76
-home 97
-condition e
 owner 1
 location 97
+condition e
+name e;o
+home 97
+action 76
 type 3
 <END>
 621
 name n;ne;o
 action 94
+type 3
 home 98
 owner 1
 location 98
-type 3
 <END>
 622
 location 98
-type 3
 owner 1
-name e;se
-action 22
 home 98
+action 22
+type 3
+name e;se
 <END>
 623
-action 67
 name s;sw;swamp
+action 67
+type 3
 home 98
 owner 1
 location 98
-type 3
 <END>
 624
-location 98
-type 3
-owner 1
-action 39
 name w;in
 home 98
-<END>
-625
+action 39
+type 3
 owner 1
 location 98
-type 3
-home 98
+<END>
+625
 name nw
+type 3
 action 73
+home 98
+owner 1
+location 98
 <END>
 626
+location 99
+owner 1
+home 99
+type 3
 action 17
 name n
-home 99
-type 3
-location 99
-owner 1
 <END>
 627
-home 99
-name ne
-action 102
 location 99
-type 3
 owner 1
+home 99
+type 3
+action 102
+name ne
 <END>
 628
 home 99
+type 3
 action 67
 name e;o;in
-owner 1
 location 99
-type 3
+owner 1
 <END>
 629
 home 99
-name se
 action 71
 type 3
+name se
 location 99
 owner 1
 <END>
 630
 action 72
-name s;sw;swamp
-home 99
-owner 1
 type 3
+home 99
+name s;sw;swamp
 location 99
+owner 1
 <END>
 631
-owner 1
-type 3
-location 99
 home 99
-name w;u
+type 3
 action 84
+name w;u
+location 99
+owner 1
 <END>
 632
 location 99
-type 3
 owner 1
 home 99
-name nw
 action 81
+type 3
+name nw
 <END>
 633
-action 82
-name nw;n;u
-home 100
 owner 1
 location 100
+name nw;n;u
+home 100
+action 82
 type 3
 <END>
 634
 owner 1
 location 100
-type 3
 name ne
+type 3
 action 83
 home 100
 <END>
 635
 owner 1
 location 100
-type 3
-home 100
 name e;o
+home 100
+type 3
 action 66
 <END>
 636
-location 100
-type 3
 owner 1
-home 100
-action 91
+location 100
 name se
+home 100
+type 3
+action 91
 <END>
 637
-owner 1
-location 100
-type 3
 name s
 action 78
+type 3
 home 100
+owner 1
+location 100
 <END>
 638
 name sw
 action 68
-home 100
 type 3
-location 100
+home 100
 owner 1
+location 100
 <END>
 639
-location 100
-type 3
-condition torch
-owner 1
-home 100
-action 21
 name w;swamp;in
+action 21
+type 3
+home 100
+owner 1
+condition torch
+location 100
 <END>
 640
+action 21
+type 3
 home 100
 name w;swamp;in
-action 21
-owner 1
-condition lucifer
-type 3
 location 100
+condition lucifer
+owner 1
 <END>
 641
-type 3
-location 100
-owner 1
-condition spark
 home 100
-name w;swamp;in
 action 21
+type 3
+name w;swamp;in
+location 100
+condition spark
+owner 1
 <END>
 642
 home 100
-name w;swamp;in
-action 92
-owner 1
-location 100
 type 3
+action 92
+name w;swamp;in
+location 100
+owner 1
 <END>
 643
-name n;ne;o
-action 73
-home 101
-owner 1
-type 3
 location 101
+owner 1
+action 73
+type 3
+home 101
+name n;ne;o
 <END>
 644
-action 39
-name e;in
-home 101
-type 3
 location 101
 owner 1
+home 101
+action 39
+type 3
+name e;in
 <END>
 645
-owner 1
-type 3
-location 101
-home 101
-action 102
 name se;s
+home 101
+type 3
+action 102
+owner 1
+location 101
 <END>
 646
-owner 1
-type 3
 location 101
+owner 1
+action 99
+type 3
 home 101
 name sw;swamp
-action 99
 <END>
 647
+name w
+type 3
+action 17
+home 101
 owner 1
 location 101
-type 3
-home 101
-name w
-action 17
 <END>
 648
+location 101
 owner 1
 type 3
-location 101
-home 101
 action 74
+home 101
 name nw
 <END>
 649
-type 3
 location 102
 owner 1
 home 102
+type 3
 action 39
 name n;in
 <END>
 650
-name ne;e;o
-action 98
-home 102
-owner 1
-type 3
 location 102
+owner 1
+home 102
+type 3
+action 98
+name ne;e;o
 <END>
 651
 owner 1
 location 102
-type 3
-action 67
 name se;s
+action 67
+type 3
 home 102
 <END>
 652
+location 102
+owner 1
 home 102
 action 99
-name sw;swamp
 type 3
-location 102
-owner 1
+name sw;swamp
 <END>
 653
+action 17
 type 3
-location 102
-owner 1
 home 102
 name w
-action 17
+location 102
+owner 1
 <END>
 654
-name nw
-action 101
-home 102
-location 102
-type 3
 owner 1
+location 102
+name nw
+home 102
+action 101
+type 3
 <END>
