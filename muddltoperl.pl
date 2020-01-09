@@ -606,6 +606,33 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
     print "Done\n";
 }
 
+sub do_objects()
+{
+    # objects are  in the general form:
+    # name [speed demon attack%] location(s) startprop maxprop score [stamina] [flags]
+    # followed by text descriptions for each property value
+    # locations will be containers for the object and maybe a room or obj
+    my $i=0;
+    my @objargs;
+    my ($objid);
+    print "Doing objects\n";
+    print LOG "objects\n";
+    while ($line = read_line()) {
+        chomp $line;
+        if ($line =~ /^\d+\s+.*$/) {
+            my @objargs=split(/\s+/,$line,2);
+            $objid=shift @objargs; # first thing should be the name used as key
+        }
+        elsif ($line =~ /^\s+(.+)\s+$/) { #debug
+            # process a text description line in format
+            # [prop] text-description
+            #        text-description-continues
+            print LOG "$i:\t$1\n";
+        }
+        last if ($line=~/^\*.+$/); # end objects if new section
+    }
+}
+
 sub do_compile() {
     my $i=0;
     print "Compiling objects\n";
