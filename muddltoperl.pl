@@ -722,12 +722,14 @@ sub do_objects() {
             # prop$1 text-description$2
             $prop=$1;
             $desc=$2;
+            print LOG "objid $i desc$prop=$desc\n";
             $objects[$i]{"description$prop"} = $desc;
             $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
-        } elsif ($line =~ /^s+(.+)\s+$/) { #debug
+        } elsif ($line =~ /^\s+(.+)\s+$/) { #debug
             # process a text description line in format
             #        text-description-continues$1
             $desc=$1;
+            print LOG "objid $i ext desc$prop=$desc\n";
             $objects[$i]{"description$prop"} .= " " . $desc;
             $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
         }
