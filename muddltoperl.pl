@@ -617,11 +617,12 @@ sub do_objects() {
     # locations will be containers for the object and maybe a room or obj
     my $i=0;
     my @objargs;
-    my ($objid, $prop, $desc);
+    my ($objid, $prop, $desc, $startprop);
     print "Doing objects\n";
     print LOG "objects\n";
     while ($line = read_line()) {
         chomp $line;
+        last if ($line=~/^\*.+$/); # end objects if new section
         next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^\S\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
@@ -637,10 +638,12 @@ sub do_objects() {
             print LOG "\n";
             $objid=shift @objargs; # first thing should be the name used as key
             $objects[$i]{"name"} = $objid;
+            $objects[$i]{"owner"} = 1; # always owned by the arch-wiz
             $objIds{"$objid"} = $i unless (defined $objIds{$objid}); # create a lookup of object name to numeric id but only for the first occurance of the name
             print LOG "objIds{$objid}=" . $objIds{"$objid"} . "\n";
             $objects[$i]{"type"} = $thing;
             my $arg = shift @objargs; # next could be a number (speed) or location
+            print LOG "first arg=$arg\n";
             if (looks_like_number($arg)) { # speed demon attack%
                 $objects[$i]{"speed"}=$arg;
                 $objects[$i]{"demon"}=shift @objargs;
@@ -658,9 +661,12 @@ sub do_objects() {
                 }
                 $loc=join('|',@locations);
             } else { # simple location not multi
-                $loc=$roomIds{"$loc"} or
-                $loc=$objIds{"$loc"} or
-                print LOG "objid $i simple lookup location $loc failed\n";
+                print LOG "objid $i simple lookup $loc\n";
+                if ($roomIds{"$loc"} ne "") {
+                    $loc=$roomIds{"$loc"} or print LOG "objid $i simple lookup roomIds $loc failed\n";
+                } else { # its in a room on an object
+                    $loc=$objIds{"$loc"} or print LOG "objid $i simple lookup objIds $loc failed\n";
+                }
                 # simple loc, so add this object to loc
                 if (defined $objects[$loc]{"contents"}) { # put the exit in the room as well
                     $objects[$loc]{"contents"}.= ",$i"; # adding contents
@@ -669,14 +675,20 @@ sub do_objects() {
                 }
             }
             # now we have multi loc or a simple loc
-            $objects[$i]{"location"}=$loc;
-            $objects[$i]{"home"}=$loc;
+            $objects[$i]{"location"}=$loc; # if multi loc this is resolved by restore
+            $objects[$i]{"home"}=$loc; # if multi loc this is resolved by restore
             # are there more locations for this object?
             while ($arg = shift @objargs) {
                 last if (looks_like_number($arg));
-                $arg=$roomIds{"$arg"} or
-                $arg=$objIds{"$arg"} or
-                print LOG "objid $i extra lookup location $arg failed\n";
+                print LOG "objid $i extended simple lookup $arg\n";
+                if ($roomIds{"$arg"} ne "") {
+                   $arg=$roomIds{"$arg"} or
+                   print LOG "objid $i simple lookup roomIds $arg failed\n";
+                } else { # its in a room or an object
+                   $arg=$objIds{"$arg"} or
+                   print LOG "objid $i simple lookup objIds $arg failed\n";
+                }
+                print LOG "objid $i added to loc $arg\n";
                 # simple loc, so add this object to arg
                 if (defined $objects[$arg]{"contents"}) { # put the obj in the location
                     $objects[$arg]{"contents"}.= ",$i"; # adding contents
@@ -685,7 +697,8 @@ sub do_objects() {
                 }
             }
             # now we are on to props
-            $objects[$i]{"startprop"} = $arg;
+            $startprop = $arg;
+            $objects[$i]{"startprop"} = $startprop;
             $objects[$i]{"maxprop"} = shift @objargs;
             $objects[$i]{"score"} = shift @objargs;
             print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " score " . $objects[$i]{"score"} . "\n";
@@ -710,15 +723,14 @@ sub do_objects() {
             $prop=$1;
             $desc=$2;
             $objects[$i]{"description$prop"} = $desc;
-            $objects[$i]{"description"} = $objects[$i]{"description0"} if defined;
+            $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
         } elsif ($line =~ /^s+(.+)\s+$/) { #debug
             # process a text description line in format
             #        text-description-continues$1
             $desc=$1;
             $objects[$i]{"description$prop"} .= " " . $desc;
-            $objects[$i]{"description"} = $objects[$i]{"description0"} if defined;
+            $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
         }
-        last if ($line=~/^\*.+$/); # end objects if new section
     }
 }
 

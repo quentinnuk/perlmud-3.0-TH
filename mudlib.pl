@@ -3505,7 +3505,8 @@ sub restore
 					print "This database was written by ",
 					"a newer version of PerlMUD!\n",
 					" You need version ",
-					$dbVersion . " to read it.\n";						close(IN);
+					$dbVersion . " to read it.\n";
+                    close(IN);
 					return 0;	
 				}
 				next;	
@@ -3550,6 +3551,17 @@ sub restore
 				$n =~ tr/A-Z/a-z/;
 				$playerIds{$n} = $id;
 			}
+            if ($objects[$id]{"home"}=~/.+\|.+/) { # multi value attribute
+                my @vals = split(/\|/,$objects[$id]{"home"});
+                my $loc = $vals[rand @vals]; # pick a random location from possible homes for the current location
+                $objects[$id]{"location"}=$loc;
+                # now put it in the location - this assumes (probably wrongly) that the location is already in the objects array
+                if (length($objects[$loc]{"contents"}) > 0) {
+                    $objects[$loc]{"contents"} .= "," . $id;
+                } else {
+                    $objects[$loc]{"contents"} = $id;
+                }
+            }
 			# GOTCHA: $none and 0 are different
 			$objects[$id]{"activeFd"} = $none;
 		} else {
