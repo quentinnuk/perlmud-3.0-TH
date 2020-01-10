@@ -734,6 +734,8 @@ sub do_objects() {
             $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
         }
     }
+    print LOG "end objects\n";
+    print "Done\n";
 }
 
 sub do_compile() {
