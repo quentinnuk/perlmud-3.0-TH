@@ -1,4 +1,5 @@
 use strict;
+use Scalar::Util qw(looks_like_number);
 
 my $dbFile = "mud.db";
 my $perlMudVersion = 3.0;
@@ -219,6 +220,7 @@ my %roomIds; # maps room identifiers with object ids
 my @files = ();
 my $fh;
 my %textIds; # maps text numeric ids to strings
+my %objIds; # maps thing names to numeric ids
 
 open LOG, ">log.txt";
 
@@ -241,13 +243,12 @@ if (restore()) {
             # ignore for now
         }
         if ($line =~/^\*objects/i ) {
-            # ignore for now
+            do_objects();
         }
         if ($line =~/^\*travel/i ) {
             do_travel();
         }
         if ($line =~/^\*text/i ) {
-            # ignore for now
             do_texts();
         }
     }
@@ -433,6 +434,7 @@ sub do_rooms
     print LOG "rooms\n";
     while ($line = read_line()) {
         chomp $line;
+        next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^\w+\s+.*$/) {
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             $line=lc($line);
@@ -493,6 +495,7 @@ sub do_travel() {
     print LOG "travel\n";
     while ($line = read_line()) {
         chomp $line;
+        next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^\w+\s+.*$/) {
             $line=lc($line);
             $i=$#objects + 1; # the next object number
@@ -576,6 +579,7 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
     print LOG "texts\n";
     while ($line = read_line()) {
         chomp $line;
+        next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^\d+\s+.*$/) {
             my @textargs=split(/\s+/,$line,2);
             $objid=shift @textargs; # first thing should be the id used as key
@@ -606,28 +610,113 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
     print "Done\n";
 }
 
-sub do_objects()
-{
+sub do_objects() {
     # objects are  in the general form:
     # name [speed demon attack%] location(s) startprop maxprop score [stamina] [flags]
     # followed by text descriptions for each property value
     # locations will be containers for the object and maybe a room or obj
     my $i=0;
     my @objargs;
-    my ($objid);
+    my ($objid, $prop, $desc);
     print "Doing objects\n";
     print LOG "objects\n";
     while ($line = read_line()) {
         chomp $line;
-        if ($line =~ /^\d+\s+.*$/) {
-            my @objargs=split(/\s+/,$line,2);
+        next if ($line=~/^\;/); # ignore comment lines
+        if ($line =~ /^\S\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
+            $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
+            $line=lc($line);
+            if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination roomlist together (only one multi per line)
+                my $destination=join('|',split(/\s+/,$3));
+                $line=$1 . "\t" . $destination . "\t" . $5;
+                print LOG "multi dest line =$line \n";
+            }
+            my @objargs=split(/\s+/,$line);
+            print LOG "objid $i objargs ";
+            foreach my $obj(@objargs) { print LOG "\'$obj\' "; }
+            print LOG "\n";
             $objid=shift @objargs; # first thing should be the name used as key
-        }
-        elsif ($line =~ /^\s+(.+)\s+$/) { #debug
+            $objects[$i]{"name"} = $objid;
+            $objIds{"$objid"} = $i unless (defined $objIds{$objid}); # create a lookup of object name to numeric id but only for the first occurance of the name
+            print LOG "objIds{$objid}=" . $objIds{"$objid"} . "\n";
+            $objects[$i]{"type"} = $thing;
+            my $arg = shift @objargs; # next could be a number (speed) or location
+            if (looks_like_number($arg)) { # speed demon attack%
+                $objects[$i]{"speed"}=$arg;
+                $objects[$i]{"demon"}=shift @objargs;
+                $objects[$i]{"attack"}=shift @objargs;
+                print LOG "objid $i speed " . $objects[$i]{"speed"} . " demon " . $objects[$i]{"demon"} . " attack " . $objects[$i]{"attack"} . "\n";
+                $arg=shift @objargs; # next should be a location
+            }
+            # locations followed by props
+            # the initial location is always put in home and location and added to the enclosing object (which could be a previously declared thing or room)
+            my $loc = $arg;
+            if ($loc =~ /.*\|.*/) { # handle multi random locs by converting to numeric ids
+                my @locations=split(/\|/,$loc);
+                foreach my $location(@locations) {
+                    $location=$roomIds{"$location"} or print LOG "objid $i multi-loc lookup location $location failed\n";
+                }
+                $loc=join('|',@locations);
+            } else { # simple location not multi
+                $loc=$roomIds{"$loc"} or
+                $loc=$objIds{"$loc"} or
+                print LOG "objid $i simple lookup location $loc failed\n";
+                # simple loc, so add this object to loc
+                if (defined $objects[$loc]{"contents"}) { # put the exit in the room as well
+                    $objects[$loc]{"contents"}.= ",$i"; # adding contents
+                } else {
+                    $objects[$loc]{"contents"}="$i"; # intialising contents
+                }
+            }
+            # now we have multi loc or a simple loc
+            $objects[$i]{"location"}=$loc;
+            $objects[$i]{"home"}=$loc;
+            # are there more locations for this object?
+            while ($arg = shift @objargs) {
+                last if (looks_like_number($arg));
+                $arg=$roomIds{"$arg"} or
+                $arg=$objIds{"$arg"} or
+                print LOG "objid $i extra lookup location $arg failed\n";
+                # simple loc, so add this object to arg
+                if (defined $objects[$arg]{"contents"}) { # put the obj in the location
+                    $objects[$arg]{"contents"}.= ",$i"; # adding contents
+                } else {
+                    $objects[$arg]{"contents"}="$i"; # intialising contents
+                }
+            }
+            # now we are on to props
+            $objects[$i]{"startprop"} = $arg;
+            $objects[$i]{"maxprop"} = shift @objargs;
+            $objects[$i]{"score"} = shift @objargs;
+            print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " score " . $objects[$i]{"score"} . "\n";
+            # see if we have stamina or flags
+            my $flags=$dark; # the opposite of bright
+            # there is more...
+            while ($arg = shift @objargs) {
+                if (looks_like_number($arg)) {
+                     $objects[$i]{"stamina"} = $arg;
+                } elsif ($arg eq "contains") {
+                    $objects[$i]{"contains"}=shift @objargs; # max containable weight
+                } elsif ($arg eq "bright") {
+                    $flags=$flags - $dark; #debug not sure this will work in game when looking at the object
+                } else {
+                    my $flags |= $flagsProper{$arg};
+                }
+            }
+            $objects[$i]{"flags"}=$flags;
+        } elsif ($line =~ /^(\d+)\s+(.+)\s+$/) { #debug
             # process a text description line in format
-            # [prop] text-description
-            #        text-description-continues
-            print LOG "$i:\t$1\n";
+            # prop$1 text-description$2
+            $prop=$1;
+            $desc=$2;
+            $objects[$i]{"description$prop"} = $desc;
+            $objects[$i]{"description"} = $objects[$i]{"description0"} if defined;
+        } elsif ($line =~ /^s+(.+)\s+$/) { #debug
+            # process a text description line in format
+            #        text-description-continues$1
+            $desc=$1;
+            $objects[$i]{"description$prop"} .= " " . $desc;
+            $objects[$i]{"description"} = $objects[$i]{"description0"} if defined;
         }
         last if ($line=~/^\*.+$/); # end objects if new section
     }
