@@ -722,6 +722,10 @@ sub do_objects() {
             # prop$1 text-description$2
             $prop=$1;
             $desc=$2;
+            if ($desc=~/^\%(.+)/) {
+                # include description from another object
+                $desc=$objects[$objIds{"$1"}]{"description$prop"};
+            }
             print LOG "objid $i desc$prop=$desc\n";
             $objects[$i]{"description$prop"} = $desc;
             $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
