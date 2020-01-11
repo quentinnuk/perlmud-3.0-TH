@@ -640,6 +640,7 @@ sub do_objects() {
         last if ($line=~/^\*.+$/); # end objects if new section
         next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^\S\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
+            delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text of last objid if there is only prop 0
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             $line=lc($line);
             if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination roomlist together (only one multi per line)
@@ -752,7 +753,6 @@ sub do_objects() {
             $objects[$i]{"description$prop"} .= " " . $desc;
             $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
         }
-        delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text if there is only prop 0
     }
     print LOG "end objects\n";
     print "Done\n";
