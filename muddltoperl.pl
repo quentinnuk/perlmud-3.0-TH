@@ -558,6 +558,21 @@ sub do_travel() {
             $objects[$i]{"type"}=$exit; # type is an exit
             $objects[$i]{"location"}=$objid; # is in room objid
             $objects[$i]{"home"}=$objid; # in case the exit is sent home
+            foreach my $direction(@travelargs) { # create expanded synonyms for directions
+                print LOG "direction $direction became ";
+                $direction=~s/^n$/north;n/i;
+                $direction=~s/^s$/south;s/i;
+                $direction=~s/^e$/east;e/i;
+                $direction=~s/^w$/west;w/i;
+                $direction=~s/^u$/up;u/i;
+                $direction=~s/^d$/down;d/i;
+                $direction=~s/^ne$/northeast;ne/i;
+                $direction=~s/^nw$/northwest;nw/i;
+                $direction=~s/^sw$/southwest;sw/i;
+                $direction=~s/^se$/southeast;se/i;
+                $direction=~s/^o$/out;o/i;
+                print LOG "$direction\n";
+            }
             $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
             if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
                 $objects[$objid]{"contents"}.= ",$i"; # adding contents
@@ -737,6 +752,7 @@ sub do_objects() {
             $objects[$i]{"description$prop"} .= " " . $desc;
             $objects[$i]{"description"} = $objects[$i]{"description$startprop"} if (defined $objects[$i]{"description$startprop"});
         }
+        delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text if there is only prop 0
     }
     print LOG "end objects\n";
     print "Done\n";
