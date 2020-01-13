@@ -247,13 +247,13 @@ my @flagNames = (
     "small",
     "nolook",
     "silent",
-    "noget", $noget,
-    "transparent", $transparent,
-    "openend", $openend,
-    "disguised", $disguised,
-    "no-summon", $nosummon,
-    "fixed", $fixed,
-    "noit", $noit
+    "noget",
+    "transparent",
+    "openend",
+    "disguised",
+    "no-summon",
+    "fixed",
+    "noit"
 );
 
 my @objects; # contains all the objects

@@ -345,13 +345,13 @@ my @flagNames = (
     "small",
     "nolook",
     "silent",
-    "noget", $noget,
-    "transparent", $transparent,
-    "openend", $openend,
-    "disguised", $disguised,
-    "no-summon", $nosummon,
-    "fixed", $fixed,
-    "noit", $noit
+    "noget",
+    "transparent",
+    "openend",
+    "disguised",
+    "no-summon",
+    "fixed",
+    "noit"
 );
 
 #Set these up in a particular order so that we can
