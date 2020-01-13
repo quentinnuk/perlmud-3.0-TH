@@ -211,34 +211,56 @@ my $nolook = 67108864;
 # If a wiz is in a silent room, then they receives no status messages
 my $silent = 134217728;
 
+# you cannot pick up an object with this flag
+my $noget = 268435456;
+
+# you can always see the contents of this object even if not prop 0
+my $transparent = 536870912;
+
+# objects can be removed even if not at prop 0
+my $opened = 1073741824;
+
+# there will be no indication that this object is a container
+my $disguised = 2147483648;
+
+# need a 64bit arch for these flags
+# if you carry this object you cannot be summoned
+my $nosummon = 4294967296;
+
+# impossible to pick up even for wizards (eg tide or rain)
+my $fixed = 8589934592;
+
+# will never be assigned to "it"
+my $noit = 17179869184;
+
 #For flag setting
 my %flags = (
-	"dark", $dark,
-	"male", $male,
-	"female", $female,
-	"public", $public,
-	"linkok", $linkok,
-	"jumpok", $jumpok,
-	"buildok", $buildok,
-	"claimok", $claimok,
-	"link_ok", $linkok,
-	"jump_ok", $jumpok,
-	"build_ok", $buildok,
-	"claim_ok", $claimok,
-	"link-ok", $linkok,
-	"jump-ok", $jumpok,
-	"build-ok", $buildok,
-	"claim-ok", $claimok,
-	"sticky", $sticky,
-	"puzzle", $puzzle,
-	"abode", $abode,
-	"grand", $grand,
-	"book", $book,
-	"wizard", $wizard,
-	"expert", $expert,
-	"spy", $spy,
-	"builder", $builder,
-	"once", $once,
+    "dark", $dark,
+    "male", $male,
+    "female", $female,
+    "public", $public,
+    "linkok", $linkok,
+    "jumpok", $jumpok,
+    "buildok", $buildok,
+    "claimok", $claimok,
+    "link_ok", $linkok,
+    "jump_ok", $jumpok,
+    "build_ok", $buildok,
+    "claim_ok", $claimok,
+    "link-ok", $linkok,
+    "jump-ok", $jumpok,
+    "build-ok", $buildok,
+    "claim-ok", $claimok,
+    "sticky", $sticky,
+    "puzzle", $puzzle,
+    "abode", $abode,
+    "grand", $grand,
+    "book", $book,
+    "wizard", $wizard,
+    "expert", $expert,
+    "spy", $spy,
+    "builder", $builder,
+    "once", $once,
     "water", $water,
     "oil", $oil,
     "death", $death,
@@ -247,27 +269,34 @@ my %flags = (
     "hide", $hide,
     "small", $small,
     "no-look", $nolook,
-    "silent", $silent
+    "silent", $silent,
+    "no-get", $noget,
+    "transparent", $transparent,
+    "openend", $openend,
+    "disguised", $disguised,
+    "no-summon", $nosummon,
+    "fixed", $fixed,
+    "no-it", $noit
 );
 
 my %flagsProper = (
-	"dark", $dark,
-	"male", $male,
-	"female", $female,
-	"public", $public,
-	"linkok", $linkok,
-	"jumpok", $jumpok,
-	"buildok", $buildok,
-	"claimok", $claimok,
-	"sticky", $sticky,
-	"puzzle", $puzzle,
-	"abode", $abode,
-	"grand", $grand,
-	"book", $book,
-	"wizard", $wizard,
-	"expert", $expert,
-	"spy", $spy,
-	"builder", $builder,
+    "dark", $dark,
+    "male", $male,
+    "female", $female,
+    "public", $public,
+    "linkok", $linkok,
+    "jumpok", $jumpok,
+    "buildok", $buildok,
+    "claimok", $claimok,
+    "sticky", $sticky,
+    "puzzle", $puzzle,
+    "abode", $abode,
+    "grand", $grand,
+    "book", $book,
+    "wizard", $wizard,
+    "expert", $expert,
+    "spy", $spy,
+    "builder", $builder,
     "once", $once,
     "water", $water,
     "oil", $oil,
@@ -277,29 +306,36 @@ my %flagsProper = (
     "hide", $hide,
     "small", $small,
     "nolook", $nolook,
-    "silent", $silent
+    "silent", $silent,
+    "noget", $noget,
+    "transparent", $transparent,
+    "openend", $openend,
+    "disguised", $disguised,
+    "no-summon", $nosummon,
+    "fixed", $fixed,
+    "noit", $noit
 );
 
 my @flagNames = (
-	"dark",
-	"male",
-	"female",
-	"unusedFlag",
-	"public",
-	"linkok",
-	"jumpok",
-	"buildok",
-	"claimok", 
-	"sticky", 
-	"puzzle", 
-	"abode", 
-	"grand",
-	"book", 
-	"wizard",
-	"expert",
-	"spy",
-	"builder",
-	"once",
+    "dark",
+    "male",
+    "female",
+    "unusedFlag",
+    "public",
+    "linkok",
+    "jumpok",
+    "buildok",
+    "claimok",
+    "sticky",
+    "puzzle",
+    "abode",
+    "grand",
+    "book",
+    "wizard",
+    "expert",
+    "spy",
+    "builder",
+    "once",
     "water",
     "oil",
     "death",
@@ -308,7 +344,14 @@ my @flagNames = (
     "hide",
     "small",
     "nolook",
-    "silent"
+    "silent",
+    "noget", $noget,
+    "transparent", $transparent,
+    "openend", $openend,
+    "disguised", $disguised,
+    "no-summon", $nosummon,
+    "fixed", $fixed,
+    "noit", $noit
 );
 
 #Set these up in a particular order so that we can
