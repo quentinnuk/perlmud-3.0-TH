@@ -11,6 +11,7 @@ my $player = 2;
 my $exit = 3;
 my $thing = 4;
 my $topic = 5;
+my $synonym = 6;
 
 #Special IDs
 
@@ -221,6 +222,7 @@ my @files = ();
 my $fh;
 my %textIds; # maps text numeric ids to strings
 my %objIds; # maps thing names to numeric ids
+my @vocabobj = (); # allow forward declare of objectes in vocab
 
 open LOG, ">log.txt";
 
@@ -237,7 +239,7 @@ if (restore()) {
             # ignore for now
         }
         if ($line =~/^\*vocabulary/i ) {
-            # ignore for now
+            do_vocab();
         }
         if ($line =~/^\*demons/i ) {
             # ignore for now
@@ -252,7 +254,7 @@ if (restore()) {
             do_texts();
         }
     }
-    
+    do_compile(); # resolve outstanding links
     close($fh);
     print "processing complete.\n";
 
@@ -640,7 +642,7 @@ sub do_objects() {
         last if ($line=~/^\*.+$/); # end objects if new section
         next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^\S\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
-            delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text of last objid if there is only prop 0
+            delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text of previous objid if there is only prop 0 for it
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             $line=lc($line);
             if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination roomlist together (only one multi per line)
@@ -716,7 +718,8 @@ sub do_objects() {
             $startprop = $arg;
             $objects[$i]{"startprop"} = $startprop;
             $objects[$i]{"maxprop"} = shift @objargs;
-            $objects[$i]{"score"} = shift @objargs;
+            $objects[$i]{"scoreprop"} = shift @objargs; # only has a score when at this prop value
+            $objects[$i]{"currprop"} = $startprop; # current prop value
             print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " score " . $objects[$i]{"score"} . "\n";
             # see if we have stamina or flags
             my $flags=$dark; # the opposite of bright
@@ -758,9 +761,84 @@ sub do_objects() {
     print "Done\n";
 }
 
-sub do_compile() {
+sub do_vocab
+{
+    # *vocab is made up of several subsections:
+    # class contains:
+    #   clasname - we will ignore these and make imperative in te obj
+    # object contains:
+    #   objid classname weight score - assign to the objid
+    # syn contains:
+    #   synonym real-word - capture and store these, probably as an object type
+    # motion contains:
+    #   motionword (eg north, south, but also $special) - ignore these as we will hard code them
+    # noise contains:
+    #   noisewords (words to be barred from use as identities) - ignore these as not needed
+    # various single argument subsection for defining pronouns, conjugations, prepositions etc - hard code these
+    # action contains:
+    #   essentially this is programming for the commands but also declares messages for room, near, and far. We will
+    #   hard code this in perl but need to factor in demons
+    #
     my $i=0;
-    print "Compiling objects\n";
-    print LOG "rooms\n";
+    my @vocargs;
+    my %vo;
+    my ($objid, $prop, $desc, $startprop);
+    my $subsection = 'class'; # initialise to class
+    print "Doing vocabulary\n";
+    print LOG "vocabulary\n";
+    while ($line = read_line()) {
+        chomp $line;
+        last if ($line=~/^\*.+$/); # end vocab if new section
+        next if ($line=~/^\;/); # ignore comment lines
+        $line=lc($line);
+        @vocargs = split (/\s+/,$line);
+        print LOG "vocargs=";
+        foreach my $arg (@vocargs) {
+            print LOG "\'$arg\' ";
+        }
+        print LOG "\n";
+        my $x = shift @vocargs;
+        $subsection = $x unless ($x eq ''); # only change the subsection if there is a value
+        # ignore class as we will make it imperative rather than declarative
+        if ($subsection eq "object") {
+            # objid class weight score
+            # these may be declared before the objects themselves have been defined in *objects
+            # so we put them in a vocab objects array and merge them later
+            $i=$#vocabobj + 1; # the next object number
+            $vocabobj[$i]{"name"} = shift @vocargs;
+            $vocabobj[$i]{"class"} = shift @vocargs;
+            $vocabobj[$i]{"weight"} = shift @vocargs;
+            $vocabobj[$i]{"score"} = shift @vocargs;
+            print LOG "$i vocabobj=" . $vocabobj[$i]{"name"} . " added\n";
+        } elsif ($subsection eq "syn") {
+            # synonym word
+            $i=$#objects + 1; # the next object number
+            # record synonym object
+            $objects[$i]{"name"}=shift @vocargs;
+            $objects[$i]{"action"}=shift @vocargs;
+            $objects[$i]{"type"}=$synonym;
+        }
+        # ignore class, motion, singles and action
+    }
+    print LOG "end vocabulary\n";
+    print "Done\n";
+}
+
+sub do_compile() {
+    my ($i, $j);
+    print "Linking objects\n";
+    print LOG "linking objects\n";
+    for $i (0..$#vocabobj) {
+        my $objname = $vocabobj[$i]{"name"};
+        print LOG "$i name=$objname class=" . $vocabobj[$i]{"class"} . " weight=" . $vocabobj[$i]{"weight"} . " score=" . $vocabobj[$i]{"score"} . "\n";
+        for $j (0..$#objects) {
+            if (($objects[$j]{"name"} eq $objname) && ($objects[$j]{"type"} == $thing)) {
+                $objects[$j]{"class"} = $vocabobj[$i]{"class"};
+                $objects[$j]{"weight"} = $vocabobj[$i]{"weight"};
+                $objects[$j]{"score"} = $vocabobj[$i]{"score"};
+            }
+        }
+    }
+    print LOG "objects linked\n";
     print "Done\n";
 }

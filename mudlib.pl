@@ -107,6 +107,7 @@ my $player = 2;
 my $exit = 3;
 my $thing = 4;
 my $topic = 5;
+my $synonym = 6;
 
 #Special IDs
 
