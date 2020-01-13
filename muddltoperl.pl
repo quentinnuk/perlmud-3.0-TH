@@ -174,7 +174,7 @@ my %flags = (
     "silent", $silent,
     "no-get", $noget,
     "transparent", $transparent,
-    "openend", $openend,
+    "opened", $opened,
     "disguised", $disguised,
     "no-summon", $nosummon,
     "fixed", $fixed,
@@ -211,7 +211,7 @@ my %flagsProper = (
     "silent", $silent,
     "noget", $noget,
     "transparent", $transparent,
-    "openend", $openend,
+    "opened", $opened,
     "disguised", $disguised,
     "no-summon", $nosummon,
     "fixed", $fixed,
@@ -249,7 +249,7 @@ my @flagNames = (
     "silent",
     "noget",
     "transparent",
-    "openend",
+    "opened",
     "disguised",
     "no-summon",
     "fixed",
@@ -775,9 +775,12 @@ sub do_objects() {
                 } elsif ($arg eq "bright") {
                     $flags=$flags - $dark; #debug not sure this will work in game when looking at the object
                 } else {
-                    my $flags |= $flagsProper{$arg};
+                    print LOG "objid $i adding flag $arg ";
+                    $flags |= $flagsProper{"$arg"};
+                    print LOG "flags=$flags \n";
                 }
             }
+            print LOG "objid $i flags=$flags \n";
             $objects[$i]{"flags"}=$flags;
         } elsif ($line =~ /^(\d+)\s+(.+)\s+$/) { #debug
             # process a text description line in format
