@@ -615,7 +615,7 @@ sub do_travel() {
                 $direction=~s/^nw$/northwest/i;
                 $direction=~s/^sw$/southwest/i;
                 $direction=~s/^se$/southeast/i;
-                $direction=~s/^o$/out;o/i;
+                $direction=~s/^o$/out/i;
                 print LOG "$direction\n";
             }
             $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
