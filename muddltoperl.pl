@@ -603,18 +603,18 @@ sub do_travel() {
             $objects[$i]{"type"}=$exit; # type is an exit
             $objects[$i]{"location"}=$objid; # is in room objid
             $objects[$i]{"home"}=$objid; # in case the exit is sent home
-            foreach my $direction(@travelargs) { # create expanded synonyms for directions
+            foreach my $direction(@travelargs) { # expand directions
                 print LOG "direction $direction became ";
-                $direction=~s/^n$/north;n/i;
-                $direction=~s/^s$/south;s/i;
-                $direction=~s/^e$/east;e/i;
-                $direction=~s/^w$/west;w/i;
-                $direction=~s/^u$/up;u/i;
-                $direction=~s/^d$/down;d/i;
-                $direction=~s/^ne$/northeast;ne/i;
-                $direction=~s/^nw$/northwest;nw/i;
-                $direction=~s/^sw$/southwest;sw/i;
-                $direction=~s/^se$/southeast;se/i;
+                $direction=~s/^n$/north/i;
+                $direction=~s/^s$/south/i;
+                $direction=~s/^e$/east/i;
+                $direction=~s/^w$/west/i;
+                $direction=~s/^u$/up/i;
+                $direction=~s/^d$/down/i;
+                $direction=~s/^ne$/northeast/i;
+                $direction=~s/^nw$/northwest/i;
+                $direction=~s/^sw$/southwest/i;
+                $direction=~s/^se$/southeast/i;
                 $direction=~s/^o$/out;o/i;
                 print LOG "$direction\n";
             }
