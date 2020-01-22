@@ -569,6 +569,7 @@ sub do_travel() {
         }
         if ($line !~ /^\*.+$/) { # only do this if it is not a new section
             # arg[1] is the condition which we store for now
+            #debug we will have to process this into a lock at some point
             my $condition=shift @travelargs; # numeric msg or demon for direction, or class or object test
             $objects[$i]{"condition"}=$condition if ($condition ne 'n'); # no need to keep no condition
             if ($condition=~/^[-]?\d+$/) {
@@ -603,19 +604,19 @@ sub do_travel() {
             $objects[$i]{"type"}=$exit; # type is an exit
             $objects[$i]{"location"}=$objid; # is in room objid
             $objects[$i]{"home"}=$objid; # in case the exit is sent home
-            foreach my $direction(@travelargs) { # expand directions
+            foreach my $direction(@travelargs) { # expand directions inc. random options
                 print LOG "direction $direction became ";
-                $direction=~s/^n$/north/i;
-                $direction=~s/^s$/south/i;
-                $direction=~s/^e$/east/i;
-                $direction=~s/^w$/west/i;
-                $direction=~s/^u$/up/i;
-                $direction=~s/^d$/down/i;
-                $direction=~s/^ne$/northeast/i;
-                $direction=~s/^nw$/northwest/i;
-                $direction=~s/^sw$/southwest/i;
-                $direction=~s/^se$/southeast/i;
-                $direction=~s/^o$/out/i;
+                $direction=~s/(^|\|)n(?=$|\|)/$1north/i;
+                $direction=~s/(^|\|)s(?=$|\|)/$1south/i;
+                $direction=~s/(^|\|)e(?=$|\|)/$1east/i;
+                $direction=~s/(^|\|)w(?=$|\|)/$1west/i;
+                $direction=~s/(^|\|)u(?=$|\|)/$1up/i;
+                $direction=~s/(^|\|)d(?=$|\|)/$1down/i;
+                $direction=~s/(^|\|)ne(?=$|\|)/$1northeast/i;
+                $direction=~s/(^|\|)nw(?=$|\|)/$1northwest/i;
+                $direction=~s/(^|\|)sw(?=$|\|)/$1southwest/i;
+                $direction=~s/(^|\|)se(?=$|\|)/$1southeast/i;
+                $direction=~s/(^|\|)o(?=$|\|)/$1out/i;
                 print LOG "$direction\n";
             }
             $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
@@ -655,14 +656,26 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
     }
     # now have all texts, need to x-ref in door objects and add locks and success/fail
     print "Resolving text x-refs\n";
-    # to do
+    my $c;
     for ($i=0;$i<=$#objects;$i++) { # could use a foreach here but having the index aids debugging
         if ($objects[$i]{"type"}==$exit) {
-            my $c = $objects[$i]{"condition"};
-            if ($c=~/^\d+$/) { # condition is a msg number not a -ve demon number so set success msg for going nowhere
-                $objects[$i]{"success"}=$textIds{$c} or print LOG "invalid text condition $c in objid $i \n";
+            $c = $objects[$i]{"condition"};
+            if ($c=~/^\d+$/) { # condition is a msg number not a -ve demon number so set fail msg for going nowhere
+                $objects[$i]{"fail"}=$textIds{$c} or print LOG "invalid text condition $c in objid $i \n";
                 print LOG "x-ref $i cond $c resolved\n";
-                delete ($objects[$i]{"condition"}); # dont need to keep this now success set up
+                delete ($objects[$i]{"condition"}); # dont need to keep this now fail set up
+            } elsif ($c=~/^-\d+$/) { # condition is a demon
+                print LOG "x-ref $i identified demon $c\n";
+                #debug do something with demons
+            } elsif ($c ne "") { # assume its a class or object and is suitable to be a lock condition
+                #debug need to resolve e "empty" condition
+                $c="empty" if ($c eq "e"); # expand e to empty
+                print LOG "c=$c ";
+                $c=~s/^~(.*)$/!$1/g; # allow for negated conditions
+                print LOG "negated c=$c \n";
+                $objects[$i]{"lock"}=$c;
+                delete ($objects[$i]{"condition"}); # dont need to keep this now lock set up
+                print LOG "x-ref $i cond $c resolved as lock\n";
             }
         } # need to resolve other places where text is used
     }
@@ -763,7 +776,7 @@ sub do_objects() {
             $objects[$i]{"maxprop"} = shift @objargs;
             $objects[$i]{"scoreprop"} = shift @objargs; # only has a score when at this prop value
             $objects[$i]{"currprop"} = $startprop; # current prop value
-            print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " score " . $objects[$i]{"score"} . "\n";
+            print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " scoreprop " . $objects[$i]{"scoreprop"} . "\n";
             # see if we have stamina or flags
             my $flags=$dark; # the opposite of bright
             # there is more...
