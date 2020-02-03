@@ -12,6 +12,7 @@ my $exit = 3;
 my $thing = 4;
 my $topic = 5;
 my $synonym = 6;
+my $action = 7;
 
 #Special IDs
 
@@ -876,8 +877,30 @@ sub do_vocab
             $objects[$i]{"name"}=shift @vocargs;
             $objects[$i]{"action"}=shift @vocargs;
             $objects[$i]{"type"}=$synonym;
+        } elsif ($subsection eq "action") {
+            # verb [.primitive] noun1 noun2 function param1 [param2] here_msg [near_msg] [far_msg] [-demon]
+            #debug needs further thought as to how to process the action. Just storing or using eval?
+            $i=$#objects + 1; # the next object number
+            $objects[$i]{"name"}=shift @vocargs; # this is the verb
+            my $token = shift @vocargs; # get the first argument
+            if (substr($token,0,1) eq ".") { # is there an optional primitive?
+                $objects[$i]{"primitive"} = substr($token,1); # this is mud primitive eg drop, get etc
+                $token = shift @vocargs;
+                $objects[$i]{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
+            } else { # no primitive
+                $objects[$i]{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
+            }
+            $token = shift @vocargs;
+            $objects[$i]{"lock"} = $token unless ($token eq "none"); # apply a class lock to the action (noun2)
+            $token = shift @vocargs;
+            $objects[$i]{"action"} = $token unless ($token eq "null"); # this is the function unless "null"
+            # now capture one or two arguments depnding on function
+            
+            # the x-ref msgs for here, near, far
+            
+            $objects[$i]{"type"}=$action;
         }
-        # ignore class, motion, singles and action
+        # ignore class, motion, singles
     }
     print LOG "end vocabulary\n";
     print "Done\n";
