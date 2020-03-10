@@ -257,6 +257,72 @@ my @flagNames = (
     "noit"
 );
 
+my %mudFunctions =
+(
+ "dead", 1, # null; do action and quit
+ "dec", 1, # (obj|null); decrements prop>0, null implies command noun1
+ "decdestroy", 1, # (obj|null); dec prop of noun1>=0 destroy obj?
+ "destroy", 1, # (obj|null); destroys obj or command noun1
+ "destroydec", 1, # (obj|null); destroy obj or noun1 and dec prop of obj or noun2 and out msg
+ "destroydestroy", 1, # (obj|null); looks like it destroys command noun1 and param1 obj
+ "destroyinc", 1, # (obj|null); destroy obj or noun1 and inc prop of obj or noun2 and out msg
+ "disenable", 2, # null value; terminate demon value and do actions
+ "emotion", 2, # (obj|null) value; reduce player score by 2*value and increase target obj or noun1 score by (2*value)/3
+ "enable", 2, # null value; enable demon value and do action
+ "exp", 2, # (obj|null) value; add value to obj or player score
+ "expdestroy", 1, # (obj|null); destroy obj and earn score; null is command noun1
+ "flipat", 1, # null; debug not sure what it does - i think it flips objects
+ "flush", 1, # null; flush input buffer and do action
+ "holdfirst", 1, # null; debug not sure what it does
+ "holdlast", 1, # null; debug not sure what it does
+ "hurt", 2, # (obj|null) value; obj or noun1 is attacked with noun2 and the value is the minimum initial hit bitor with the weapon and determines msg?
+ "ifberserk", 1, # null; never gong to be true as we wont support berserkers
+ "ifblind", 2, # (obj|null) value; if blind flag is value do action
+ "ifdeaf", 2, # (obj|null) value; if deaf flag is value do action
+ "ifdisenable", 2, # null value; if demon value is currently enabled kill it and do actions if could kill
+ "ifdumb", 1, # (obj|null) value; if dumb flag is value do action
+ "iffighting", 1, # (obj|null); if obj or player is fighting do action
+ "ifgot", 1, # obj; do if got obj and using it??? debug
+ "ifhave", 1, # obj; if carrying obj but not using it do action
+ "ifin", 2, # (obj|null) location; if obj or player in location do action
+ "ifinsis", 1, # obj; if instrument (noun2) is obj then do actions
+ "ifinvis", 2, # (obj|null) value; if invis flag of player or obj is value do action
+ "iflevel", 2, # (obj|null) value; if player or obj level >= value do action
+ "ifobjis", 1, # obj; if noun2 is obj do action
+ "ifparalysed", 2, # (obj|null) value; if paralysed flag is value do action
+ "ifprop", 2, # (obj|null) value; tests prop value of obj, null implies command noun1
+ "ifrlevel", 2, # (obj|null) value; if (1+player level * value > random(100) or wiz) and (1+level of target obj or noun1 * value < random (100) not wiz) do action
+ "ifself", 1, # null; if target is self
+ "ifweighs", 2, # (obj|null) value; if obj or noun1 weight >= value do msg
+ "ifwiz", 1, # (obj|null); do if obj or command noun1 a wiz
+ "ifzero", 1, # (obj|null); test prop is zero, null implies command noun1
+ "inc", 1, # (obj|null); inc prop<=maxprop, null implies command noun1
+ "incdestroy", 1, # (obj|null); inc prop of noun1<=maxprop and destroy obj?
+ "injure", 2, # (obj|null) value; deducts value stamina from obj or command noun1, does not start combat
+ "loseexp", 2, # null value; reduce score of player by value
+ "losestamina", 2, # (obj|null) value; deduct value stamina from obj or command noun1
+ "move", 2, # (obj|null) room; move obj to room, null implies command noun1
+ "noifr", 1, # null; clear IFR flag why debug?
+ "retal", 2, # null value; retaliates like hurt with a bitor of weapon value and out msg
+ "sendemon", 2, # (obj|null) demon; executes demon passing obj or command noun1 as object
+ "sendlevel", 2, # (obj|null) value; send a message noun2 to all players of level value-1 and do action
+ "set", 2, # (obj|null) value; sets prop to value, null implies command noun1
+ "ssendemon", 2, # null value; sends something to demon value and do action?? debug
+ "testsex", 1, # (obj|null); if male msg1 else msg2
+ "testsmall", 1, # (null); test if location has small flag, output msg1 if true else msg2
+ "unlessgot", 1, # obj; dont do if got obj in inventory and using it??? debug?
+ "unlesshere", 1, # obj; unless obj is here output msg1 else output msg2 (or nothing if 0)
+ "unlessinsis", 1, # obj; do action unless instrument (noun2) is obj
+ "unlesslevel", 2, # null value; if level of player < value then do actions
+ "unlessobjis", 1, # obj; do action unless noun1 is obj
+ "unlessobjis", 1, # obj; do primitive and messages unless command noun1 is obj
+ "unlessobjplayer", 1, # (obj|null); do unless obj or player is a persona
+ "unlessplaying", 2, # (obj|null) value; unless there is a player of level value playing
+ "unlessprop", 2, # (obj|null) value; tests prop value of obj, null implies command noun1
+ "unlessrlevel", 2, # (obj|null) value; do action unless (1+player level * value > random(100) or wiz) and (1+level of target obj or noun1 * value < random (100) not wiz)
+ "writein", 1, # (obj|null); append the second parameter text into obj or noun1 if null (books etc)
+);
+
 my @objects; # contains all the objects
 
 my $file = 'VALLEY.TXT'; # main source file
@@ -266,7 +332,7 @@ my @files = ();
 my $fh;
 my %textIds; # maps text numeric ids to strings
 my %objIds; # maps thing names to numeric ids
-my @vocabobj = (); # allow forward declare of objectes in vocab
+my @vocabobj = (); # allow forward declare of objects in vocab
 
 open LOG, ">log.txt";
 
@@ -821,7 +887,7 @@ sub do_objects() {
     print "Done\n";
 }
 
-sub do_vocab
+sub do_vocab()
 {
     # *vocab is made up of several subsections:
     # class contains:
@@ -885,20 +951,49 @@ sub do_vocab
             my $token = shift @vocargs; # get the first argument
             if (substr($token,0,1) eq ".") { # is there an optional primitive?
                 $objects[$i]{"primitive"} = substr($token,1); # this is mud primitive eg drop, get etc
-                $token = shift @vocargs;
-                $objects[$i]{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
-            } else { # no primitive
-                $objects[$i]{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
+                $token = shift @vocargs; # get next token
             }
+            $objects[$i]{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
             $token = shift @vocargs;
             $objects[$i]{"lock"} = $token unless ($token eq "none"); # apply a class lock to the action (noun2)
             $token = shift @vocargs;
-            $objects[$i]{"action"} = $token unless ($token eq "null"); # this is the function unless "null"
-            # now capture one or two arguments depnding on function
+            unless ($token eq "null") {
+                $objects[$i]{"action"} = $token ; # this is the function unless "null"
+                # now capture one or two arguments depnding on function
+                if (defined $mudFunctions{$objects[$i]{"action"}}) {
+                    my $numParams = $mudFunctions{$objects[$i]{"action"}};
+                    for (my $a=1; $a <= $numParams; $a++) {
+                        $token = shift @vocargs;
+                        $objects[$i]{"arg$a"} = $token
+                    }
+                } else {
+                    print LOG "invalid vocab action $token\n";
+                    next;
+                }
+            }
+            $token = shift @vocargs;
+            $token = shift @vocargs if ($token eq "null"); # throw away null argument if it exists
             
-            # the x-ref msgs for here, near, far
-            
+            # the x-ref msgs for here, near, far. there is always here and near.
+            $objects[$i]{"msg1"}=$token; # here msg
+            $token = shift @vocargs;
+            unless ($token < 0) { # msg2 is optional if there is a demon
+                $objects[$i]{"msg2"}=$token unless ($token eq ""); # near msg
+                $token = shift @vocargs;
+            }
+            if ($token < 0) {
+                $objects[$i]{"demon"}=$token; # demon triggered
+            } else {
+                $objects[$i]{"msg3"}=$token unless ($token eq ""); # far msg
+                $token = shift @vocargs; # if there is one
+                $objects[$i]{"demon"}=$token if ($token <0); # demon triggered
+            }
             $objects[$i]{"type"}=$action;
+            print LOG "vocact ";
+            foreach my $attribute (keys %{$objects[$i]}) {
+                print LOG "$attribute " . $objects[$i]{$attribute} . " ";
+            }
+            print LOG "\n";
         }
         # ignore class, motion, singles
     }

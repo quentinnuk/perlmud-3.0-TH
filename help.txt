@@ -1,64 +1,45 @@
 *index
-PerlMUD Help System
+TeleMUD Help System
 
-Type "help topic" for more information about a 
-particular command or topic. The following is a list of 
-the available commands and help topics: 
+MUD is a multi-player games of magic and mystery. You
+are an adventurer exploring the dungeons and caves in the Land. They will
+accept simple imperative sentences from you in (a subset of) English and
+attempt to move you about the Land. Most simple movement commands are
+allowed, eg n, sw, west, up, jump, plus others you'll have to find out! They
+have the following set commands, minimum abbreviation in upper case:
 
-TOPICS:
+<name> <message>    Whispers <message> to the player called <name>
+Get <item>          Allows you to pick up the <item>
+DRop <item>         Allows you to let go of the <item>...
+Kill <name>         If <name> is nearby, start fighting!
+Inventory           What am I carrying?
+WHO                 Say who is playing
+Look                What can I see here? You can Look <direction>
+SCore               How well am I doing?
+QUIT                I've had enough!
+"<message>          Send <message> to all in the room (talk)
+SHout, <message>    Send <message> to everyone
 
-beginner, clothing, moving, talking, topics, email, building, 
-locking, rooms, substitutions, flags, creatures, admin, rules
+To score full points for any treasure, it must be dropped in the
+swamp. You'll have to find the swamp yourselves! Points can also
+be gained (or lost) for certain actions, eg killing someone...
+If you leave a game by QUITing then you can start again later. One
+point of lost stamina (from fights!) is regained per minute you're
+out. If you're killed, however, you have to start anew.
 
-COMMANDS:
-
-say, emote, look, read, examine, inventory, drop, get, take,
-quit, home, who, last, sign, write, help, motd, welcome, whisper,
-page, @topic, @wall, @dig, @doing, @create, @stats, @set, @email, 
-@describe, @name, @chown, @pcreate, @password, @teleport, @link, 
-@open, @fail, @ofail, @success, @osuccess, @odrop, @lock, @boot,
-@clean, @find, @recycle, @toad, @shutdown, @dump, @rows, 
-@gag, @ungag, @tz, @24, @12, @reload
 *beginner
-Welcome to PerlMUD. PerlMUD is very similar to TinyMUD
-and TeenyMUD, with which you may be familiar. 
+Welcome to teleMUD. teleMUD is intended to be very
+similar to the orginal Essex University MUD that was
+established in 1978 and continued to be played until 1999.
 
 If you are new to MUDs, you will want to read the 
 following topics first:
 
-clothing
 moving
 talking
-topics
-email
 
-Type "help clothing" to read that topic.
-*email
-On some PerlMUD systems, you can receive mail at the site
-the MUD runs on if you use the @email command to set an
-address to which your mail should be forwarded. This means
-your fellow MUD users don't have to remember your
-email address. See @email for details.
-*@email
-If you wish to make it easier for other users to contact
-you by email, use the @email command to tell the system
-where email for you should be forwarded. Once you do this,
-other users can contact you by sending email to
-yourmudname@mudcomputer.com instead of remembering
-your address.
+Type "help moving" to read that topic.
 
-Example (for the player "bob"):
-@email boba@foo.com
-Email address set.
-
-Bob's friends can now reach him by sending mail
-to bob@baz.com, if the MUD runs on baz.com.
-
-TO FIND OUT if @email is set for you or another person, type:
-
-examine *personname
-
-Note the use of the asterisk. 
 *clothing
 When your character is first created, it is not much to look at. Be
 sure to set your description with the @desc command.
@@ -75,11 +56,11 @@ You can abbreviate most commands.
 
 Next, you will probably want to read the "help moving" topic.
 *moving
-To move from room to room in PerlMUD, just type the direction in 
+To move from room to room in teleMUD, just type the direction in
 which you want to move. Usually the possible directions are mentioned
 in the description of the room you are in. Typical exits
 include north, south, east, west, and one-letter abbreviations 
-of the above. You may see the message "Huh?" if a particular
+of the above. You may see a message if a particular
 exit is not available from the current room.
 
 Example:
@@ -88,7 +69,11 @@ You are in the dining room. There is a door to the north.
 n
 You are in the hallway.
 
+Sometimes it is possible to see the obvious exits by typing
+"exits".
+
 Next, you will probably want to read the "help talking" topic.
+
 *talking
 You will often encounter other players on the MUD. 
 To converse with them, use the "say" command, which
@@ -131,7 +116,6 @@ Tom blushes hotly. <geek>
 For more information, and examples, see "help @topic", 
 "help @join" and "help @leave".
 
-To learn about creating objects, move on to the "help building" topic.
 *building
 To create an object, use the @create command:
 
@@ -756,20 +740,25 @@ Usage:
 The @shutdown command is used to shut down the MUD,
 disconnecting all current users and writing the 
 database to disk. This command cannot be abbreviated.
-*@reload
-The @reload command is used to reload the mud source
-code from mudlib.pl, after first writing the database
-to disk. This often allows the installation of new
-features without a shutdown, although of course bugs
-in the changes you have made could crash the mud.
-This command cannot be abbreviated.
+*@reset
+The @reset command is used to reload the mud source
+code from the db after first writing the personas
+to disk. This resets all the objects to their orginal
+location and ejects all players. This useful if all
+the treasure has been used.
 *@dump
-The @dump command is used to write the database to disk
+The @dump command is used to write the personas to disk
 immedately. Note that the server automatically writes the
 database to disk at regular intervals. This command is
 nonetheless useful when a particularly important action
 has just been performed. Only wizards can use this
 command. This command cannot be abbreviated.
+
+If you add the "all" argument, this will also write the
+object database to disk rendering permanent any changes
+that have teken place in game to objects and rooms. Be
+very careful before doing this as it could break the game.
+Only an arch-wizard can do this.
 *@gag
 The @gag command allows you to completely ignore
 another player. Use this command if you find you
@@ -793,13 +782,8 @@ Bob says, "it's oddly quiet in here."
 
 See also: @gag
 *rules
-Nerdsholm is an extension of Tom's living room. Please
-behave accordingly. 
-
-When building yourself a home, ask for an entrance somewhere 
-in the town so you can be added to the map. Please don't
-add random, inconsistent exits. Beyond your front door, 
-silly or illogical geography is perfectly OK.
-
-Don't MUD while driving.
+Wizards and arch-wizards have god-like authority over
+mortals. THey cannot be questioned and you must simply
+put up with their decisions. Dont upset a wiz if you
+want to survive.
 
