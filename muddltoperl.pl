@@ -271,16 +271,19 @@ my %mudFunctions =
  "enable", 2, # null value; enable demon value and do action
  "exp", 2, # (obj|null) value; add value to obj or player score
  "expdestroy", 1, # (obj|null); destroy obj and earn score; null is command noun1
- "flipat", 1, # null; debug not sure what it does - i think it flips objects
+ "expset", 2, # (obj|null) value; gain the score determined by obj or noun1 score if the scoreprop=prop and then do fn set ??? debug understand code in MUD3 setexp
+ "flipat", 1, # null; flips noun1 and noun2 around in response to "at" preposition
  "flush", 1, # null; flush input buffer and do action
- "holdfirst", 1, # null; debug not sure what it does
- "holdlast", 1, # null; debug not sure what it does
+ "holdfirst", 1, # null; debug not sure what it does maybe checks player has noun1 in inventory not that its just in room????
+ "holdlast", 1, # null; debug not sure what it does maybe checks player has noun2 in inventory not that its just in room????
  "hurt", 2, # (obj|null) value; obj or noun1 is attacked with noun2 and the value is the minimum initial hit bitor with the weapon and determines msg?
+ "ifasleep", 2, # null value; if asleep flag is value do actions
  "ifberserk", 1, # null; never gong to be true as we wont support berserkers
  "ifblind", 2, # (obj|null) value; if blind flag is value do action
  "ifdeaf", 2, # (obj|null) value; if deaf flag is value do action
  "ifdisenable", 2, # null value; if demon value is currently enabled kill it and do actions if could kill
  "ifdumb", 1, # (obj|null) value; if dumb flag is value do action
+ "ifenabled", 2, # null value; if demon value is currently enabled do actions
  "iffighting", 1, # (obj|null); if obj or player is fighting do action
  "ifgot", 1, # obj; do if got obj and using it??? debug
  "ifhave", 1, # obj; if carrying obj but not using it do action
@@ -291,8 +294,12 @@ my %mudFunctions =
  "ifobjis", 1, # obj; if noun2 is obj do action
  "ifparalysed", 2, # (obj|null) value; if paralysed flag is value do action
  "ifprop", 2, # (obj|null) value; tests prop value of obj, null implies command noun1
+ "ifr", 2, # (obj|null) value; if random(100)<value do action and set IFR why debug???
  "ifrlevel", 2, # (obj|null) value; if (1+player level * value > random(100) or wiz) and (1+level of target obj or noun1 * value < random (100) not wiz) do action
+ "ifrprop", 2, # (obj|null) value; if maxprop<0 of obj or noun1 set prop to random(maxprop) and if prop is value do action
+ "ifrstas", 1, # null; if random(stamina of player) < random(stamina of mobile) do actions??? - this is a mobile specific function debug
  "ifself", 1, # null; if target is self
+ "ifsmall", 1, # (obj|null); if obj or room has flag small
  "ifweighs", 2, # (obj|null) value; if obj or noun1 weight >= value do msg
  "ifwiz", 1, # (obj|null); do if obj or command noun1 a wiz
  "ifzero", 1, # (obj|null); test prop is zero, null implies command noun1
@@ -305,21 +312,24 @@ my %mudFunctions =
  "noifr", 1, # null; clear IFR flag why debug?
  "retal", 2, # null value; retaliates like hurt with a bitor of weapon value and out msg
  "sendemon", 2, # (obj|null) demon; executes demon passing obj or command noun1 as object
+ "sendeffect", 2, # obj msgid; sends msgid to every room that contains obj
  "sendlevel", 2, # (obj|null) value; send a message noun2 to all players of level value-1 and do action
  "set", 2, # (obj|null) value; sets prop to value, null implies command noun1
  "ssendemon", 2, # null value; sends something to demon value and do action?? debug
+ "stamina", 2, # (obj|null) value; set stamina of obj or player/mobile to min(current stamina+value,100)
  "testsex", 1, # (obj|null); if male msg1 else msg2
  "testsmall", 1, # (null); test if location has small flag, output msg1 if true else msg2
  "unlessgot", 1, # obj; dont do if got obj in inventory and using it??? debug?
  "unlesshere", 1, # obj; unless obj is here output msg1 else output msg2 (or nothing if 0)
+ "unlessill", 1, # null; do action unless deaf, dumb, blind, paralysed - demon action debug ????
  "unlessinsis", 1, # obj; do action unless instrument (noun2) is obj
  "unlesslevel", 2, # null value; if level of player < value then do actions
  "unlessobjis", 1, # obj; do action unless noun1 is obj
- "unlessobjis", 1, # obj; do primitive and messages unless command noun1 is obj
  "unlessobjplayer", 1, # (obj|null); do unless obj or player is a persona
  "unlessplaying", 2, # (obj|null) value; unless there is a player of level value playing
  "unlessprop", 2, # (obj|null) value; tests prop value of obj, null implies command noun1
  "unlessrlevel", 2, # (obj|null) value; do action unless (1+player level * value > random(100) or wiz) and (1+level of target obj or noun1 * value < random (100) not wiz)
+ "unlesswiz", 1, # (obj|null); do primitive and messages unless obj or player is a wiz
  "writein", 1, # (obj|null); append the second parameter text into obj or noun1 if null (books etc)
 );
 
@@ -946,25 +956,26 @@ sub do_vocab()
         } elsif ($subsection eq "action") {
             # verb [.primitive] noun1 noun2 function param1 [param2] here_msg [near_msg] [far_msg] [-demon]
             #debug needs further thought as to how to process the action. Just storing or using eval?
-            $i=$#objects + 1; # the next object number
-            $objects[$i]{"name"}=shift @vocargs; # this is the verb
+            my %instruction;
+            my $assembly;
+            $instruction{"name"}=shift @vocargs; # this is the verb
             my $token = shift @vocargs; # get the first argument
             if (substr($token,0,1) eq ".") { # is there an optional primitive?
-                $objects[$i]{"primitive"} = substr($token,1); # this is mud primitive eg drop, get etc
+                $instruction{"primitive"} = substr($token,1); # this is mud primitive eg drop, get etc
                 $token = shift @vocargs; # get next token
             }
-            $objects[$i]{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
+            $instruction{"class"} = $token unless ($token eq "none"); # this is the class it acts on (noun1)
             $token = shift @vocargs;
-            $objects[$i]{"lock"} = $token unless ($token eq "none"); # apply a class lock to the action (noun2)
+            $instruction{"lock"} = $token unless ($token eq "none"); # apply a class lock to the action (noun2)
             $token = shift @vocargs;
             unless ($token eq "null") {
-                $objects[$i]{"action"} = $token ; # this is the function unless "null"
+                $instruction{"action"} = $token ; # this is the function unless "null"
                 # now capture one or two arguments depnding on function
-                if (defined $mudFunctions{$objects[$i]{"action"}}) {
-                    my $numParams = $mudFunctions{$objects[$i]{"action"}};
+                if (defined $mudFunctions{$instruction{"action"}}) {
+                    my $numParams = $mudFunctions{$instruction{"action"}};
                     for (my $a=1; $a <= $numParams; $a++) {
                         $token = shift @vocargs;
-                        $objects[$i]{"arg$a"} = $token
+                        $instruction{"arg$a"} = $token
                     }
                 } else {
                     print LOG "invalid vocab action $token\n";
@@ -973,27 +984,60 @@ sub do_vocab()
             }
             $token = shift @vocargs;
             $token = shift @vocargs if ($token eq "null"); # throw away null argument if it exists
-            
             # the x-ref msgs for here, near, far. there is always here and near.
-            $objects[$i]{"msg1"}=$token; # here msg
+            $instruction{"msg1"}=$token; # here msg
             $token = shift @vocargs;
-            unless ($token < 0) { # msg2 is optional if there is a demon
-                $objects[$i]{"msg2"}=$token unless ($token eq ""); # near msg
+            unless ($token <= 0) { # msg2 is optional if there is a demon or 0
+                $instruction{"msg2"}=$token unless ($token eq ""); # near msg
                 $token = shift @vocargs;
             }
-            if ($token < 0) {
-                $objects[$i]{"demon"}=$token; # demon triggered
+            if ($token <= 0) {
+                $instruction{"demon"}=$token if ($token < 0); # demon triggered if -ve
             } else {
-                $objects[$i]{"msg3"}=$token unless ($token eq ""); # far msg
+                $instruction{"msg3"}=$token unless ($token eq ""); # far msg if present
                 $token = shift @vocargs; # if there is one
-                $objects[$i]{"demon"}=$token if ($token <0); # demon triggered
+                $instruction{"demon"}=$token if ($token < 0); # demon triggered
             }
-            $objects[$i]{"type"}=$action;
             print LOG "vocact ";
-            foreach my $attribute (keys %{$objects[$i]}) {
-                print LOG "$attribute " . $objects[$i]{$attribute} . " ";
+            foreach my $attribute (keys %instruction) {
+                print LOG "$attribute " . $instruction{$attribute} . " ";
             }
             print LOG "\n";
+            # assemble object from instruction
+            $i=$#objects + 1; # the next object number
+            $objects[$i]{"name"}=$instruction{"name"}; # the verb
+            $objects[$i]{"class"}=$instruction{"class"} if (defined $instruction{"class"}); # noun1 must be this class
+            $objects[$i]{"lock"}=$instruction{"lock"} if (defined $instruction{"lock"}); # this class must be present
+            $objects[$i]{"type"}=$action;
+            # in teleMUD $arg1 is noun1, $arg2 is noun2, $arg is all arguments, $me is myself
+            # debug need to check class and lock matches for $arg1 and $arg2
+            if (defined $instruction{"action"}) {
+                # there is an action clause so call the mud_action function
+                $assembly='if ( mud_' . $instruction{"action"} . '(';
+                # add parameters to the mud_action function if exist
+                $assembly .= '$me,$arg,$arg1,$arg2,\'' . $instruction{"arg1"} . '\'';
+                $assembly .= ',\'' . $instruction{"arg2"} . '\'' if (defined $instruction{"arg2"});
+                $assembly .= ') ) ';
+            }
+            $assembly .= '{';
+            $assembly .= '&' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2); ' if (defined $instruction{"primitive"});
+            #debug looks like msg1 shold be output to player if success and msg2 output to player if fail, msg3 output to everyone else
+            if ((defined $instruction{"msg1"}) && ($instruction{"msg1"} != 0)) {
+                $assembly .= '&tellPlayer($me,$objects[' . $i . ']{"msg1"}); ';
+                $objects[$i]{"msg1"}=$instruction{"msg1"}; # need to replace msg1 value with text
+            }
+            if ((defined $instruction{"msg3"}) && ($instruction{"msg3"} != 0)) {
+                $assembly .= '&tellElsewhere($me,$objects[' . $i . ']{"msg3"}); ';
+                $objects[$i]{"msg3"}=$instruction{"msg3"}; # need to replace msg3 value with text
+            }
+            $assembly .= '&mud_demon($me,' . $instruction{"demon"} . '); ' if (defined $instruction{"demon"}); # run demon if defined
+            $assembly .= '1; }';
+            if ((defined $instruction{"msg2"}) && ($instruction{"msg2"} != 0)) {
+                $assembly .= ' else { &tellPlayer($me,$objects[' . $i . ']{"msg2"}); 0; }';
+                $objects[$i]{"msg2"}=$instruction{"msg2"}; # need to replace msg2 value with text
+            }
+            $objects[$i]{"action"}=$assembly;
+            print LOG "actobj " . $objects[$i]{"name"} . " is " . $objects[$i]{"action"} . "\n";
         }
         # ignore class, motion, singles
     }
