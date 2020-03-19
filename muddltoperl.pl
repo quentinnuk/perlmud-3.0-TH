@@ -31,8 +31,9 @@ my $herm = 6;
 #Name of location visible in who list
 my $public = 8;
 
-#Unused flag
-my $unusedFlag = 16;
+#Gives off light
+my $bright = 16;
+
 #OK to link to
 my $linkok = 32;
 
@@ -142,6 +143,7 @@ my %flags = (
     "male", $male,
     "female", $female,
     "public", $public,
+    "bright", $bright,
     "linkok", $linkok,
     "jumpok", $jumpok,
     "buildok", $buildok,
@@ -187,6 +189,7 @@ my %flagsProper = (
     "male", $male,
     "female", $female,
     "public", $public,
+    "bright", $bright,
     "linkok", $linkok,
     "jumpok", $jumpok,
     "buildok", $buildok,
@@ -225,6 +228,7 @@ my @flagNames = (
     "female",
     "unusedFlag",
     "public",
+    "bright",
     "linkok",
     "jumpok",
     "buildok",
@@ -754,7 +758,14 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
                 delete ($objects[$i]{"condition"}); # dont need to keep this now lock set up
                 print LOG "x-ref $i cond $c resolved as lock\n";
             }
-        } # need to resolve other places where text is used
+        } elsif ($objects[$i]{"type"}==$action) {
+            # x-ref action object msgs debug
+            for my $j (1..3) {
+                if (defined $objects[$i]{"msg$j"}) {
+                    $objects[$i]{"msg$j"} = $textIds{$objects[$i]{"msg$j"}};
+                }
+            }
+        }
     }
     print LOG "end texts\n";
     print "Done\n";
@@ -855,15 +866,13 @@ sub do_objects() {
             $objects[$i]{"currprop"} = $startprop; # current prop value
             print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " scoreprop " . $objects[$i]{"scoreprop"} . "\n";
             # see if we have stamina or flags
-            my $flags=$dark; # the opposite of bright
+            my $flags=0; # no flags
             # there is more...
             while ($arg = shift @objargs) {
                 if (looks_like_number($arg)) {
                      $objects[$i]{"stamina"} = $arg;
                 } elsif ($arg eq "contains") {
                     $objects[$i]{"contains"}=shift @objargs; # max containable weight
-                } elsif ($arg eq "bright") {
-                    $flags=$flags - $dark; #debug not sure this will work in game when looking at the object
                 } else {
                     print LOG "objid $i adding flag $arg ";
                     $flags |= $flagsProper{"$arg"};
