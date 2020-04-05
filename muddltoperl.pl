@@ -286,7 +286,7 @@ my %mudFunctions =
  "ifblind", 2, # (obj|null) value; if blind flag is value do action
  "ifdeaf", 2, # (obj|null) value; if deaf flag is value do action
  "ifdisenable", 2, # null value; if demon value is currently enabled kill it and do actions if could kill
- "ifdumb", 1, # (obj|null) value; if dumb flag is value do action
+ "ifdumb", 2, # (obj|null) value; if dumb flag is value do action
  "ifenabled", 2, # null value; if demon value is currently enabled do actions
  "iffighting", 1, # (obj|null); if obj or player is fighting do action
  "ifgot", 1, # obj; do if got obj and using it??? debug
@@ -731,7 +731,11 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
             print LOG "$i:\t$1\n";
-            $textIds{$objid}=$textIds{$objid} . $1 . " ";
+            if (substr($textIds{$objid},0,1) eq '*') { # keep line breaks if preformatted
+                $textIds{$objid}=$textIds{$objid} . "\n" . $1;
+            } else { # wrap this text
+                $textIds{$objid}=$textIds{$objid} . " " . $1;
+            }
         }
         last if ($line=~/^\*.+$/); # end rooms if new section
     }
@@ -762,7 +766,11 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
             # x-ref action object msgs debug
             for my $j (1..3) {
                 if (defined $objects[$i]{"msg$j"}) {
-                    $objects[$i]{"msg$j"} = $textIds{$objects[$i]{"msg$j"}};
+                    if ($textIds{$objects[$i]{"msg$j"}} eq "?") { # this is a file of text reference
+                        $objects[$i]{"msg$j"} = "?" . $objects[$i]{"msg$j"} . ".txt";
+                    } else {
+                        $objects[$i]{"msg$j"} = $textIds{$objects[$i]{"msg$j"}};
+                    }
                 }
             }
         }
@@ -964,7 +972,6 @@ sub do_vocab()
             $objects[$i]{"type"}=$synonym;
         } elsif ($subsection eq "action") {
             # verb [.primitive] noun1 noun2 function param1 [param2] here_msg [near_msg] [far_msg] [-demon]
-            #debug needs further thought as to how to process the action. Just storing or using eval?
             my %instruction;
             my $assembly;
             $instruction{"name"}=shift @vocargs; # this is the verb
