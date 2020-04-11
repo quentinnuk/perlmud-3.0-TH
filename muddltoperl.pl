@@ -13,12 +13,19 @@ my $thing = 4;
 my $topic = 5;
 my $synonym = 6;
 my $action = 7;
+my $demon = 8;
 
 #Special IDs
 
 my $none = -1;
 my $home = -2;
 my $nowhere = -3;
+
+# demon flags
+
+my $dEnabled = 1;
+my $dGlobal = 2;
+my $dAlways = 4;
 
 #Can't be seen; or description only, contents invisible
 my $dark = 1;
@@ -261,6 +268,12 @@ my @flagNames = (
     "noit"
 );
 
+my %demonFlagsProper = (
+    "enabled", $dEnabled,
+    "global", $dGlobal,
+    "always", $dAlways
+);
+
 my %mudFunctions =
 (
  "dead", 1, # null; do action and quit
@@ -366,7 +379,7 @@ if (restore()) {
             do_vocab();
         }
         if ($line =~/^\*demons/i ) {
-            # ignore for now
+            do_demons();
         }
         if ($line =~/^\*objects/i ) {
             do_objects();
@@ -1046,7 +1059,7 @@ sub do_vocab()
                 $assembly .= '&tellElsewhere($me,$objects[' . $i . ']{"msg3"}); ';
                 $objects[$i]{"msg3"}=$instruction{"msg3"}; # need to replace msg3 value with text
             }
-            $assembly .= '&mud_demon($me,' . $instruction{"demon"} . '); ' if (defined $instruction{"demon"}); # run demon if defined
+            $assembly .= '&mud_demon($me,' . $instruction{"demon"} . ',$arg,$arg1,$arg2); ' if (defined $instruction{"demon"}); # run demon if defined
             $assembly .= '1; }';
             if ((defined $instruction{"msg2"}) && ($instruction{"msg2"} != 0)) {
                 $assembly .= ' else { &tellPlayer($me,$objects[' . $i . ']{"msg2"}); 0; }';
@@ -1058,6 +1071,42 @@ sub do_vocab()
         # ignore class, motion, singles
     }
     print LOG "end vocabulary\n";
+    print "Done\n";
+}
+
+sub do_demons() # demon declarations
+{
+    my $i=0;
+    print "Doing demons\n";
+    print LOG "demons\n";
+    while ($line = read_line()) {
+        chomp $line;
+#        $line=~s/;.*//g; # strip comments
+        last if ($line=~/^\*.+$/); # end if new section
+        next if ($line=~/^\;/); # ignore comment lines
+        $line=lc($line);
+        my @demonargs = split (/\s+/,$line);
+        print LOG "demonargs=";
+        foreach my $arg (@demonargs) {
+            print LOG "\'$arg\' ";
+        }
+        print LOG "\n";
+        $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
+        $objects[$i]{"type"}=$demon; # its a demon
+        my $demonid=shift @demonargs; # demon number
+        $objects[$i]{"name"}=int(abs($demonid)); # make sure it is +ve number
+        $objects[$i]{"action"}=shift @demonargs; # the demon action this is linked to (aka demon name in MUD)
+        $objects[$i]{"class"}=shift @demonargs; # demon arg 1
+        $objects[$i]{"lock"}=shift @demonargs; # demon arg 2
+        $objects[$i]{"speed"}=shift @demonargs; # demon delay
+        my $flags = 0;
+        while (my $arg = shift @demonargs) {
+            $flags |= $demonFlagsProper{"$arg"};
+        }
+        print LOG "demon=". $objects[$i]{"name"} ." objid=$i act=" . $objects[$i]{"action"} . " flags=$flags \n";
+        $objects[$i]{"flags"}=$flags;
+    }
+    print LOG "end demons\n";
     print "Done\n";
 }
 
