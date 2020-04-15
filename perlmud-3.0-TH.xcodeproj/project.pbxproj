@@ -19,6 +19,7 @@
 		29C3EC0223E26204004BEF93 /* mud.pf */ = {isa = PBXFileReference; explicitFileType = text; path = mud.pf; sourceTree = "<group>"; };
 		29C3EC0323E26204004BEF93 /* minimal.pf */ = {isa = PBXFileReference; explicitFileType = text; path = minimal.pf; sourceTree = "<group>"; };
 		29C3EC0423E262A2004BEF93 /* mud.db */ = {isa = PBXFileReference; lastKnownFileType = text; path = mud.db; sourceTree = "<group>"; };
+		29C498A3241AB868005C5213 /* test.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = test.pl; sourceTree = "<group>"; };
 		29CDE12523948B73000DF501 /* muddltoperl.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = muddltoperl.pl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -26,6 +27,7 @@
 		298A32E323776A8A00BAB425 = {
 			isa = PBXGroup;
 			children = (
+				29C498A3241AB868005C5213 /* test.pl */,
 				298A32ED23776AFB00BAB425 /* allowed.txt */,
 				298A32EF23776AFB00BAB425 /* help.txt */,
 				298A32F623776AFB00BAB425 /* index.html */,

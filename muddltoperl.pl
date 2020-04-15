@@ -777,6 +777,14 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
             }
         } elsif ($objects[$i]{"type"}==$action) {
             # x-ref action object msgs debug
+            while ($objects[$i]{"action"} =~ /msg(\d+)/i) {
+                my $msg = $textIds{$1};
+                if ($msg eq "?") { # this is a file of text reference
+                    $msg = "?" . $1 . ".txt";
+                }
+                $objects[$i]{"action"} =~ s/msg$1/$msg/i;
+            };
+
             for my $j (1..3) {
                 if (defined $objects[$i]{"msg$j"}) {
                     if ($textIds{$objects[$i]{"msg$j"}} eq "?") { # this is a file of text reference
@@ -785,6 +793,11 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
                         $objects[$i]{"msg$j"} = $textIds{$objects[$i]{"msg$j"}};
                     }
                 }
+            }
+            if ($objects[$i]{"action"} =~ /mud_sendeffect/i) { # special handler for messages in sendeffect
+                $objects[$i]{"action"} =~ /^(.*\'\,\")(\d+)(\"\,.*$)/i;
+                my $msg = $textIds{$2}; # resolves send effect message id
+                $objects[$i]{"action"} = $1 . $msg . $3;
             }
         }
     }
@@ -942,8 +955,7 @@ sub do_vocab()
     #   noisewords (words to be barred from use as identities) - ignore these as not needed
     # various single argument subsection for defining pronouns, conjugations, prepositions etc - hard code these
     # action contains:
-    #   essentially this is programming for the commands but also declares messages for room, near, and far. We will
-    #   hard code this in perl but need to factor in demons
+    #   essentially this is programming for the commands but also declares messages for room, near, and far.
     #
     my $i=0;
     my @vocargs;
@@ -997,7 +1009,7 @@ sub do_vocab()
             $token = shift @vocargs;
             $instruction{"lock"} = $token unless ($token eq "none"); # apply a class lock to the action (noun2)
             $token = shift @vocargs;
-            unless ($token eq "null") {
+            if ($token ne "null") {
                 $instruction{"action"} = $token ; # this is the function unless "null"
                 # now capture one or two arguments depnding on function
                 if (defined $mudFunctions{$instruction{"action"}}) {
@@ -1042,31 +1054,48 @@ sub do_vocab()
             # debug need to check class and lock matches for $arg1 and $arg2
             if (defined $instruction{"action"}) {
                 # there is an action clause so call the mud_action function
-                $assembly='if ( mud_' . $instruction{"action"} . '(';
+                $assembly = "";
+                $assembly='if ( ' if (defined $instruction{"primitive"}); # only need a conditional if a primitive follows
+                $assembly .= 'mud_' . $instruction{"action"} . '(';
                 # add parameters to the mud_action function if exist
                 $assembly .= '$me,$arg,$arg1,$arg2,\'' . $instruction{"arg1"} . '\'';
-                $assembly .= ',\'' . $instruction{"arg2"} . '\'' if (defined $instruction{"arg2"});
-                $assembly .= ') ) ';
-            }
-            $assembly .= '{';
-            $assembly .= '&' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2); ' if (defined $instruction{"primitive"});
-            #debug looks like msg1 shold be output to player if success and msg2 output to player if fail, msg3 output to everyone else
-            if ((defined $instruction{"msg1"}) && ($instruction{"msg1"} != 0)) {
-                $assembly .= '&tellPlayer($me,$objects[' . $i . ']{"msg1"}); ';
-                $objects[$i]{"msg1"}=$instruction{"msg1"}; # need to replace msg1 value with text
-            }
-            if ((defined $instruction{"msg3"}) && ($instruction{"msg3"} != 0)) {
-                $assembly .= '&tellElsewhere($me,$objects[' . $i . ']{"msg3"}); ';
-                $objects[$i]{"msg3"}=$instruction{"msg3"}; # need to replace msg3 value with text
-            }
-            $assembly .= '&mud_demon($me,' . $instruction{"demon"} . ',$arg,$arg1,$arg2); ' if (defined $instruction{"demon"}); # run demon if defined
-            $assembly .= '1; }';
-            if ((defined $instruction{"msg2"}) && ($instruction{"msg2"} != 0)) {
-                $assembly .= ' else { &tellPlayer($me,$objects[' . $i . ']{"msg2"}); 0; }';
-                $objects[$i]{"msg2"}=$instruction{"msg2"}; # need to replace msg2 value with text
+                if (defined $instruction{"arg2"}) {
+                    $assembly .= ',"' . $instruction{"arg2"} . '"'; # there is a fnArg2
+                } else {
+                    $assembly .= ',""'; # no fnArg2
+                }
+                if ((defined $instruction{"msg1"}) && ($instruction{"msg1"} != 0)) {
+                    $assembly .= ',"' . "msg" . $instruction{"msg1"} . '"';
+                } else {
+                    $assembly .=',""';
+                }
+                if ((defined $instruction{"msg2"}) && ($instruction{"msg2"} != 0)) {
+                    $assembly .= ',"' . "msg" . $instruction{"msg2"} . '"';
+                } else {
+                    $assembly .=',""';
+                }
+                if ((defined $instruction{"msg3"}) && ($instruction{"msg3"} != 0)) {
+                    $assembly .= ',"' . "msg" . $instruction{"msg3"} . '"';
+                } else {
+                    $assembly .=',""';
+                }
+                $assembly .= ',' . $instruction{"demon"} if (defined $instruction{"demon"}); # run demon if defined
+                $assembly .= ') ';
+                if (defined $instruction{"primitive"}) {
+                    $assembly .= ') { return &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2); }'; # return the primitive return value which could be death
+                } else {
+                    $assembly .= ';'; # the function return value is sufficient and could be death
+                }
+            } else { # no function, but still have messages and some tests
+                # debug this should allow for a msg2 if the lock fails but the class passed - not supported in TH MUD at the moment as both are checked before action is called - this could be implemented by making the lock generation conditional on action present above
+                $assembly .= '{';
+                $assembly .= '&mud_demon($me,' . $instruction{"demon"} . ',$arg,$arg1,$arg2); ' if (defined $instruction{"demon"}); # run demon if defined
+                $assembly .= '&tellPlayer($me,\'' . "msg" . $instruction{"msg1"} . '\'); ' if ($instruction{"msg1"} > 0); # success for command and msg is not zero
+                $assembly .= 'return &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2); ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
+                $assembly .= '1; }'; # return 1 in case there isnt a primitive
             }
             $objects[$i]{"action"}=$assembly;
-            print LOG "actobj " . $objects[$i]{"name"} . " is " . $objects[$i]{"action"} . "\n";
+            print LOG " id=$i actobj " . $objects[$i]{"name"} . " is " . $objects[$i]{"action"} . "\n";
         }
         # ignore class, motion, singles
     }
