@@ -1002,6 +1002,7 @@ sub do_vocab()
             $instruction{"name"}=shift @vocargs; # this is the verb
             my $token = shift @vocargs; # get the first argument
             if (substr($token,0,1) eq ".") { # is there an optional primitive?
+                $token=".daytime" if ($token eq ".time"); # special to avoid perl namespace clash
                 $instruction{"primitive"} = substr($token,1); # this is mud primitive eg drop, get etc
                 $token = shift @vocargs; # get next token
             }
