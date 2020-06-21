@@ -370,28 +370,28 @@ if (restore()) {
     while ($line=read_line()) {
         chomp $line;
         if ($line =~ /^\*rooms/i ) {
-            do_rooms();
+            &do_rooms;
         }
         if ($line =~/^\*maps/i ) {
             # ignore for now
         }
         if ($line =~/^\*vocabulary/i ) {
-            do_vocab();
+            &do_vocab;
         }
         if ($line =~/^\*demons/i ) {
-            do_demons();
+            &do_demons;
         }
         if ($line =~/^\*objects/i ) {
-            do_objects();
+            &do_objects;
         }
         if ($line =~/^\*travel/i ) {
-            do_travel();
+            &do_travel;
         }
         if ($line =~/^\*text/i ) {
-            do_texts();
+            &do_texts;
         }
     }
-    do_compile(); # resolve outstanding links
+    &do_compile; # resolve outstanding links
     close($fh);
     print "processing complete.\n";
 
@@ -626,7 +626,7 @@ sub do_rooms
     print "Done\n";
 }
 
-sub do_travel() {
+sub do_travel {
     my $i=0;
     my @travelargs;
     my ($objid, $destid);
@@ -726,7 +726,7 @@ sub do_travel() {
     print "Done\n";
 }
 
-sub do_texts() { # stores all the texts reponses into a list for lookup later
+sub do_texts { # stores all the texts reponses into a list for lookup later
     my $i=0;
     my @textargs;
     my ($objid);
@@ -805,7 +805,7 @@ sub do_texts() { # stores all the texts reponses into a list for lookup later
     print "Done\n";
 }
 
-sub do_objects() {
+sub do_objects {
     # objects are  in the general form:
     # name [speed demon attack%] location(s) startprop maxprop score [stamina] [flags]
     # followed by text descriptions for each property value
@@ -940,7 +940,7 @@ sub do_objects() {
     print "Done\n";
 }
 
-sub do_vocab()
+sub do_vocab
 {
     # *vocab is made up of several subsections:
     # class contains:
@@ -1029,15 +1029,25 @@ sub do_vocab()
             # the x-ref msgs for here, near, far. there is always here and near.
             $instruction{"msg1"}=$token; # here msg
             $token = shift @vocargs;
-            unless ($token <= 0) { # msg2 is optional if there is a demon or 0
-                $instruction{"msg2"}=$token unless ($token eq ""); # near msg
-                $token = shift @vocargs;
+            if ($token > 0) { # msg2 is present
+                $instruction{"msg2"}=$token; # near msg
+                $token = shift @vocargs; # get next token (msg3 or demon)
             }
-            if ($token <= 0) {
-                $instruction{"demon"}=$token if ($token < 0); # demon triggered if -ve
-            } else {
-                $instruction{"msg3"}=$token unless ($token eq ""); # far msg if present
-                $token = shift @vocargs; # if there is one
+            if ($token <= 0) { # its either a null msg2 or msg3 (ignore) or a demon
+                if ($token < 0) { # its a demon!
+                    $instruction{"demon"}=$token; # demon triggered if -ve
+                } else { # it is a null msg2 or msg3 so throw away
+                    $token = shift @vocargs; # get next token (either msg3, a demon, a undef)
+                }
+            }
+            if ($token>0) { # it is a msg3
+                $instruction{"msg3"}=$token; # far msg if present
+                $token = shift @vocargs; # if there is one get the demon
+                $instruction{"demon"}=$token if ($token < 0); # demon triggered
+            } elsif ($token<0) { # its a demon and nothing will follow
+                $instruction{"demon"}=$token; # demon triggered if -ve                }
+            } elsif ($token ne "") { # or it was a null msg3 ("0") and maybe a demon followed it
+                $token = shift @vocargs; # if there is one get the demon
                 $instruction{"demon"}=$token if ($token < 0); # demon triggered
             }
             print LOG "vocact ";
@@ -1104,7 +1114,7 @@ sub do_vocab()
     print "Done\n";
 }
 
-sub do_demons() # demon declarations
+sub do_demons # demon declarations
 {
     my $i=0;
     print "Doing demons\n";
@@ -1140,7 +1150,7 @@ sub do_demons() # demon declarations
     print "Done\n";
 }
 
-sub do_compile() {
+sub do_compile {
     my ($i, $j);
     print "Linking objects\n";
     print LOG "linking objects\n";
