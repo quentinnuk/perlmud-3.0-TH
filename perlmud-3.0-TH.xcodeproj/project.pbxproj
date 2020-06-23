@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXFileReference section */
+		294C9F7D246AFBD200F7330E /* test2.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = test2.pl; sourceTree = "<group>"; };
 		298A32EC23776AFB00BAB425 /* RELEASE.TXT */ = {isa = PBXFileReference; lastKnownFileType = text; path = RELEASE.TXT; sourceTree = "<group>"; };
 		298A32ED23776AFB00BAB425 /* allowed.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = allowed.txt; sourceTree = "<group>"; };
 		298A32EF23776AFB00BAB425 /* help.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = help.txt; sourceTree = "<group>"; };
@@ -16,9 +17,7 @@
 		298A32F723776AFB00BAB425 /* motd.txt */ = {isa = PBXFileReference; lastKnownFileType = text; path = motd.txt; sourceTree = "<group>"; };
 		298A32F923776AFB00BAB425 /* mud */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = mud; sourceTree = "<group>"; };
 		298A32FA23776AFC00BAB425 /* mudlib.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = mudlib.pl; sourceTree = "<group>"; };
-		29C3EC0223E26204004BEF93 /* mud.pf */ = {isa = PBXFileReference; explicitFileType = text; path = mud.pf; sourceTree = "<group>"; };
 		29C3EC0323E26204004BEF93 /* minimal.pf */ = {isa = PBXFileReference; explicitFileType = text; path = minimal.pf; sourceTree = "<group>"; };
-		29C3EC0423E262A2004BEF93 /* mud.db */ = {isa = PBXFileReference; lastKnownFileType = text; path = mud.db; sourceTree = "<group>"; };
 		29C498A3241AB868005C5213 /* test.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = test.pl; sourceTree = "<group>"; };
 		29CDE12523948B73000DF501 /* muddltoperl.pl */ = {isa = PBXFileReference; lastKnownFileType = text.script.perl; path = muddltoperl.pl; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -28,6 +27,7 @@
 			isa = PBXGroup;
 			children = (
 				29C498A3241AB868005C5213 /* test.pl */,
+				294C9F7D246AFBD200F7330E /* test2.pl */,
 				298A32ED23776AFB00BAB425 /* allowed.txt */,
 				298A32EF23776AFB00BAB425 /* help.txt */,
 				298A32F623776AFB00BAB425 /* index.html */,
@@ -37,8 +37,6 @@
 				298A32FA23776AFC00BAB425 /* mudlib.pl */,
 				29CDE12523948B73000DF501 /* muddltoperl.pl */,
 				29C3EC0323E26204004BEF93 /* minimal.pf */,
-				29C3EC0223E26204004BEF93 /* mud.pf */,
-				29C3EC0423E262A2004BEF93 /* mud.db */,
 				298A32EC23776AFB00BAB425 /* RELEASE.TXT */,
 				298A32F423776AFB00BAB425 /* welcome.txt */,
 			);

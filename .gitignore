@@ -1,0 +1,4 @@
+*.xcodeproj
+.DS_store
+perlmud-3.0-TH.xcodeproj/project.pbxproj
+mud.pf
