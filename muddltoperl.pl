@@ -592,6 +592,12 @@ sub do_rooms
                         $j++;
                         $objects[$i]{"dmove"}=$roomargs[$j]; # the argument to dmove is a room id - need to convert to obj id later
                         next;
+                    } elsif ($roomargs[$j] eq 'chain') {
+                        $j++;
+                        $objects[$i]{"chain"}=$roomargs[$j]; # the mud executable to run
+                        $j++;
+                        $objects[$i]{"chain"} .= "," . $roomargs[$j]; # the room id to start in
+                        next;
                     } else {
                         $flags |= $flagsProper{$roomargs[$j]};
                     }
