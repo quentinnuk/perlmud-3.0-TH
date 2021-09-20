@@ -144,6 +144,26 @@ my $fixed = 8589934592;
 # will never be assigned to "it"
 my $noit = 17179869184;
 
+# illnesses
+my $blind = 34359738368;
+
+my $deaf = 68719476736;
+
+my $dumb = 137438953472;
+
+my $paralysed = 274877906944;
+
+my $asleep = 549755813888;
+
+my $destroyed = 1099511627776;
+
+# demon flags
+
+my $dEnabled = 1;
+my $dGlobal = 2;
+my $dAlways = 4;
+
+
 #For flag setting
 my %flags = (
     "dark", $dark,
@@ -276,6 +296,7 @@ my %demonFlagsProper = (
 
 my %mudFunctions =
 (
+ "create", 1, # obj; undestroy (create) object
  "dead", 1, # null; do action and quit
  "dec", 1, # (obj|null); decrements prop>0, null implies command noun1
  "decdestroy", 1, # (obj|null); dec prop of noun1>=0 destroy obj?
@@ -910,7 +931,10 @@ sub do_objects {
             # there is more...
             while ($arg = shift @objargs) {
                 if (looks_like_number($arg)) {
-                     $objects[$i]{"stamina"} = $arg;
+                    $objects[$i]{"stamina"} = $arg;
+                    if ($arg < 0) { # starts destroyed
+                        $flags |= $destroyed;
+                    }
                 } elsif ($arg eq "contains") {
                     $objects[$i]{"contains"}=shift @objargs; # max containable weight
                 } else {
