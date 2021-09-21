@@ -157,13 +157,6 @@ my $asleep = 549755813888;
 
 my $destroyed = 1099511627776;
 
-# demon flags
-
-my $dEnabled = 1;
-my $dGlobal = 2;
-my $dAlways = 4;
-
-
 #For flag setting
 my %flags = (
     "dark", $dark,
