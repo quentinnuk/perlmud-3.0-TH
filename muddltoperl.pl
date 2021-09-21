@@ -300,6 +300,7 @@ my %mudFunctions =
  "dead", 1, # null; do action and quit
  "dec", 1, # (obj|null); decrements prop>0, null implies command noun1
  "decdestroy", 1, # (obj|null); dec prop of noun1>=0 destroy obj?
+ "decifzero", 1, # (obj|null); dec prop if > 0, and call if zero
  "destroy", 1, # (obj|null); destroys obj or command noun1
  "destroydec", 1, # (obj|null); destroy obj or noun1 and dec prop of obj or noun2 and out msg
  "destroydestroy", 1, # (obj|null); looks like it destroys command noun1 and param1 obj
