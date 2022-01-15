@@ -289,80 +289,143 @@ my %demonFlagsProper = (
 
 my %mudFunctions =
 (
+ "backrot", 1, # not implemented
  "create", 1, # obj; undestroy (create) object
  "dead", 1, # null; do action and quit
  "dec", 1, # (obj|null); decrements prop>0, null implies command noun1
  "decdestroy", 1, # (obj|null); dec prop of noun1>=0 destroy obj?
  "decifzero", 1, # (obj|null); dec prop if > 0, and call if zero
+ "decinc", 1, # (obj|null); dec obj or noun1 and inc obj or noun2
+ "delaymove", 3, # null room demon; drop noun1 in room after a delay, queue demon specified in demon, then fire $demon
  "destroy", 1, # (obj|null); destroys obj or command noun1
+ "destroycreate", 1, # (obj); destroys command noun1 then creates obj
  "destroydec", 1, # (obj|null); destroy obj or noun1 and dec prop of obj or noun2 and out msg
  "destroydestroy", 1, # (obj|null); looks like it destroys command noun1 and param1 obj
  "destroyinc", 1, # (obj|null); destroy obj or noun1 and inc prop of obj or noun2 and out msg
+ "detroyset", 2, # obj value; destroy noun1 and set obj property to value
+ "destroytogglesex", 1, # null; destroy noun1 and flip sex of player
+ "destroytrans", 2, # null room; destroys noun1 and transports player to room
  "disenable", 2, # null value; terminate demon value and do actions
  "emotion", 2, # (obj|null) value; reduce player score by 2*value and increase target obj or noun1 score by (2*value)/3
  "enable", 2, # null value; enable demon value and do action
  "exp", 2, # (obj|null) value; add value to obj or player score
  "expdestroy", 1, # (obj|null); destroy obj and earn score; null is command noun1
+ "expinc", 1, # (obj|null); adds score for obj or noun1 to player and increments prop by one
+ "expmove", 2, # (obj|null) room; adds score for obj or noun1 to player and transports obj to room
  "expset", 2, # (obj|null) value; gain the score determined by obj or noun1 score if the scoreprop=prop and then do fn set ??? debug understand code in MUD3 setexp
+ "fix", 1, # (obj|null); # sets the fixed flag on obj or noun1
  "flipat", 1, # null; flips noun1 and noun2 around in response to "at" preposition
+ "float", 1, # (obj|null); clears the fixed flag on obj or noun1
+ "floatdestroy", 1, # obj; # incs prop and clears the fixed flag on noun1, destroys obj
  "flush", 1, # null; flush input buffer and do action
+ "forrot", 1,  # not used
  "holdfirst", 1, # null; debug not sure what it does maybe checks player has noun1 in inventory not that its just in room????
  "holdlast", 1, # null; debug not sure what it does maybe checks player has noun2 in inventory not that its just in room????
  "hurt", 2, # (obj|null) value; obj or noun1 is attacked with noun2 and the value is the minimum initial hit bitor with the weapon and determines msg?
  "ifasleep", 2, # null value; if asleep flag is value do actions
  "ifberserk", 1, # null; never gong to be true as we wont support berserkers
  "ifblind", 2, # (obj|null) value; if blind flag is value do action
+ "ifdead", 1, # obj; test if obj is dead
  "ifdeaf", 2, # (obj|null) value; if deaf flag is value do action
+ "ifdestroyed", 1, # obj; test if obj is destroyed
  "ifdisenable", 2, # null value; if demon value is currently enabled kill it and do actions if could kill
  "ifdumb", 2, # (obj|null) value; if dumb flag is value do action
  "ifenabled", 2, # null value; if demon value is currently enabled do actions
  "iffighting", 1, # (obj|null); if obj or player is fighting do action
  "ifgot", 1, # obj; do if got obj and using it??? debug
  "ifhave", 1, # obj; if carrying obj but not using it do action
+ "ifhere", 1, # obj; do if obj is here???
+ "ifheretrans", 2, # (obj|null) room; if the obj or noun1 is here, transport player to room
+ "ifill", 1, # (obj|null); if obj or player is ill do action
  "ifin", 2, # (obj|null) location; if obj or player in location do action
+ "ifinc", 2, # (obj|null) room; if player in room inc the prop of obj or noun1
  "ifinsis", 1, # obj; if instrument (noun2) is obj then do actions
  "ifinvis", 2, # (obj|null) value; if invis flag of player or obj is value do action
  "iflevel", 2, # (obj|null) value; if player or obj level >= value do action
+ "iflight", 1, # null; returns true if you can see in current location
+ "ifobjcontains", 1, # not used
+ "ifobjcount", 3, # null room count; if the number of objects in room is greater or equal to count then true
  "ifobjis", 1, # obj; if noun2 is obj do action
+ "ifobjplayer", 1, # (null|obj); if obj or noun1 is a player
  "ifparalysed", 2, # (obj|null) value; if paralysed flag is value do action
+ "ifplaying", 1, # (null|player); if obj or noun1 is playing
  "ifprop", 2, # (obj|null) value; tests prop value of obj, null implies command noun1
+ "ifpropdec", 2, # (null|obj) value; if the prop of obj noun1 is value, decrement prop and succeed
+ "ifpropdestroy", 2, # (obj|null) value; if the prop of obj or noun1 is value, then destroy obj
+ "ifpropinc", 2, # (null|obj) value; if the prop of obj noun1 is value, inc prop and succeed
  "ifr", 2, # (obj|null) value; if random(100)<value do action and set IFR why debug???
  "ifrlevel", 2, # (obj|null) value; if (1+player level * value > random(100) or wiz) and (1+level of target obj or noun1 * value < random (100) not wiz) do action
  "ifrprop", 2, # (obj|null) value; if maxprop<0 of obj or noun1 set prop to random(maxprop) and if prop is value do action
  "ifrstas", 1, # null; if random(stamina of player) < random(stamina of mobile) do actions??? - this is a mobile specific function debug
  "ifself", 1, # null; if target is self
+ "ifsex", 2, # null value; if sex of player is value (0 male, 1 female)
  "ifsmall", 1, # (obj|null); if obj or room has flag small
+ "ifsnooping", 1, # null; if player is snooping do action
  "ifweighs", 2, # (obj|null) value; if obj or noun1 weight >= value do msg
  "ifwiz", 1, # (obj|null); do if obj or command noun1 a wiz
  "ifzero", 1, # (obj|null); test prop is zero, null implies command noun1
  "inc", 1, # (obj|null); inc prop<=maxprop, null implies command noun1
+ "incdec", 1, # (obj|null); inc obj or noun1 and dec obj or noun2
  "incdestroy", 1, # (obj|null); inc prop of noun1<=maxprop and destroy obj?
+ "incmove", 2, # (obj|null) room; inc prop of obj or noun1<=maxprop and move obj to room
+ "incsend", 2, # obj room; increments obj prop, in every room containing obj either destroys things or sends players to room and drops inventory
  "injure", 2, # (obj|null) value; deducts value stamina from obj or command noun1, does not start combat
  "loseexp", 2, # null value; reduce score of player by value
  "losestamina", 2, # (obj|null) value; deduct value stamina from obj or command noun1
  "move", 2, # (obj|null) room; move obj to room, null implies command noun1
  "noifr", 1, # null; clear IFR flag why debug?
+ "null", 1, # null; null function?
+ "resetdest", 2, # obj value; resets mobile object to home location with stamina of value
  "retal", 2, # null value; retaliates like hurt with a bitor of weapon value and out msg
+ "send", 2, # obj room; sends every player co-located with obj to room
  "sendemon", 2, # (obj|null) demon; executes demon passing obj or command noun1 as object
  "sendeffect", 2, # obj msgid; sends msgid to every room that contains obj
  "sendlevel", 2, # (obj|null) value; send a message noun2 to all players of level value-1 and do action
+ "sendmess", 2, # null message; sends message text to everyone in the room that $me is in
  "set", 2, # (obj|null) value; sets prop to value, null implies command noun1
+ "setdestroy", 2, # (obj|first|second) value; destroys obj (eg door), sets the prop of noun1 (eg cannon) to value
+ "setfloat", 2, # obj value; sets the prop of obj to value and clears the fixed flag
+ "setsex", 2, # (obj|null) value; set sex of me or obj to value (0 is male, 1 is female)
  "ssendemon", 2, # null value; sends something to demon value and do action?? debug
  "stamina", 2, # (obj|null) value; set stamina of obj or player/mobile to min(current stamina+value,100)
+ "staminadestroy", 2, # (obj|null) value; destroy obj or noun1 and set stamina of player to value or maxstamina
+ "suspend", 2, # null value; suspend demon value
+ "swap", 1, # obj; swap the current prop value of obj with the current prop value of noun1
  "testsex", 1, # (obj|null); if male msg1 else msg2
  "testsmall", 1, # (null); test if location has small flag, output msg1 if true else msg2
+ "toggle", 1, # (obj|null); toggles the prop of obj or noun1 between currprop and maxprop-currprop, usually 0 and 1
+ "togglesex", 1, # null; toggles my sex
+ "trans", 2, # null room; teleports player to room instantly. room may be <room1 room2 roomn> for random room
+ "transhere", 1, # obj; move obj to my location if obj is not in a death or hideaway room and is not destroyed
+ "transwhere", 1, # obj; moves me to location of object
+ "unlessbeserk", 1, # null; unless I am berserk, fail
+ "unlessdead", 1, # obj; return true unless obj is dead (destroyed or stamina<=0)
+ "unlessdestroyed", 1, # obj; return true unless obj is destroyed (destroyed or stamina<0)
+ "unlessdisenable", 2, # null value; unless demon value is enabled, return true, else disable demon, return false
+ "unlessenabled", 2, # null value; unless the demon value is enabled, return true
+ "unlessfighting", 1, # (obj|null); unless player is fighting do action
  "unlessgot", 1, # obj; dont do if got obj in inventory and using it??? debug?
+ "unlesshave", 1, # obj; unless carrying obj and not using it do action
  "unlesshere", 1, # obj; unless obj is here output msg1 else output msg2 (or nothing if 0)
  "unlessill", 1, # null; do action unless deaf, dumb, blind, paralysed - demon action debug ????
+ "unlessin", 2, # (ob|null) room; unless obj or player in room do action
+ "unlessinc", 2, # (obj|null) room; unless player in room inc the prop of obj or noun1
  "unlessinsis", 1, # obj; do action unless instrument (noun2) is obj
  "unlesslevel", 2, # null value; if level of player < value then do actions
+ "unlessobjcontains", 1, # not in use
  "unlessobjis", 1, # obj; do action unless noun1 is obj
  "unlessobjplayer", 1, # (obj|null); do unless obj or player is a persona
  "unlessplaying", 2, # (obj|null) value; unless there is a player of level value playing
  "unlessprop", 2, # (obj|null) value; tests prop value of obj, null implies command noun1
+ "unlesspropdestroy", 2, # (obj|null) value; unless prop of obj is value destroy noun1
  "unlessrlevel", 2, # (obj|null) value; do action unless (1+player level * value > random(100) or wiz) and (1+level of target obj or noun1 * value < random (100) not wiz)
+ "unlessrstas", 1, # null; if random(stamina of player) < random(stamina of noun1) do actions??? - this is a mobile specific function
+ "unlesssmall", 1, # (obj|null); unless obj or room has flag small
+ "unlesssnopping", 1, # null; unless I am snooping, succeed
+ "unlessweighs", 2, # (obj|null) value; unless weight of obj or noun1 >= value, succeed
  "unlesswiz", 1, # (obj|null); do primitive and messages unless obj or player is a wiz
  "writein", 1, # (obj|null); append the second parameter text into obj or noun1 if null (books etc)
+ "zonk", 1 # null; I die. Permanently.
 );
 
 my @objects; # contains all the objects
