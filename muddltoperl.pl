@@ -909,7 +909,7 @@ sub do_objects {
         chomp $line;
         last if ($line=~/^\*.+$/); # end objects if new section
         next if ($line=~/^\;/); # ignore comment lines
-        if ($line =~ /^\S\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
+        if ($line =~ /^[^\d\s]\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
             delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text of previous objid if there is only prop 0 for it
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             $line=lc($line);
@@ -954,7 +954,7 @@ sub do_objects {
                     $loc=$objIds{"$loc"} or print LOG "objid $i simple lookup objIds $loc failed\n";
                 }
                 # simple loc, so add this object to loc
-                if (defined $objects[$loc]{"contents"}) { # put the exit in the room as well
+                if (defined $objects[$loc]{"contents"}) { # put the object in the room as well
                     $objects[$loc]{"contents"}.= ",$i"; # adding contents
                 } else {
                     $objects[$loc]{"contents"}="$i"; # intialising contents
