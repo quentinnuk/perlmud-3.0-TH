@@ -430,7 +430,7 @@ my %mudFunctions =
 
 my @objects; # contains all the objects
 
-my $file = 'VALLEY.TXT'; # main source file
+my $file = 'MUD.TXT'; # main source file
 my $line;
 my %roomIds; # maps room identifiers with object ids
 my @files = ();
@@ -682,16 +682,22 @@ sub do_rooms
                 }
             }
             $objects[$i]{"flags"}=$flags;
-            $line = read_line();
-            chomp $line;
-            $line =~ /^\s+(.+)\W$/;
-            print LOG "name: $1\n";
-            $objects[$i]{"name"}=$1;
-            $objects[$i]{"description"}='';
+#            $line = read_line();
+#            chomp $line;
+#            $line =~ /^\s+(.+)\W$/;
+#            print LOG "name: $1\n";
+#            $objects[$i]{"name"}=$1;
+#            $objects[$i]{"description"}='';
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
-            print LOG "desc: $1\n";
-            $objects[$i]{"description"}=$objects[$i]{"description"} . $1 . " ";
+            if ($objects[$i]{"name"} eq "") {  # if we dont have the name yet, then its the name
+                print LOG "name: $1\n";
+                $objects[$i]{"name"}=$1;
+                $objects[$i]{"description"}='';
+            } else { # else its the description
+                print LOG "desc: $1\n";
+                $objects[$i]{"description"}=$objects[$i]{"description"} . $1 . " ";
+            }
         }
         last if ($line=~/^\*.+$/); # end rooms if new section
     }
@@ -1037,7 +1043,7 @@ sub do_vocab
     # syn contains:
     #   synonym real-word - capture and store these, probably as an object type
     # motion contains:
-    #   motionword (eg north, south, but also $special) - ignore these as we will hard code them
+    #   motionword (eg north, south, but also $special)
     # noise contains:
     #   noisewords (words to be barred from use as identities) - ignore these as not needed
     # various single argument subsection for defining pronouns, conjugations, prepositions etc - hard code these
@@ -1055,8 +1061,9 @@ sub do_vocab
         chomp $line;
         last if ($line=~/^\*.+$/); # end vocab if new section
         next if ($line=~/^\;/); # ignore comment lines
+        ($line,my $comment) = split(/;/,$line); # seperate out in line comments
         $line=lc($line);
-        @vocargs = split (/\s+/,$line);
+        @vocargs = split (/\s+/,$line); # split line into words
         print LOG "vocargs=";
         foreach my $arg (@vocargs) {
             print LOG "\'$arg\' ";
