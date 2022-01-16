@@ -1015,7 +1015,11 @@ sub do_objects {
             $desc=$2;
             if ($desc=~/^\%(.+)/) {
                 # include description from another object
-                $desc=$objects[$objIds{"$1"}]{"description$prop"};
+                if ($objects[$objIds{"$1"}]{"maxprop"}>0) {
+                    $desc=$objects[$objIds{"$1"}]{"description$prop"};
+                } else {
+                    $desc=$objects[$objIds{"$1"}]{"description"};
+                }
             }
             print LOG "objid $i desc$prop=$desc\n";
             $objects[$i]{"description$prop"} = $desc;
