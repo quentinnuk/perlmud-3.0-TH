@@ -441,6 +441,11 @@ my @vocabobj = (); # allow forward declare of objects in vocab
 
 open LOG, ">log.txt";
 
+if ($ARGV[0] ne '') { # pass the database in ARGV
+    $file = uc($ARGV[0]) . ".TXT";
+    $dbFile = lc($ARGV[0]) . ".db";
+};
+
 if (restore()) {
     open($fh, '<', $file) || die "Can't open $file\n";
     print "Processing $file \n";
@@ -717,6 +722,12 @@ sub do_rooms
 }
 
 sub do_travel {
+    # doors are in the general form:
+    # roomname [~][condition] message#|-demon|location(sl directions
+    # coontinued by
+    #       [~][condition] message#|-demon|location(s) directions
+    # ~ inverts the condition (logical NOT)
+    # if the condition is not met, move goes on to the next matched direction for the room
     my $i=0;
     my @travelargs;
     my ($objid, $destid);
@@ -725,7 +736,8 @@ sub do_travel {
     while ($line = read_line()) {
         chomp $line;
         next if ($line=~/^\;/); # ignore comment lines
-        if ($line =~ /^\w+\s+.*$/) {
+        ($line,my $comment) = split(/;/,$line,2); # seperate out in line comments
+        if ($line =~ /^\w+\s+.*$/) { # if (word,whitespace,text) then new room exits
             $line=lc($line);
             $i=$#objects + 1; # the next object number
             if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination lines together (only one multi per line)
@@ -737,8 +749,7 @@ sub do_travel {
             print LOG "door object $i: @travelargs\n";
             # arg[0] is the roomid these directions apply to
             $objid=$roomIds{(shift @travelargs)} or print LOG "lookup objid $1 failed\n"; # map roomid to object id
-        }
-        elsif ($line =~ /^\s+.+\s+$/) { # another direction for the same room as objid
+        } elsif ($line =~ /^\s+.+\s+$/) { # another direction for the same room as objid
             $line=lc($line);
             $i=$#objects + 1; # the next object number
             if ($line =~ /(.+)(<|\[)(.+)(>|\])(.*)\s+/) { # joins multi destination lines together
@@ -897,7 +908,7 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
 
 sub do_objects {
     # objects are  in the general form:
-    # name [speed demon attack%] location(s) startprop maxprop score [stamina] [flags]
+    # name [speed demon attackdemon] location(s) startprop maxprop score [stamina] [flags]
     # followed by text descriptions for each property value
     # locations will be containers for the object and maybe a room or obj
     my $i=0;
@@ -930,7 +941,7 @@ sub do_objects {
             $objects[$i]{"type"} = $thing;
             my $arg = shift @objargs; # next could be a number (speed) or location
             print LOG "first arg=$arg\n";
-            if (looks_like_number($arg)) { # speed demon attack%
+            if (looks_like_number($arg)) { # speed demon attackdemon
                 $objects[$i]{"speed"}=$arg;
                 $objects[$i]{"demon"}=shift @objargs;
                 $objects[$i]{"attack"}=shift @objargs;
@@ -1065,7 +1076,7 @@ sub do_vocab
         chomp $line;
         last if ($line=~/^\*.+$/); # end vocab if new section
         next if ($line=~/^\;/); # ignore comment lines
-        ($line,my $comment) = split(/;/,$line); # seperate out in line comments
+        ($line,my $comment) = split(/;/,$line,2); # seperate out in line comments
         $line=lc($line);
         @vocargs = split (/\s+/,$line); # split line into words
         print LOG "vocargs=";
