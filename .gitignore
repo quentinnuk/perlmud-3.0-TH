@@ -2,3 +2,5 @@
 .DS_store
 perlmud-3.0-TH.xcodeproj/project.pbxproj
 mud.pf
+mud.db
+log.txt
