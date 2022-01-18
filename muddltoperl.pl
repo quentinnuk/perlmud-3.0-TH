@@ -437,6 +437,7 @@ my @files = ();
 my $fh;
 my %textIds; # maps text numeric ids to strings
 my %objIds; # maps thing names to numeric ids
+my %classIds; # class exists map
 my @vocabobj = (); # allow forward declare of objects in vocab
 
 open LOG, ">log.txt";
@@ -765,62 +766,115 @@ sub do_travel {
         if ($line !~ /^\*.+$/) { # only do this if it is not a new section
             # arg[1] is the condition which we store for now
             #debug we will have to process this into a lock at some point
-            my $condition=shift @travelargs; # numeric msg or demon for direction, or class or object test
-            $objects[$i]{"condition"}=$condition if ($condition ne 'n'); # no need to keep no condition
-            if ($condition=~/^[-]?\d+$/) {
-                # condition is a msg or demon number so arg[2] is a direction we need to preserve so dont shift
-                $destid = '0'; # no exit in muddl
-            } else {
-                # arg[2] is the destination roomid or a 0 for no exit if condition is satisfied
-                $destid=shift @travelargs; # store roomid that it will send you to, unless the condition was a number
-            }
-            if ($destid eq '0') { # 0 is no exit and usually comes with a condition
-                $destid=$nowhere;
-                $objects[$i]{"action"}=$destid; # door to nowwhere
-                print LOG "no exit\n";
-            } elsif ($destid=~/^(\w+)$/) { # room or class reference
-                $destid=$roomIds{$1} or print LOG "lookup destid $1 failed\n"; # map roomid to destination object id
-                if (defined $destid) { # its a room
-                    $objects[$i]{"action"}=$destid; # sends you to destid object
-                    print LOG "action destid=$destid\n";
+
+            #debug this approach doesnt work because n and e could be directions or conditions
+            while (@travelargs) { # work through arguments
+                my $nextarg = shift @travelargs;
+                if ($nextarg =~ /^[-]?\d+$/) { # message or demon or 0
+                    $objects[$i]{"action"}=$nowhere; # if there is a message or demon or 0 then there cant be a destination
+                    $objects[$i]{"msgdemon"}=$nextarg; # store the message or demon for later
+                    print LOG "no exit\n";
+                } elsif ($nextarg =~ /^[\w|]+$/) { # condition, destination or direction
+                    if ($nextarg =~ /.*\|.*/) { # multi destination
+                        my @destinations=split(/\|/,$nextarg);
+                        foreach my $destination(@destinations) {
+                            $destination=$roomIds{$destination} or print LOG "lookup destid $destination failed\n";
+                        }
+                        $destid=join('|',@destinations);
+                        $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by pipes at random
+                        print LOG "action destid=$destid\n";
+                    } elsif (defined $roomIds{$nextarg}) { # its a single destination
+                        $objects[$i]{"action"}=$nextarg; # sends you to destid object
+                        print LOG "action destid=$nextarg\n";
+                    } elsif ((defined $objIds{$nextarg}) || (defined $classIds{$nextarg}) || ($nextarg eq "n") || ($nextarg eq "e")) { # a valid object or class must be a condition
+                        $objects[$i]{"condition"}=$nextarg if ($nextarg ne 'n'); # no need to keep none condition
+                    } else { # must be a direction
+                        unshift @travelargs,$nextarg; # put the direction back on the arg list
+                        foreach my $direction(@travelargs) { # expand directions inc. random options
+                            print LOG "direction $direction became ";
+                            $direction=~s/(^|\|)n(?=$|\|)/$1north/i;
+                            $direction=~s/(^|\|)s(?=$|\|)/$1south/i;
+                            $direction=~s/(^|\|)e(?=$|\|)/$1east/i;
+                            $direction=~s/(^|\|)w(?=$|\|)/$1west/i;
+                            $direction=~s/(^|\|)u(?=$|\|)/$1up/i;
+                            $direction=~s/(^|\|)d(?=$|\|)/$1down/i;
+                            $direction=~s/(^|\|)ne(?=$|\|)/$1northeast/i;
+                            $direction=~s/(^|\|)nw(?=$|\|)/$1northwest/i;
+                            $direction=~s/(^|\|)sw(?=$|\|)/$1southwest/i;
+                            $direction=~s/(^|\|)se(?=$|\|)/$1southeast/i;
+                            $direction=~s/(^|\|)o(?=$|\|)/$1out/i;
+                            print LOG "$direction\n";
+                        }
+                        $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
+                        if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
+                            $objects[$objid]{"contents"}.= ",$i"; # adding contents
+                        } else {
+                            $objects[$objid]{"contents"}="$i"; # intialising contents
+                        }
+                        last;
+                    }
                 }
-            } elsif ($destid =~ /.*\|.*/) {
-                my @destinations=split(/\|/,$destid);
-                foreach my $destination(@destinations) {
-                    $destination=$roomIds{$destination} or print LOG "lookup destid $destination failed\n";
-                }
-                $destid=join('|',@destinations);
-                $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by colons at random
-                print LOG "action destid=$destid\n";
-            } else { # its not a room, msg or demon reference, its something unexpected
-                print LOG "ignored invalid destid $destid\n";
-            }
-            $objects[$i]{"owner"}=1; # always the arch-wiz
-            $objects[$i]{"type"}=$exit; # type is an exit
-            $objects[$i]{"location"}=$objid; # is in room objid
-            $objects[$i]{"home"}=$objid; # in case the exit is sent home
-            foreach my $direction(@travelargs) { # expand directions inc. random options
-                print LOG "direction $direction became ";
-                $direction=~s/(^|\|)n(?=$|\|)/$1north/i;
-                $direction=~s/(^|\|)s(?=$|\|)/$1south/i;
-                $direction=~s/(^|\|)e(?=$|\|)/$1east/i;
-                $direction=~s/(^|\|)w(?=$|\|)/$1west/i;
-                $direction=~s/(^|\|)u(?=$|\|)/$1up/i;
-                $direction=~s/(^|\|)d(?=$|\|)/$1down/i;
-                $direction=~s/(^|\|)ne(?=$|\|)/$1northeast/i;
-                $direction=~s/(^|\|)nw(?=$|\|)/$1northwest/i;
-                $direction=~s/(^|\|)sw(?=$|\|)/$1southwest/i;
-                $direction=~s/(^|\|)se(?=$|\|)/$1southeast/i;
-                $direction=~s/(^|\|)o(?=$|\|)/$1out/i;
-                print LOG "$direction\n";
-            }
-            $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
-            if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
-                $objects[$objid]{"contents"}.= ",$i"; # adding contents
-            } else {
-                $objects[$objid]{"contents"}="$i"; # intialising contents
             }
         }
+
+
+
+#            my $condition=shift @travelargs; # numeric msg or demon for direction, or class or object test
+#            $objects[$i]{"condition"}=$condition if ($condition ne 'n'); # no need to keep no condition
+#            if ($condition=~/^[-]?\d+$/) {
+#                # condition is a msg or demon number so arg[2] is a direction we need to preserve so dont shift
+#                $destid = '0'; # no exit in muddl
+#            } else {
+#                # arg[2] is the destination roomid or a 0 for no exit if condition is satisfied
+#                $destid=shift @travelargs; # store roomid that it will send you to, unless the condition was a number
+#            }
+#            if ($destid eq '0') { # 0 is no exit and usually comes with a condition
+#                $destid=$nowhere;
+#                $objects[$i]{"action"}=$destid; # door to nowwhere
+#                print LOG "no exit\n";
+#            } elsif ($destid=~/^(\w+)$/) { # room or class reference
+#                $destid=$roomIds{$1} or print LOG "lookup destid $1 failed\n"; # map roomid to destination object id
+#                if (defined $destid) { # its a room
+#                    $objects[$i]{"action"}=$destid; # sends you to destid object
+#                    print LOG "action destid=$destid\n";
+#                }
+#            } elsif ($destid =~ /.*\|.*/) {
+#                my @destinations=split(/\|/,$destid);
+#                foreach my $destination(@destinations) {
+#                    $destination=$roomIds{$destination} or print LOG "lookup destid $destination failed\n";
+#                }
+#                $destid=join('|',@destinations);
+#                $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by colons at random
+#                print LOG "action destid=$destid\n";
+#            } else { # its not a room, msg or demon reference, its something unexpected
+#                print LOG "ignored invalid destid $destid\n";
+#            }
+#            $objects[$i]{"owner"}=1; # always the arch-wiz
+#            $objects[$i]{"type"}=$exit; # type is an exit
+#            $objects[$i]{"location"}=$objid; # is in room objid
+#            $objects[$i]{"home"}=$objid; # in case the exit is sent home
+#            foreach my $direction(@travelargs) { # expand directions inc. random options
+#                print LOG "direction $direction became ";
+#                $direction=~s/(^|\|)n(?=$|\|)/$1north/i;
+#                $direction=~s/(^|\|)s(?=$|\|)/$1south/i;
+#                $direction=~s/(^|\|)e(?=$|\|)/$1east/i;
+#                $direction=~s/(^|\|)w(?=$|\|)/$1west/i;
+#                $direction=~s/(^|\|)u(?=$|\|)/$1up/i;
+#                $direction=~s/(^|\|)d(?=$|\|)/$1down/i;
+#                $direction=~s/(^|\|)ne(?=$|\|)/$1northeast/i;
+#                $direction=~s/(^|\|)nw(?=$|\|)/$1northwest/i;
+#                $direction=~s/(^|\|)sw(?=$|\|)/$1southwest/i;
+#                $direction=~s/(^|\|)se(?=$|\|)/$1southeast/i;
+#                $direction=~s/(^|\|)o(?=$|\|)/$1out/i;
+#                print LOG "$direction\n";
+#            }
+#            $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
+#            if (defined $objects[$objid]{"contents"}) { # put the exit in the room as well
+#                $objects[$objid]{"contents"}.= ",$i"; # adding contents
+#            } else {
+#                $objects[$objid]{"contents"}="$i"; # intialising contents
+#            }
+#        }
         last if ($line=~/^\*.+$/); # end travel if new section
     }
     print LOG "end travel\n";
@@ -1087,7 +1141,10 @@ sub do_vocab
         my $x = shift @vocargs;
         $subsection = $x unless ($x eq ''); # only change the subsection if there is a value
         # ignore class as we will make it imperative rather than declarative
-        if ($subsection eq "object") {
+        if ($subsection eq "class") {
+            my $class=shift @vocargs;
+            $classIds{$class} = 1; # keep a record of the class
+        } elsif ($subsection eq "object") {
             # objid class weight score
             # these may be declared before the objects themselves have been defined in *objects
             # so we put them in a vocab objects array and merge them later
