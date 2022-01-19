@@ -805,7 +805,7 @@ sub do_travel {
                         $objects[$i]{"action"}=$roomIds{$nextarg}; # sends you to destid object
                         $cond=1; # conditions always come before destination
                         print LOG "action destid=".$objects[$i]{"action"}."\n";
-                    } elsif (($cond==0) && ((defined $objIds{$nextarg}) || (defined $classIds{$nextarg}) || ($nextarg eq "n") || ($nextarg eq "e"))) { # a valid object or class must be a condition
+                    } elsif (($cond==0) && ((defined $objIds{$nextarg}) || (defined $classIds{$nextarg}) || ($nextarg eq "n") || ($nextarg eq "e") || ($nextarg eq "d") || ($nextarg eq "dd"))) { # a valid object or class or special must be a condition
                         print LOG "$i condition $nextarg\n";
                         $objects[$i]{"condition"}=$nextarg if ($nextarg ne 'n'); # no need to keep none condition
                         $cond=1; # dont process conditions again for this line
@@ -962,7 +962,7 @@ sub do_objects {
             my $arg = shift @objargs; # next could be a number (speed) or location
             print LOG "first arg=$arg\n";
             if (looks_like_number($arg)) { # speed demon attackdemon
-                $objects[$i]{"speed"}=$arg;
+                $objects[$i]{"speed"}=$arg+1; # minimum speed is 1 in th_mud vs 0 in MUD, both mean one tick.
                 $objects[$i]{"demon"}=shift @objargs;
                 $objects[$i]{"attack"}=shift @objargs;
                 print LOG "objid $i speed " . $objects[$i]{"speed"} . " demon " . $objects[$i]{"demon"} . " attack " . $objects[$i]{"attack"} . "\n";
