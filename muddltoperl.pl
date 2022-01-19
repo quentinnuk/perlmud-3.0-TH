@@ -878,7 +878,9 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
             $c = $objects[$i]{"condition"};
             if ($c ne "") { # assume its a class or object and is suitable to be a lock condition
                 #debug need to resolve e "empty" condition
-                $c="empty" if ($c eq "e"); # expand e to empty
+                $c="emptylock" if ($c eq "e"); # expand e to empty
+                $c="difflock" if ($c eq "d"); # expand d to diff
+                $c="dielock" if ($c eq "dd"); # expand dd to (display and) die
                 print LOG "c=$c ";
                 $c=~s/^~(.*)$/!$1/g; # allow for negated conditions
                 print LOG "negated c=$c \n";
