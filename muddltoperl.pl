@@ -889,8 +889,8 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
                 print LOG "x-ref $i cond $c resolved as lock\n";
             }
             $dm = $objects[$i]{"msgdemon"}; # get the message or demon
-            if ($dm>=0) { # condition is a msg number not a -ve demon number so set fail msg for going nowhere
-                $objects[$i]{"fail"}=$textIds{$dm} or print LOG "invalid msg $dm in objid $i \n";
+            if ($dm>=0) { # condition is a msg number not a -ve demon number so set success msg for going nowhere
+                $objects[$i]{"success"}=$textIds{$dm} or print LOG "invalid msg $dm in objid $i \n";
                 print LOG "x-ref $i cond $dm resolved\n";
                 delete ($objects[$i]{"msgdemon"}); # dont need to keep this now fail set up
             } elsif ($dm<=0) { # condition is a demon
