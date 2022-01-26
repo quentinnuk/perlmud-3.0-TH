@@ -439,13 +439,15 @@ my %textIds; # maps text numeric ids to strings
 my %objIds; # maps thing names to numeric ids
 my %classIds; # class exists map
 my @vocabobj = (); # allow forward declare of objects in vocab
-
-open LOG, ">log.txt";
+my $logfile = 'log.txt';
 
 if ($ARGV[0] ne '') { # pass the database in ARGV
     $file = uc($ARGV[0]) . ".TXT";
     $dbFile = lc($ARGV[0]) . ".db";
+    $logfile = lc($ARGV[0]) . ".log";
 };
+
+open LOG, ">$logfile";
 
 if (restore()) {
     open($fh, '<', $file) || die "Can't open $file\n";
