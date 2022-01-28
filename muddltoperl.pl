@@ -859,6 +859,7 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
             $objid=shift @textargs; # first thing should be the id used as key
             $textargs[0]=~/^(.*)\s+$/; # trim the end of line
             $textIds{$objid}=$1;
+            $textIds{$objid}=~s/\"/\\\"/g; # escape quote marks
             print LOG "text: objid=$objid txt=" . $textIds{$objid} . "\n";
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
