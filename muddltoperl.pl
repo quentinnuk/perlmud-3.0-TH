@@ -667,8 +667,8 @@ sub do_rooms
             print LOG "Room object $i: 0=$roomargs[0] all=@roomargs\n";
             $objects[$i]{"type"}=$room; # its a room
             $objects[$i]{"owner"}=1; # always the arch-wiz owns it
-            $objects[$i]{"room"}=$roomargs[0]; # first argument of room is the room identifier
-            $roomIds{$roomargs[0]}=$i;
+            $objects[$i]{"room"}=substr($roomargs[0],0,6); # first argument of room is the room identifier max 6 characters
+            $roomIds{substr($roomargs[0],0,6)}=$i;
             my $flags=$dark;
             if ($#roomargs>0) {
                 for (my $j=1;$j<=$#roomargs;$j++) {
@@ -714,11 +714,11 @@ sub do_rooms
         my $n = $objects[$i]{"name"};
         my $dmid=$objects[$i]{"dmove"};
         if ($n =~/^%(\w+).*$/) {
-            my $objid=$roomIds{$1}; # debug should probably test this is found
+            my $objid=$roomIds{substr($1,0,6)}; # debug should probably test this is found
             print LOG "x-ref: $i $n is $objid " . $objects[$objid]{"name"} . "\n";
             $objects[$i]{"name"}=$objects[$objid]{"name"};
         }
-        $objects[$i]{"dmove"}=$roomIds{$dmid} if (defined $dmid);
+        $objects[$i]{"dmove"}=$roomIds{substr($dmid,0,6)} if (defined $dmid);
     }
     print LOG "end rooms\n";
     print "Done\n";
@@ -796,15 +796,15 @@ sub do_travel {
                         print LOG "$i multi-dest ";
                         my @destinations=split(/\|/,$nextarg);
                         foreach my $destination(@destinations) {
-                            $destination=$roomIds{$destination} or print LOG "lookup destid $destination failed\n";
+                            $destination=$roomIds{substr($destination,0,6)} or print LOG "lookup destid $destination failed\n";
                         }
                         $destid=join('|',@destinations);
                         $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by pipes at random
                         $cond=1; # conditions always come before destination
                         print LOG "action destid=$destid\n";
-                    } elsif (defined $roomIds{$nextarg}) { # its a single destination
+                    } elsif (defined $roomIds{substr($nextarg,0,6)}) { # its a single destination
                         print LOG "$i destination ";
-                        $objects[$i]{"action"}=$roomIds{$nextarg}; # sends you to destid object
+                        $objects[$i]{"action"}=$roomIds{substr($nextarg,0,6)}; # sends you to destid object
                         $cond=1; # conditions always come before destination
                         print LOG "action destid=".$objects[$i]{"action"}."\n";
                     } elsif (($cond==0) && ((defined $objIds{$nextarg}) || (defined $classIds{$nextarg}) || ($nextarg eq "n") || ($nextarg eq "e") || ($nextarg eq "d") || ($nextarg eq "dd"))) { # a valid object or class or special must be a condition
@@ -979,19 +979,19 @@ sub do_objects {
             if ($loc =~ /.*\|.*/) { # handle multi random locs by converting to numeric ids
                 my @locations=split(/\|/,$loc);
                 foreach my $location(@locations) {
-                    $location=$roomIds{"$location"} or print LOG "objid $i multi-loc lookup location $location failed\n";
+                    $location=$roomIds{substr($location,0,6)} or print LOG "objid $i multi-loc lookup location $location failed\n";
                 }
                 $loc=join('|',@locations);
             } else { # simple location not multi
                 print LOG "objid $i simple lookup $loc\n";
-                if ($roomIds{"$loc"} ne "") {
-                    $loc=$roomIds{"$loc"} or print LOG "objid $i simple lookup roomIds $loc failed\n";
+                if ($roomIds{substr($loc,0,6)} ne "") {
+                    $loc=$roomIds{substr($loc,0,6)} or print LOG "objid $i simple lookup roomIds $loc failed\n";
                 } else { # its in a room on an object
                     $loc=$objIds{"$loc"} or print LOG "objid $i simple lookup objIds $loc failed\n";
                 }
                 # simple loc, so add this object to loc
                 if (defined $objects[$loc]{"contents"}) { # put the object in the room as well
-                    $objects[$loc]{"contents"}.= ",$i"; # adding contents
+                    $objects[$loc]{"contents"}.= ",$i" if ($objects[$loc]{"contents"} !~ /\b$i\b/); # adding contents if not already there
                 } else {
                     $objects[$loc]{"contents"}="$i"; # intialising contents
                 }
@@ -1003,8 +1003,8 @@ sub do_objects {
             while ($arg = shift @objargs) {
                 last if (looks_like_number($arg));
                 print LOG "objid $i extended simple lookup $arg\n";
-                if ($roomIds{"$arg"} ne "") {
-                   $arg=$roomIds{"$arg"} or
+                if ($roomIds{substr($arg,0,6)} ne "") {
+                   $arg=$roomIds{substr($arg,0,6)} or
                    print LOG "objid $i simple lookup roomIds $arg failed\n";
                 } else { # its in a room or an object
                    $arg=$objIds{"$arg"} or
@@ -1013,7 +1013,7 @@ sub do_objects {
                 print LOG "objid $i added to loc $arg\n";
                 # simple loc, so add this object to arg
                 if (defined $objects[$arg]{"contents"}) { # put the obj in the location
-                    $objects[$arg]{"contents"}.= ",$i"; # adding contents
+                    $objects[$arg]{"contents"}.= ",$i" if ($objects[$arg]{"contents"} !~ /\b$i\b/); # adding contents if not already there
                 } else {
                     $objects[$arg]{"contents"}="$i"; # intialising contents
                 }
