@@ -949,6 +949,7 @@ sub do_objects {
         last if ($line=~/^\*.+$/); # end objects if new section
         next if ($line=~/^\;/); # ignore comment lines
         if ($line =~ /^[^\d\s]\w+\s+/) { # if the line doesnt start with a digit or whitespace its a new object
+            $objIds{"$objid"} = $i; # remap lookup of previous object name to numeric id to the last occurance of the name now its complete
             delete $objects[$i]{"description0"} if ($objects[$i]{"maxprop"} == 0); # no need to keep alt text of previous objid if there is only prop 0 for it
             $i=$#objects + 1; # the next object number after all that have been read in from $dbfile
             $line=lc($line);
@@ -964,7 +965,7 @@ sub do_objects {
             $objid=shift @objargs; # first thing should be the name used as key
             $objects[$i]{"name"} = $objid;
             $objects[$i]{"owner"} = 1; # always owned by the arch-wiz
-            $objIds{"$objid"} = $i unless (defined $objIds{$objid}); # create a lookup of object name to numeric id but only for the first occurance of the name
+            $objIds{$objid} = $i unless (defined $objIds{$objid}); # create a lookup of object name to numeric id but only for the first occurance of the name
             print LOG "objIds{$objid}=" . $objIds{"$objid"} . "\n";
             $objects[$i]{"type"} = $thing;
             my $arg = shift @objargs; # next could be a number (speed) or location
@@ -1045,6 +1046,8 @@ sub do_objects {
                     print LOG "flags=$flags \n";
                 }
             }
+# debug how to make door and rain not gettable hwne they dont have a noget flag. do they inherit like this?
+#            $flags=$objects[$objIds{$objid}]{"flags"} if (defined $objIds{$objid}); # replicate flags from the last definition of the same name if it exists
             print LOG "objid $i flags=$flags \n";
             $objects[$i]{"flags"}=$flags;
         } elsif ($line =~ /^(\d+)\s+(.+)\s+$/) { #debug
