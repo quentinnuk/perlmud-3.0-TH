@@ -859,15 +859,17 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
             $objid=shift @textargs; # first thing should be the id used as key
             $textargs[0]=~/^(.*)\s+$/; # trim the end of line
             $textIds{$objid}=$1;
-            $textIds{$objid}=~s/\"/\\\"/g; # escape quote marks
+            $textIds{$objid}=~s/\'/\\'/g; # escape quote marks
             print LOG "text: objid=$objid txt=" . $textIds{$objid} . "\n";
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
-            print LOG "$i:\t$1\n";
+            my $t = $1;
+            $t=~s/\'/\\'/g; # escape quote marks
+            print LOG "$i:\t$t\n";
             if (substr($textIds{$objid},0,1) eq '*') { # keep line breaks if preformatted
-                $textIds{$objid}=$textIds{$objid} . "\n" . $1;
+                $textIds{$objid}=$textIds{$objid} . "\n" . $t;
             } else { # wrap this text
-                $textIds{$objid}=$textIds{$objid} . " " . $1;
+                $textIds{$objid}=$textIds{$objid} . " " . $t;
             }
         }
         last if ($line=~/^\*.+$/); # end rooms if new section
@@ -894,6 +896,7 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
             $dm = $objects[$i]{"msgdemon"}; # get the message or demon
             if ($dm>=0) { # condition is a msg number not a -ve demon number so set success msg for going nowhere
                 $objects[$i]{"success"}=$textIds{$dm} or print LOG "invalid msg $dm in objid $i \n";
+                $objects[$i]{"success"}=~s/\\\'/\'/g; # remove escape of ' as not needed in a string
                 print LOG "x-ref $i cond $dm resolved\n";
                 delete ($objects[$i]{"msgdemon"}); # dont need to keep this now fail set up
             } elsif ($dm<=0) { # condition is a demon
@@ -1208,24 +1211,24 @@ sub do_vocab
                 # add parameters to the mud_action function if exist
                 $assembly .= '$me,$arg,$arg1,$arg2,\'' . $instruction{"arg1"} . '\'';
                 if (defined $instruction{"arg2"}) {
-                    $assembly .= ',"' . $instruction{"arg2"} . '"'; # there is a fnArg2
+                    $assembly .= ',\'' . $instruction{"arg2"} . '\''; # there is a fnArg2
                 } else {
                     $assembly .= ',""'; # no fnArg2
                 }
                 if ((defined $instruction{"msg1"}) && ($instruction{"msg1"} != 0)) {
-                    $assembly .= ',"' . "msg" . $instruction{"msg1"} . '"';
+                    $assembly .= ',\'' . "msg" . $instruction{"msg1"} . '\'';
                 } else {
                     $assembly .=',""';
                 }
                 if ((defined $instruction{"msg2"}) && ($instruction{"msg2"} != 0)) {
-                    $assembly .= ',"' . "msg" . $instruction{"msg2"} . '"';
+                    $assembly .= ',\'' . "msg" . $instruction{"msg2"} . '\'';
                 } else {
                     $assembly .=',""';
                 }
                 if ((defined $instruction{"msg3"}) && ($instruction{"msg3"} != 0)) {
-                    $assembly .= ',"' . "msg" . $instruction{"msg3"} . '"';
+                    $assembly .= ',\'' . "msg" . $instruction{"msg3"} . '\'';
                 } else {
-                    $assembly .=',""';
+                    $assembly .=',\'\'';
                 }
                 if (defined $instruction{"demon"}) {
                     $assembly .= ',' . $instruction{"demon"} ; # run demon if defined
