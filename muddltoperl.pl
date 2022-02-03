@@ -988,7 +988,7 @@ sub do_objects {
                 $loc=join('|',@locations);
             } else { # simple location not multi
                 print LOG "objid $i simple lookup $loc\n";
-                if ($roomIds{substr($loc,0,6)} ne "") {
+                if (defined $roomIds{substr($loc,0,6)}) {
                     $loc=$roomIds{substr($loc,0,6)} or print LOG "objid $i simple lookup roomIds $loc failed\n";
                 } else { # its in a room on an object
                     $loc=$objIds{"$loc"} or print LOG "objid $i simple lookup objIds $loc failed\n";
@@ -1003,11 +1003,12 @@ sub do_objects {
             # now we have multi loc or a simple loc
             $objects[$i]{"location"}=$loc; # if multi loc this is resolved by restore
             $objects[$i]{"home"}=$loc; # if multi loc this is resolved by restore
+            my $flags=0; # no flags as default
             # are there more locations for this object?
             while ($arg = shift @objargs) {
                 last if (looks_like_number($arg));
                 print LOG "objid $i extended simple lookup $arg\n";
-                if ($roomIds{substr($arg,0,6)} ne "") {
+                if (defined $roomIds{substr($arg,0,6)}) {
                    $arg=$roomIds{substr($arg,0,6)} or
                    print LOG "objid $i simple lookup roomIds $arg failed\n";
                 } else { # its in a room or an object
@@ -1021,6 +1022,7 @@ sub do_objects {
                 } else {
                     $objects[$arg]{"contents"}="$i"; # intialising contents
                 }
+                $flags=$noget; # flags default to noget because it is in more than one place
             }
             # now we are on to props
             $startprop = $arg;
@@ -1030,7 +1032,6 @@ sub do_objects {
             $objects[$i]{"currprop"} = $startprop; # current prop value
             print LOG "objid $i startprop " . $objects[$i]{"startprop"} . " maxprop " . $objects[$i]{"maxprop"} . " scoreprop " . $objects[$i]{"scoreprop"} . "\n";
             # see if we have stamina or flags
-            my $flags=0; # no flags
             # there is more...
             while ($arg = shift @objargs) {
                 if (looks_like_number($arg)) {
@@ -1046,8 +1047,6 @@ sub do_objects {
                     print LOG "flags=$flags \n";
                 }
             }
-# debug how to make door and rain not gettable hwne they dont have a noget flag. do they inherit like this?
-#            $flags=$objects[$objIds{$objid}]{"flags"} if (defined $objIds{$objid}); # replicate flags from the last definition of the same name if it exists
             print LOG "objid $i flags=$flags \n";
             $objects[$i]{"flags"}=$flags;
         } elsif ($line =~ /^(\d+)\s+(.+)\s+$/) { #debug
