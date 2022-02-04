@@ -791,7 +791,7 @@ sub do_travel {
                     $objects[$i]{"msgdemon"}=$nextarg; # store the message or demon for later
                     $cond=1; # conditions always come before message or demon
                     print LOG "$i no exit\n";
-                } elsif ($nextarg =~ /^[\w|]+$/) { # condition, destination or direction
+                } elsif ($nextarg =~ /^[\$\w|]+$/) { # condition, destination or direction
                     if ($nextarg =~ /.*\|.*/) { # multi destination
                         print LOG "$i multi-dest ";
                         my @destinations=split(/\|/,$nextarg);
@@ -802,6 +802,13 @@ sub do_travel {
                         $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by pipes at random
                         $cond=1; # conditions always come before destination
                         print LOG "action destid=$destid\n";
+                    } elsif ($nextarg eq "forced") { # its a forced destination
+                        print LOG "$i destination forced ";
+                        $nextarg = shift @travelargs; # get the destination
+                        $objects[$i]{"action"}=$roomIds{substr($nextarg,0,6)}; # sends you to destid object
+                        $cond=1; # conditions always come before destination
+                        unshift @travelargs, '$forced'; # put a direction of "$forced" on to the travelargs to be processed as a direction
+                        print LOG "action destid=".$objects[$i]{"action"}."\n";
                     } elsif (defined $roomIds{substr($nextarg,0,6)}) { # its a single destination
                         print LOG "$i destination ";
                         $objects[$i]{"action"}=$roomIds{substr($nextarg,0,6)}; # sends you to destid object
@@ -882,7 +889,6 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
         if ($objects[$i]{"type"}==$exit) {
             $c = $objects[$i]{"condition"};
             if ($c ne "") { # assume its a class or object and is suitable to be a lock condition
-                #debug need to resolve e "empty" condition
                 $c="emptylock" if ($c eq "e"); # expand e to empty
                 $c="difflock" if ($c eq "d"); # expand d to diff
                 $c="dielock" if ($c eq "dd"); # expand dd to (display and) die
