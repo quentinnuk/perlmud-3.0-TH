@@ -899,16 +899,19 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
                 delete ($objects[$i]{"condition"}); # dont need to keep this now lock set up
                 print LOG "x-ref $i cond $c resolved as lock\n";
             }
-            $dm = $objects[$i]{"msgdemon"}; # get the message or demon
-            if ($dm>=0) { # condition is a msg number not a -ve demon number so set success msg for going nowhere
-                $objects[$i]{"success"}=$textIds{$dm} or print LOG "invalid msg $dm in objid $i \n";
-                $objects[$i]{"success"}=~s/\\\'/\'/g; # remove escape of ' as not needed in a string
-                print LOG "x-ref $i cond $dm resolved\n";
-                delete ($objects[$i]{"msgdemon"}); # dont need to keep this now fail set up
-            } elsif ($dm<=0) { # condition is a demon
-                print LOG "x-ref $i identified demon $dm\n";
-                #debug do something with demons - will need to be fired in moveObj is th_mud
-                $objects[$i]{"demon"}=$dm;
+            if (defined $objects[$i]{"msgdemon"}) { # is it a message or demon to process?
+                $dm = $objects[$i]{"msgdemon"}; # get the message or demon
+                if ($dm>=0) { # condition is a msg number not a -ve demon number so set success msg for going nowhere
+                    $objects[$i]{"success"}=$textIds{$dm} or print LOG "invalid msg $dm in objid $i \n";
+                    $objects[$i]{"success"}=~s/\\\'/\'/g; # remove escape of ' as not needed in a string
+                    print LOG "x-ref $i msg $dm resolved\n";
+                    delete ($objects[$i]{"msgdemon"}); # dont need to keep this now success set up
+                } elsif ($dm<0) { # condition is a demon
+                    print LOG "x-ref $i identified demon $dm\n";
+                    #debug do something with demons - will need to be fired in moveObj is th_mud
+                    $objects[$i]{"demon"}=$dm;
+                    delete ($objects[$i]{"msgdemon"}); # dont need to keep this now set up
+                }
             }
         } elsif ($objects[$i]{"type"}==$action) {
             # x-ref action object msgs debug
