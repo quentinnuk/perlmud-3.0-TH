@@ -438,6 +438,7 @@ my $fh;
 my %textIds; # maps text numeric ids to strings
 my %objIds; # maps thing names to numeric ids
 my %classIds; # class exists map
+my %synonymTable; # synonyms to objects names
 my @vocabobj = (); # allow forward declare of objects in vocab
 my $logfile = 'log.txt';
 
@@ -1064,11 +1065,13 @@ sub do_objects {
             $prop=$1;
             $desc=$2;
             if ($desc=~/^\%(.+)/) {
+                my $objName = $1; # use description from this obj
+                $objName = $synonymTable{$objName} if (defined $synonymTable{$objName}); # resolve synonym if it is defined
                 # include description from another object
-                if ($objects[$objIds{"$1"}]{"maxprop"}>0) {
-                    $desc=$objects[$objIds{"$1"}]{"description$prop"};
+                if ($objects[$objIds{$objName}]{"maxprop"}>0) {
+                    $desc=$objects[$objIds{$objName}]{"description$prop"};
                 } else {
-                    $desc=$objects[$objIds{"$1"}]{"description"};
+                    $desc=$objects[$objIds{$objName}]{"description"};
                 }
             }
             print LOG "objid $i desc$prop=$desc\n";
@@ -1146,6 +1149,7 @@ sub do_vocab
             $objects[$i]{"name"}=shift @vocargs;
             $objects[$i]{"action"}=shift @vocargs;
             $objects[$i]{"type"}=$synonym;
+            $synonymTable{$objects[$i]{"name"}} = $objects[$i]{"action"}; # record synonym for later
         } elsif ($subsection eq "action") {
             # verb [.primitive] noun1 noun2 function param1 [param2] here_msg [near_msg] [far_msg] [-demon]
             my %instruction;
