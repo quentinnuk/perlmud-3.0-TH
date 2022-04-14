@@ -8,3 +8,6 @@ minimal.db
 valley.db
 mud.db
 log.txt
+mud.db
+mud.log
+*.log
