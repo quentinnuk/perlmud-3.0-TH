@@ -12,3 +12,5 @@ mud.db
 mud.log
 *.log
 mud.db
+*.TXT
+*.GET
