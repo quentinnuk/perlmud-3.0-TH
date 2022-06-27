@@ -16,3 +16,4 @@ mud.db
 *.GET
 *.log
 *.db
+mud.db
