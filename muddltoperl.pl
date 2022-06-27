@@ -803,7 +803,7 @@ sub do_travel {
                         $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by pipes at random
                         $cond=1; # conditions always come before destination
                         print LOG "action destid=$destid\n";
-                    } elsif ($nextarg eq "forced") { # its a forced destination
+                    } elsif (($nextarg eq "forced") || ($nextarg eq "f")) { # its a forced destination
                         print LOG "$i destination forced ";
                         $nextarg = shift @travelargs; # get the destination
                         $objects[$i]{"action"}=$roomIds{substr($nextarg,0,6)}; # sends you to destid object
