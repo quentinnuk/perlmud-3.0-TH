@@ -1260,8 +1260,9 @@ sub do_vocab
                 # debug this should allow for a msg2 if the lock fails but the class passed - not supported in TH MUD at the moment as both are checked before action is called - this could be implemented by making the lock generation conditional on action present above
                 $assembly .= '{';
                 $assembly .= '&mud_demon($me,' . $instruction{"demon"} . ',$arg,$arg1,$arg2); ' if (defined $instruction{"demon"}); # run demon if defined
+                $assembly .= 'my $state = &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2,$cid,$oc); ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
                 $assembly .= '&tellPlayer($me,"' . "msg" . $instruction{"msg1"} . '"); ' if ($instruction{"msg1"} > 0); # success for command and msg is not zero
-                $assembly .= 'return &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2,$cid,$oc); ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
+                $assembly .= 'return $state; ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
                 $assembly .= '1; }'; # return 1 in case there isnt a primitive
             }
             $objects[$i]{"action"}=$assembly;
