@@ -783,6 +783,7 @@ sub do_travel {
             # debug if the destination is 0 then now way out - not quite truel in Essex it outputs an empty message 0
             $objects[$i]{"type"}=$exit; # defining an exit
             $objects[$i]{"location"}=$objid; # where is it located
+            $objects[$i]{"owner"}=1; # arch-wiz maintainer owns everything
             my $cond=0;
             while (@travelargs) { # work through arguments
                 my $nextarg = shift @travelargs;
@@ -1149,6 +1150,7 @@ sub do_vocab
             $objects[$i]{"name"}=shift @vocargs;
             $objects[$i]{"action"}=shift @vocargs;
             $objects[$i]{"type"}=$synonym;
+            $objects[$i]{"owner"}=1; # arch-wiz owns everything
             $synonymTable{$objects[$i]{"name"}} = $objects[$i]{"action"}; # record synonym for later
         } elsif ($subsection eq "action") {
             # verb [.primitive] noun1 noun2 function param1 [param2] here_msg [near_msg] [far_msg] [-demon]
@@ -1216,6 +1218,7 @@ sub do_vocab
             $objects[$i]{"class"}=$instruction{"class"} if (defined $instruction{"class"}); # noun1 must be this class
             $objects[$i]{"lock"}=$instruction{"lock"} if (defined $instruction{"lock"}); # this class must be present
             $objects[$i]{"type"}=$action;
+            $objects[$i]{"owner"}=1; # arch-wiz owns everything
             # in teleMUD $arg1 is noun1, $arg2 is noun2, $arg is all arguments, $me is myself
             # debug need to check class and lock matches for $arg1 and $arg2
             if (defined $instruction{"action"}) {
@@ -1299,6 +1302,7 @@ sub do_demons # demon declarations
         $objects[$i]{"class"}=shift @demonargs; # demon arg 1
         $objects[$i]{"lock"}=shift @demonargs; # demon arg 2
         $objects[$i]{"speed"}=shift @demonargs; # demon delay
+        $objects[$i]{"owner"}=1; # arch-wiz owns everything
         my $flags = 0;
         while (my $arg = shift @demonargs) {
             $flags |= $demonFlagsProper{"$arg"};
