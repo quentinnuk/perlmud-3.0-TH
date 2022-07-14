@@ -296,7 +296,7 @@ my %mudFunctions =
  "decdestroy", 1, # (obj|null); dec prop of noun1>=0 destroy obj?
  "decifzero", 1, # (obj|null); dec prop if > 0, and call if zero
  "decinc", 1, # (obj|null); dec obj or noun1 and inc obj or noun2
- "delaymove", 3, # null room demon; drop noun1 in room after a delay, queue demon specified in demon, then fire $demon
+ "delaymove", 3, # null room demon demon2; drop noun1 in room after a demon, queue demon specified in demon, then fire demon2
  "destroy", 1, # (obj|null); destroys obj or command noun1
  "destroycreate", 1, # (obj); destroys command noun1 then creates obj
  "destroydec", 1, # (obj|null); destroy obj or noun1 and dec prop of obj or noun2 and out msg
@@ -1183,17 +1183,19 @@ sub do_vocab
             }
             $token = shift @vocargs;
             $token = shift @vocargs if ($token eq "null"); # throw away null argument if it exists
-            # the x-ref msgs for here, near, far. there is always here and near.
-            $instruction{"msg1"}=$token; # here msg
-            $token = shift @vocargs;
+            # the x-ref msgs for here, near, far. there are almost always here and near.
+            if ($token > 0) { # msg1 is almost always present
+                $instruction{"msg1"}=$token; # here msg
+                $token = shift @vocargs;
+            }
             if ($token > 0) { # msg2 is present
                 $instruction{"msg2"}=$token; # near msg
                 $token = shift @vocargs; # get next token (msg3 or demon)
             }
-            if ($token <= 0) { # its either a null msg2 or msg3 (ignore) or a demon
+            if ($token <= 0) { # its either a null msg1, msg2 or msg3 (ignore) or a demon
                 if ($token < 0) { # its a demon!
                     $instruction{"demon"}=$token; # demon triggered if -ve
-                } else { # it is a null msg2 or msg3 so throw away
+                } else { # it is a null msg1, msg2 or msg3 so throw away
                     $token = shift @vocargs; # get next token (either msg3, a demon, a undef)
                 }
             }
@@ -1232,6 +1234,9 @@ sub do_vocab
                     $assembly .= ',\'' . $instruction{"arg2"} . '\''; # there is a fnArg2
                 } else {
                     $assembly .= ',""'; # no fnArg2
+                }
+                if (defined $instruction{"arg3"}) {
+                    $assembly .= ',\'' . $instruction{"arg3"} . '\''; # there is an optional fnArg3
                 }
                 if ((defined $instruction{"msg1"}) && ($instruction{"msg1"} != 0)) {
                     $assembly .= ',\'' . "msg" . $instruction{"msg1"} . '\'';
