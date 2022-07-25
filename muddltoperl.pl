@@ -935,8 +935,8 @@ sub do_texts { # stores all the texts reponses into a list for lookup later
                 }
             }
             if ($objects[$i]{"action"} =~ /mud_sendeffect/i) { # special handler for messages in sendeffect
-                $objects[$i]{"action"} =~ /^(.*\'\,\")(\d+)(\"\,.*$)/i;
-                my $msg = $textIds{$2}; # resolves send effect message id
+                $objects[$i]{"action"} =~ /^(.*\'\,\')(\d+)(\'\,.*$)/i;
+                my $msg = $textIds{$2} =~ s/\'/\\\'/rg; # resolves send effect message id and subs \' for '
                 $objects[$i]{"action"} = $1 . $msg . $3;
             }
         }
