@@ -1074,6 +1074,8 @@ sub do_objects {
                 } else {
                     $desc=$objects[$objIds{$objName}]{"description"};
                 }
+            } elsif ($desc eq "?") { # use object name as filename to display
+                $desc = "?" . lc(substr($objects[$i]{"name"},0,6)) . ".txt"; # the file to display
             }
             print LOG "objid $i desc$prop=$desc\n";
             $objects[$i]{"description$prop"} = $desc;
