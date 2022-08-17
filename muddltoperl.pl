@@ -1182,8 +1182,8 @@ sub do_vocab
                                 $rooms .= $token . " ";
                                 $token = shift @vocargs;
                             }
-                            $rooms .= $token; # throwaway the trailing >
-                            $token = $rooms; # make the token the list of rooms seperated by |
+                            $rooms .= $token; # get the last room
+                            $token = $rooms; # make the token the list of rooms <room room room>
                         }
                         $instruction{"arg$a"} = $token
                     }
