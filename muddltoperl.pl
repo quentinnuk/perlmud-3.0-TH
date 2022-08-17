@@ -1176,6 +1176,15 @@ sub do_vocab
                     my $numParams = $mudFunctions{$instruction{"action"}};
                     for (my $a=1; $a <= $numParams; $a++) {
                         $token = shift @vocargs;
+                        if ($token =~ /^</) { # there is a list of rooms for random selections
+                            my $rooms;
+                            while ($token !~ />$/) { # get rooms until last in list
+                                $rooms .= $token . " ";
+                                $token = shift @vocargs;
+                            }
+                            $rooms .= $token; # throwaway the trailing >
+                            $token = $rooms; # make the token the list of rooms seperated by |
+                        }
                         $instruction{"arg$a"} = $token
                     }
                 } else {
