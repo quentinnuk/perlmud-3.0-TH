@@ -302,7 +302,7 @@ my %mudFunctions =
  "destroydec", 1, # (obj|null); destroy obj or noun1 and dec prop of obj or noun2 and out msg
  "destroydestroy", 1, # (obj|null); looks like it destroys command noun1 and param1 obj
  "destroyinc", 1, # (obj|null); destroy obj or noun1 and inc prop of obj or noun2 and out msg
- "detroyset", 2, # obj value; destroy noun1 and set obj property to value
+ "destroyset", 2, # obj value; destroy noun1 and set obj property to value
  "destroytogglesex", 1, # null; destroy noun1 and flip sex of player
  "destroytrans", 2, # null room; destroys noun1 and transports player to room
  "disenable", 2, # null value; terminate demon value and do actions
