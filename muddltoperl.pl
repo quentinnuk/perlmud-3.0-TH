@@ -780,11 +780,12 @@ sub do_travel {
         if ($line !~ /^\*.+$/) { # only process arguments if it is not a new section
             # arguments can be as follows:
             # [condition] message|demon|destination(s) direction(s)
-            # debug if the destination is 0 then now way out - not quite truel in Essex it outputs an empty message 0
+            # if the destination is 0 then no way out - not quite true in Essex it outputs an empty message 0
             $objects[$i]{"type"}=$exit; # defining an exit
             $objects[$i]{"location"}=$objid; # where is it located
             $objects[$i]{"owner"}=1; # arch-wiz maintainer owns everything
             my $cond=0;
+            my $dest=0;
             while (@travelargs) { # work through arguments
                 my $nextarg = shift @travelargs;
                 print LOG "$i cond=$cond nextarg=\'$nextarg\'\n";
@@ -794,7 +795,7 @@ sub do_travel {
                     $cond=1; # conditions always come before message or demon
                     print LOG "$i no exit\n";
                 } elsif ($nextarg =~ /^[\$\w|]+$/) { # condition, destination or direction
-                    if ($nextarg =~ /.*\|.*/) { # multi destination
+                    if (($dest==0) && ($nextarg =~ /.*\|.*/)) { # multi destination
                         print LOG "$i multi-dest ";
                         my @destinations=split(/\|/,$nextarg);
                         foreach my $destination(@destinations) {
@@ -803,6 +804,7 @@ sub do_travel {
                         $destid=join('|',@destinations);
                         $objects[$i]{"action"}=$destid; # sends you to destid object(s) seperated by pipes at random
                         $cond=1; # conditions always come before destination
+                        $dest=1; # we have got the destination so dont look for it again
                         print LOG "action destid=$destid\n";
                     } elsif (($nextarg eq "forced") || ($nextarg eq "f")) { # its a forced destination
                         print LOG "$i destination forced ";
@@ -815,6 +817,7 @@ sub do_travel {
                         print LOG "$i destination ";
                         $objects[$i]{"action"}=$roomIds{substr($nextarg,0,6)}; # sends you to destid object
                         $cond=1; # conditions always come before destination
+                        $dest=1; # we have got the destination so dont look for it again
                         print LOG "action destid=".$objects[$i]{"action"}."\n";
                     } elsif (($cond==0) && ((defined $objIds{$nextarg}) || (defined $classIds{$nextarg}) || ($nextarg eq "n") || ($nextarg eq "e") || ($nextarg eq "d") || ($nextarg eq "dd"))) { # a valid object or class or special must be a condition
                         print LOG "$i condition $nextarg\n";
