@@ -22,6 +22,7 @@ dexterity 100
 level 10
 played 0
 owner 1
+prompt ----*
 <END>
 2
 name north;south;east;west;northwest;northeast;southwest;southeast;out
