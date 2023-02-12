@@ -1240,7 +1240,6 @@ sub do_vocab
             if (defined $instruction{"action"}) {
                 # there is an action clause so call the mud_action function
                 $assembly = "";
-                $assembly='if ( ' if (defined $instruction{"primitive"}); # only need a conditional if a primitive follows
                 $assembly .= 'mud_' . $instruction{"action"} . '(';
                 # add parameters to the mud_action function if exist
                 $assembly .= '$me,$arg,$arg1,$arg2,\'' . $instruction{"arg1"} . '\'';
@@ -1272,11 +1271,11 @@ sub do_vocab
                 } else {
                     $assembly .= ',0'; # no demon
                 }
-                $assembly .= ',$cid,$oc) '; # pass the command id and original command text
+                $assembly .= ',$cid,$oc'; # pass the command id and original command text
                 if (defined $instruction{"primitive"}) {
-                    $assembly .= ') { return &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2,$cid,$oc); }'; # return the primitive return value which could be death
+                    $assembly .= ',\&' . $instruction{"primitive"} . ');'; # pointer to primitive code
                 } else {
-                    $assembly .= ';'; # the function return value is sufficient and could be death
+                    $assembly .= ');'; # the function return value is sufficient and could be death
                 }
             } else { # no function, but still have messages and some tests
                 # debug this should allow for a msg2 if the lock fails but the class passed - not supported in TH MUD at the moment as both are checked before action is called - this could be implemented by making the lock generation conditional on action present above
