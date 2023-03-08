@@ -1,7 +1,0 @@
-ESSEX UNIVERSITY: Multi-User Dungeon.
-                                      
-This Valley created: 18th February 1986 at 00:06:39
-Origin of version: 16:12:23.
-
-Welcome! By what name shall I call you?
-*jadawin
