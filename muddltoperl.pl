@@ -794,7 +794,7 @@ sub do_travel {
                     $objects[$i]{"msgdemon"}=$nextarg; # store the message or demon for later
                     $cond=1; # conditions always come before message or demon
                     print LOG "$i no exit\n";
-                } elsif ($nextarg =~ /^[\$\w|]+$/) { # condition, destination or direction
+                } elsif ($nextarg =~ /^[~\$\w|]+$/) { # condition, destination or direction
                     if (($dest==0) && ($nextarg =~ /.*\|.*/)) { # multi destination
                         print LOG "$i multi-dest ";
                         my @destinations=split(/\|/,$nextarg);
@@ -819,7 +819,10 @@ sub do_travel {
                         $cond=1; # conditions always come before destination
                         $dest=1; # we have got the destination so dont look for it again
                         print LOG "action destid=".$objects[$i]{"action"}."\n";
-                    } elsif (($cond==0) && ((defined $objIds{$nextarg}) || (defined $classIds{$nextarg}) || ($nextarg eq "n") || ($nextarg eq "e") || ($nextarg eq "d") || ($nextarg eq "dd"))) { # a valid object or class or special must be a condition
+                    } elsif (($cond==0) && ((defined $objIds{$nextarg}) ||
+                                            (defined $classIds{$nextarg}) ||
+                                            ($nextarg =~ /^(n|e|dd?)$/) ||
+                                            (substr($nextarg,0,1) eq '~'))) { # a valid object or class or special or ~object or ~class must be a condition
                         print LOG "$i condition $nextarg\n";
                         $objects[$i]{"condition"}=$nextarg if ($nextarg ne 'n'); # no need to keep none condition
                         $cond=1; # dont process conditions again for this line
