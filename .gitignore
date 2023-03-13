@@ -6,3 +6,4 @@ log.txt
 *.TXT
 *.GET
 *.db
+.vscode/extensions.json
