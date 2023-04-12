@@ -2,15 +2,20 @@ package county;
 use strict;
 use warnings;
 
+my $bar='{&bar; 1;}';
+
 {
 	my $stated=0;
 
 	sub counter
 	{
-		for $stated (1..5) {
+		($stated)=@_;
+		while ($stated>0) {
 			print "$stated\n";
-			&resetcount if ($stated>3);
+			$stated++;
+			eval $bar if ($stated>3);
 		}
+		print "wend $stated\n";
 	}
 
 	sub resetcount
