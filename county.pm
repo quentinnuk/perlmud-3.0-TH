@@ -1,3 +1,4 @@
+package county;
 use strict;
 use warnings;
 
@@ -6,13 +7,9 @@ use warnings;
 
 	sub counter
 	{
-		my $cnt=$stated+1;
-		while ($cnt>0) {
-			$stated++;
+		for $stated (1..5) {
 			print "$stated\n";
 			&resetcount if ($stated>3);
-			print "$stated\n";
-			$cnt=$stated;
 		}
 	}
 
@@ -22,6 +19,16 @@ use warnings;
 	}
 }
 
+sub foo
+{
+	print "foo\n";
+	&resetcount;
+}
 
+sub bar
+{
+	print "bar\n";
+	&foo;
+}
 
-counter();
+1;
