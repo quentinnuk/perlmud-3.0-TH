@@ -1,22 +1,27 @@
 use strict;
 use warnings;
 
-my @queue;
-
-sub somesub
 {
-    my ($a, $b) = @_;
-    print "a=$a b=$b\n";
+	my $stated=0;
+
+	sub counter
+	{
+		my $cnt=$stated+1;
+		while ($cnt>0) {
+			$stated++;
+			print "$stated\n";
+			&resetcount if ($stated>3);
+			print "$stated\n";
+			$cnt=$stated;
+		}
+	}
+
+	sub resetcount
+	{
+		$stated=0;
+	}
 }
 
-{
-    my ($x,$y) = (1,2);
-    push @queue,"\&somesub($x,$y)";
-    push @queue,"\&somesub(\"c\",\"d\")";
-    while (my $i=shift @queue)
-    {
-        eval $i;
-        print "$@\n"
-    }
 
-}
+
+counter();
