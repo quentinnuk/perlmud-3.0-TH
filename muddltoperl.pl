@@ -841,6 +841,8 @@ sub do_travel {
                             $direction=~s/(^|\|)sw(?=$|\|)/$1southwest/i;
                             $direction=~s/(^|\|)se(?=$|\|)/$1southeast/i;
                             $direction=~s/(^|\|)o(?=$|\|)/$1out/i;
+                            $direction=~/(^|\|)(\w+)(?:$|\|)/; # deal with direction synonyms
+                            $direction=$1 . $synonymTable{$2} if (defined $synonymTable{$2});
                             print LOG "$direction\n";
                         }
                         $objects[$i]{"name"}=join( ';',@travelargs); # put directions in name
