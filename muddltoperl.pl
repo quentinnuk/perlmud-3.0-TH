@@ -1284,13 +1284,12 @@ sub do_vocab
                 }
             } else { # no function, but still have messages and some tests
                 # debug this should allow for a msg2 if the lock fails but the class passed - not supported in TH MUD at the moment as both are checked before action is called - this could be implemented by making the lock generation conditional on action present above
-                $assembly .= '{';
+                $assembly .= '{my $state=1; '; # assume success unless there is a primitive that changes the state
                 $assembly .= '&mud_demon($me,' . $instruction{"demon"} . ',$arg,$arg1,$arg2); ' if (defined $instruction{"demon"}); # run demon if defined
-                $assembly .= 'my $state = &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2,$cid,$oc); ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
-                $assembly .= '&tellPlayer($me,\'' . "msg" . $instruction{"msg1"} . '\'); ' if ($instruction{"msg1"} > 0); # success for command and msg1 is not zero
-                $assembly .= '&tellElsewhere($me,\'' . "msg" . $instruction{"msg3"} . '\'); ' if ($instruction{"msg3"} > 0); # success for command and msg3 is not zero
-                $assembly .= 'return $state; ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
-                $assembly .= '1; }'; # return 1 in case there isnt a primitive
+                $assembly .= '$state = &' . $instruction{"primitive"} . '($me,$arg,$arg1,$arg2,$cid,$oc); ' if (defined $instruction{"primitive"}); # return the prmiative return value which could be death
+                $assembly .= '&tellPlayer($me,\'' . "msg" . $instruction{"msg1"} . '\') if ($state==1); ' if ($instruction{"msg1"} > 0); # success for command and msg1 is not zero
+                $assembly .= '&tellElsewhere($me,\'' . "msg" . $instruction{"msg3"} . '\') if ($state==1); ' if ($instruction{"msg3"} > 0); # success for command and msg3 is not zero
+                $assembly .= 'return $state; }'; # return the state which could be fail, success or death
             }
             $objects[$i]{"action"}=$assembly;
             print LOG " id=$i actobj " . $objects[$i]{"name"} . " is " . $objects[$i]{"action"} . "\n";
