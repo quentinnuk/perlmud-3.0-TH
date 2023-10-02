@@ -691,12 +691,6 @@ sub do_rooms
                 }
             }
             $objects[$i]{"flags"}=$flags;
-#            $line = read_line();
-#            chomp $line;
-#            $line =~ /^\s+(.+)\W$/;
-#            print LOG "name: $1\n";
-#            $objects[$i]{"name"}=$1;
-#            $objects[$i]{"description"}='';
         }
         elsif ($line =~ /^\s+(.+)\s+$/) {
             if ($objects[$i]{"name"} eq "") {  # if we dont have the name yet, then its the name
