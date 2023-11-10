@@ -1,0 +1,27 @@
+set input echo on
+set output pacing 100
+set host localhost 4200
+input 3 .
+if fail stop 1 connect failed
+lineout login jadawin
+input 1 Password: 
+lineout joules
+input 1 @ 
+if fail stop 1 login failed
+lineout mud
+input 5 Elizabethan
+input 5 * 
+lineout l
+input 5 * 
+if fail stop 1 Look failed
+lineout who
+input 5 * 
+if fail stop 1 Who failed
+lineout e,w,n,g stick,s,w,s,s,e,light stick w fire,e,g all,w,s,g all
+input 15 *
+lineout n,g all,w,open door w key,s,g groats,clean groats,nw,flip pan,g all,se,n,e,s,s,s,drop stick,s,drop t,n,g stick,nw,nw,n,w,u,u,s
+input 15 *
+lineout make bed,l bed,g potty,n,d,d,w,g fur,g jet f potty,drop potty,e,e,s,s,s,drop stick,s,drop t
+input 15 *
+lineout n,g all,n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all,s,g all,prise tomb,d
+input 15 *
