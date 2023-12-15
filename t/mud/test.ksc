@@ -1,0 +1,27 @@
+set input echo off
+log session test.log
+set case off
+set output pacing 100
+set host localhost 4200
+echo Testing connect...
+input 3 .
+if fail stop 1 connect failed
+echo Testing login...
+lineout login anana
+input 1 Password: 
+lineout joules
+input 1 @ 
+if fail stop 1 login failed
+echo Login success.
+take test1.ksc
+take test2.ksc
+; exit mud and TH
+echo Testing logout...
+lineout qq
+input 15 "@"
+lineout logout
+input 5 "%logout"
+echo Logout success.
+close session
+close
+end

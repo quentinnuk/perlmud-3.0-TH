@@ -1,0 +1,60 @@
+echo Testing House...
+lineout e,w,n,g stick,s,w,s,s,e,light stick w fire,e,g all,w,s,g all
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout n,g all,w,open door w key,s,g groats,clean groats,nw,flip pan,g all,se,n,e,s,s,s,drop stick,s,drop t,n,g stick,nw,nw,n,w,u,u,s
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout make bed,l bed,g potty,n,d,d,w,g fur,g jet fr potty,drop potty,e,e,s,s,s,drop stick,s,drop t
+input 10 "*"
+if fail stop 1 Mud prompt failed
+echo House success.
+echo Testing Tomb...
+lineout n,g all,n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all,s,g all,prise tomb,d
+input 10 "*"
+if fail stop 1 Tomb failed
+echo Tomb success.
+echo Testing Red eyes...
+set count 15 ; try looking for red eyes
+:RED
+lineout l
+input 5 " red eyes!"
+if fail if count goto RED
+if fail stop 1 Statue red failed
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout g statue
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout s,w,g all
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout e
+input 10 "*"
+if fail stop 1 Tomb room red failed
+echo Red eyes success.
+lineout n,u,o,dr statue
+input 10 "*"
+if fail stop 1 Mud prompt failed
+echo Testing Emerald eyes...
+set count 15 ; try looking for emerald eyes
+:EMERALD
+lineout l
+input 5 " emerald eyes!"
+if fail if count goto EMERALD
+if fail stop 1 Statue emerald failed
+echo Emerald eyes success.
+echo Testing swamp statue...
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout g statue
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout swamp,swamp,swamp,swamp,dr brand
+input 10 "*"
+if fail stop 1 Mud prompt failed
+lineout swamp,dr t
+input 10 "*"
+if fail stop 1 Mud prompt failed
+echo Swamp statue success.
+end
