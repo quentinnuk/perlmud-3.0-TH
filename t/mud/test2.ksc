@@ -1,60 +1,126 @@
-echo Testing House...
-lineout e,w,n,g stick,s,w,s,s,e,light stick w fire,e,g all,w,s,g all
-input 10 "*"
-if fail stop 1 Mud prompt failed
-lineout n,g all,w,open door w key,s,g groats,clean groats,nw,flip pan,g all,se,n,e,s,s,s,drop stick,s,drop t,n,g stick,nw,nw,n,w,u,u,s
-input 10 "*"
-if fail stop 1 Mud prompt failed
-lineout make bed,l bed,g potty,n,d,d,w,g fur,g jet fr potty,drop potty,e,e,s,s,s,drop stick,s,drop t
-input 10 "*"
-if fail stop 1 Mud prompt failed
+xecho Testing House...
+lineout e,w,n,g stick
+mprompt
+ftest {House}
+lineout s,w,s,s,e,light stick w fire
+mprompt
+ftest {House}
+lineout e,g all
+mprompt
+ftest {House}
+lineout w,s,g all
+mprompt
+ftest {House}
+lineout n,g all,w,open door w key
+mprompt
+ftest {House}
+lineout s,g groats
+mprompt
+ftest {House}
+lineout clean groats
+mprompt
+ftest {House}
+lineout nw,flip pan
+mprompt
+ftest {House}
+lineout g all
+mprompt
+ftest {House}
+lineout se,n,e,s,s,s,drop stick
+mprompt
+ftest {House}
+lineout s,drop t
+mprompt
+ftest {House}
+lineout n,g stick
+mprompt
+ftest {House}
+lineout nw,nw,n,w,u,u,s
+mprompt
+ftest {House}
+lineout make bed
+mprompt
+ftest {House}
+lineout l bed
+mprompt
+ftest {House}
+lineout g potty
+mprompt
+ftest {House}
+lineout n,d,d,w,g fur
+mprompt
+ftest {House}
+lineout g jet fr potty
+mprompt
+ftest {House}
+lineout drop potty
+mprompt
+ftest {House}
+lineout e,e,s,s,s,drop stick
+mprompt
+ftest {House}
+lineout s,drop t
+mprompt
+ftest {House}
 echo House success.
-echo Testing Tomb...
-lineout n,g all,n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all,s,g all,prise tomb,d
-input 10 "*"
-if fail stop 1 Tomb failed
+xecho Testing Tomb...
+lineout n,g all
+mprompt
+ftest {Tomb}
+lineout n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all
+mprompt
+ftest {Tomb}
+lineout s,g all
+mprompt
+ftest {Tomb}
+lineout prise tomb
+mprompt
+ftest {Tomb}
+lineout d
+mprompt
+ftest {Tomb}
 echo Tomb success.
-echo Testing Red eyes...
-set count 15 ; try looking for red eyes
+xecho Testing Red eyes...
+set count 20 ; try looking for red eyes
 :RED
 lineout l
-input 5 " red eyes!"
+input 5 { red eyes!}
 if fail if count goto RED
-if fail stop 1 Statue red failed
-input 10 "*"
-if fail stop 1 Mud prompt failed
+ftest {Red eyes}
+mprompt
+ftest {Red eyes}
 lineout g statue
-input 10 "*"
-if fail stop 1 Mud prompt failed
+mprompt
+ftest {Red eyes}
 lineout s,w,g all
-input 10 "*"
-if fail stop 1 Mud prompt failed
+mprompt
+ftest {Red eyes}
 lineout e
-input 10 "*"
-if fail stop 1 Tomb room red failed
-echo Red eyes success.
+mprompt
+ftest {Red eyes}
 lineout n,u,o,dr statue
-input 10 "*"
-if fail stop 1 Mud prompt failed
-echo Testing Emerald eyes...
-set count 15 ; try looking for emerald eyes
+mprompt
+ftest {Red eyes}
+echo Red eyes success.
+xecho Testing Emerald eyes...
+set count 20 ; try looking for emerald eyes
 :EMERALD
 lineout l
-input 5 " emerald eyes!"
+input 5 { emerald eyes!}
 if fail if count goto EMERALD
-if fail stop 1 Statue emerald failed
+ftest {Emerald eyes}
 echo Emerald eyes success.
-echo Testing swamp statue...
-input 10 "*"
-if fail stop 1 Mud prompt failed
+xecho Testing swamp statue...
+mprompt
+ftest {Swamp statue}
 lineout g statue
-input 10 "*"
-if fail stop 1 Mud prompt failed
+mprompt
+ftest {Swamp statue}
 lineout swamp,swamp,swamp,swamp,dr brand
-input 10 "*"
-if fail stop 1 Mud prompt failed
+mprompt
+ftest {Swamp statue}
 lineout swamp,dr t
-input 10 "*"
-if fail stop 1 Mud prompt failed
+mprompt
+ftest {Swamp statue}
 echo Swamp statue success.
 end

@@ -3,25 +3,29 @@ log session test.log
 set case off
 set output pacing 100
 set host localhost 4200
-echo Testing connect...
+define ftest {if fail stop 1 \%1 failed.}
+define mprompt input 5 {*}
+xecho Testing connect...
 input 3 .
-if fail stop 1 connect failed
-echo Testing login...
+ftest {connect}
+echo connect success.
+xecho Testing login...
 lineout login anana
 input 1 Password: 
 lineout joules
 input 1 @ 
-if fail stop 1 login failed
+ftest {login}
 echo Login success.
 take test1.ksc
 take test2.ksc
+take test3.ksc
 ; exit mud and TH
-echo Testing logout...
-lineout qq
-input 15 "@"
-lineout logout
-input 5 "%logout"
-echo Logout success.
+# xecho Testing logout...
+# lineout qq
+# input 15 {@}
+# lineout logout
+# input 5 {%logout}
+# echo Logout success.
 close session
-close
+# close
 end

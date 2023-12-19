@@ -1,0 +1,56 @@
+xecho Testing toad...
+lineout e
+input 5 {A bloated toad croaks}
+ftest {Kiss toad}
+lineout kiss toad
+input 5 {handsome prince!}
+ftest {Kiss toad}
+lineout kiss prince
+input 5 {feel better!}
+ftest {Kiss toad}
+echo Toad success.
+xecho Testing return to house...
+lineout o
+mprompt
+ftest {Return to house}
+lineout g brand
+input 5 {Brand taken}
+ftest {Return to house}
+lineout o,o,o,w,w,s,s
+mprompt
+ftest {Return to house}
+echo Return to house success.
+xecho Testing sorcerers room...
+lineout e,e
+mprompt
+ftest {Sorcerers room}
+lineout slide bc
+input 5 {The bookcase slides aside easily revealing an opening}
+ftest {Sorcerers room}
+lineout s
+mprompt
+ftest {Sorcerers room}
+lineout s
+input 5 {A horrifying zombie blocks your way!}
+lineout feed z w leg
+input 5 {teethmarks}
+ftest {Sorcerers room}
+lineout g leg
+mprompt
+ftest {Sorcerers room}
+lineout s
+mprompt
+ftest {Sorcerers room}
+lineout knock
+input 5 {Sorcerer's room.}
+ftest {Sorcerers room}
+mprompt
+ftest {Sorcerers room}
+lineout open door w key
+input 5 {The door creaks slowly open.}
+ftest {Sorcerers room}
+lineout n,n,n,n,w,w
+mprompt
+ftest {Sorcerers room}
+echo Sorcerers room success.
+end

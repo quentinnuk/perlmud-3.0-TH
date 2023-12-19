@@ -1,12 +1,12 @@
-echo Testing mud...
+xecho Testing mud...
 lineout mud
 input 30 Elizabethan
-input 5 "*" 
-if fail stop 1 Mud failed
+mprompt 
+ftest {Mud}
 echo Mud success.
-echo Testing who...
+xecho Testing who...
 lineout who
-input 5 "*" 
-if fail stop 1 Who failed
+mprompt 
+ftest {Who}
 echo Who success.
 end
