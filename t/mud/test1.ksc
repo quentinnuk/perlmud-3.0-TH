@@ -1,12 +1,10 @@
-xecho Testing mud...
+mtest mud
 lineout mud
 input 30 Elizabethan
-mprompt 
-ftest {Mud}
-echo Mud success.
-xecho Testing who...
+mcheck
+msuccess
+mtest who
 lineout who
-mprompt 
-ftest {Who}
-echo Who success.
+mcheck
+msuccess
 end

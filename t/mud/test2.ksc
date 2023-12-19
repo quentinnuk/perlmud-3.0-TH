@@ -1,126 +1,91 @@
-xecho Testing House...
+mtest House
 lineout e,w,n,g stick
-mprompt
-ftest {House}
+mcheck
 lineout s,w,s,s,e,light stick w fire
-mprompt
-ftest {House}
+mcheck
 lineout e,g all
-mprompt
-ftest {House}
+mcheck
 lineout w,s,g all
-mprompt
-ftest {House}
+mcheck
 lineout n,g all,w,open door w key
-mprompt
-ftest {House}
+mcheck
 lineout s,g groats
-mprompt
-ftest {House}
+mcheck
 lineout clean groats
-mprompt
-ftest {House}
+mcheck
 lineout nw,flip pan
-mprompt
-ftest {House}
+mcheck
 lineout g all
-mprompt
-ftest {House}
+mcheck
 lineout se,n,e,s,s,s,drop stick
-mprompt
-ftest {House}
+mcheck
 lineout s,drop t
-mprompt
-ftest {House}
+mcheck
 lineout n,g stick
-mprompt
-ftest {House}
+mcheck
 lineout nw,nw,n,w,u,u,s
-mprompt
-ftest {House}
+mcheck
 lineout make bed
-mprompt
-ftest {House}
+mcheck
 lineout l bed
-mprompt
-ftest {House}
+mcheck
 lineout g potty
-mprompt
-ftest {House}
+mcheck
 lineout n,d,d,w,g fur
-mprompt
-ftest {House}
+mcheck
 lineout g jet fr potty
-mprompt
-ftest {House}
+mcheck
 lineout drop potty
-mprompt
-ftest {House}
+mcheck
 lineout e,e,s,s,s,drop stick
-mprompt
-ftest {House}
+mcheck
 lineout s,drop t
-mprompt
-ftest {House}
-echo House success.
-xecho Testing Tomb...
+mcheck
+msuccess
+mtest Tomb
 lineout n,g all
-mprompt
-ftest {Tomb}
+mcheck
 lineout n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all
-mprompt
-ftest {Tomb}
+mcheck
 lineout s,g all
-mprompt
-ftest {Tomb}
+mcheck
 lineout prise tomb
-mprompt
-ftest {Tomb}
+mcheck
 lineout d
-mprompt
-ftest {Tomb}
-echo Tomb success.
-xecho Testing Red eyes...
+mcheck
+msuccess
+mtest {Red eyes}
 set count 20 ; try looking for red eyes
 :RED
 lineout l
 input 5 { red eyes!}
 if fail if count goto RED
-ftest {Red eyes}
-mprompt
-ftest {Red eyes}
+ftest
+mcheck
 lineout g statue
-mprompt
-ftest {Red eyes}
+mcheck
 lineout s,w,g all
-mprompt
-ftest {Red eyes}
+mcheck
 lineout e
-mprompt
-ftest {Red eyes}
+mcheck
 lineout n,u,o,dr statue
-mprompt
-ftest {Red eyes}
-echo Red eyes success.
-xecho Testing Emerald eyes...
+mcheck
+msuccess
+mtest {Emerald eyes}
 set count 20 ; try looking for emerald eyes
 :EMERALD
 lineout l
 input 5 { emerald eyes!}
 if fail if count goto EMERALD
-ftest {Emerald eyes}
-echo Emerald eyes success.
-xecho Testing swamp statue...
-mprompt
-ftest {Swamp statue}
+ftest
+msuccess
+mtest {swamp statue}
+mcheck
 lineout g statue
-mprompt
-ftest {Swamp statue}
+mcheck
 lineout swamp,swamp,swamp,swamp,dr brand
-mprompt
-ftest {Swamp statue}
+mcheck
 lineout swamp,dr t
-mprompt
-ftest {Swamp statue}
-echo Swamp statue success.
+mcheck
+msuccess
 end
