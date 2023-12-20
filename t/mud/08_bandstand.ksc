@@ -4,8 +4,5 @@ mcheck
 lineout g baton
 mcheck
 msuccess
-mtest {house baton}
-lineout o,o,o,o,o,nw,n,w
-mcheck
-msuccess
 end
+

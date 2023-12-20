@@ -1,0 +1,11 @@
+mtest {return to house}
+lineout o
+mcheck
+lineout g brand
+input 5 {Brand taken}
+ftest
+lineout o,o,o,w,w,s,s
+mcheck
+msuccess
+end
+

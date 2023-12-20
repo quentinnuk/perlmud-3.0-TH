@@ -1,0 +1,14 @@
+mtest Tomb
+lineout n,g all
+mcheck
+lineout n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all
+mcheck
+lineout s,g all
+mcheck
+lineout prise tomb
+mcheck
+lineout d
+mcheck
+msuccess
+end
+

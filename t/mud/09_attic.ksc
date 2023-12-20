@@ -1,0 +1,61 @@
+mtest {attic}
+lineout o,o,o,o,o,nw,nw,n,w,u,u,se
+mcheck
+lineout {dr brand,baton}
+input 5 {baton dropped}
+ftest
+lineout open door
+input 5 {open}
+ftest
+lineout in
+input 5 {stepladder}
+ftest
+lineout close door
+ftest
+lineout u,u
+ftest
+lineout g bow
+ftest
+lineout g bag
+mcheck
+lineout g t
+mcheck
+lineout put magazine in bag
+input 5 {Magazine now inside the bag}
+ftest
+lineout put doll in bag
+input 5 {Doll now inside the bag}
+ftest
+lineout put violin in bag
+input 5 {Violin now inside the bag}
+ftest
+lineout put bat in bag
+input 5 {Bat now inside the bag}
+ftest
+lineout put candlestick in bag
+input 5 {Candlestick now inside the bag}
+ftest
+lineout d,d
+mcheck
+lineout wave bow
+mcheck
+lineout open door
+mcheck
+lineout in
+mcheck
+lineout g bow
+mcheck
+lineout g baton,brand
+mcheck
+lineout swamp,swamp,swamp,swamp,swamp,swamp,swamp,dr brand
+mcheck
+lineout swamp
+mcheck
+lineout dr t
+mcheck
+lineout g t fr bag
+input 5 removed
+ftest
+msuccess
+end
+

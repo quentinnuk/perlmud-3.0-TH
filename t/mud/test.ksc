@@ -7,7 +7,7 @@ define ftest {if fail stop 1 \%t failed.}
 define mprompt input 5 {*}
 define mtest {
 	assign \%t \%1
-	xecho Testing \%t ...
+	xecho {Testing \%t ... }
 }
 define mcheck {
 	mprompt
@@ -28,10 +28,15 @@ lineout joules
 input 1 @ 
 ftest
 msuccess
-take test1.ksc
-take test2.ksc
-take test3.ksc
-take test4.ksc
+take 01_mudlogin.ksc
+take 02_house.ksc
+take 03_toad.ksc
+take 04_tomb.ksc
+take 05_eyes.ksc
+take 06_rth.ksc
+take 07_sorcerers.ksc
+take 08_bandstand.ksc
+take 09_attic.ksc
 ; exit mud and TH
 # mtest logout
 # lineout qq

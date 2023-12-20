@@ -1,23 +1,3 @@
-mtest toad
-lineout e
-input 5 {A bloated toad croaks}
-ftest
-lineout kiss toad
-input 5 {handsome prince!}
-ftest
-lineout kiss prince
-input 5 {feel better!}
-ftest
-msuccess
-mtest {return to house}
-lineout o
-mcheck
-lineout g brand
-input 5 {Brand taken}
-ftest
-lineout o,o,o,w,w,s,s
-mcheck
-msuccess
 mtest {sorcerers room}
 lineout e,e
 mcheck

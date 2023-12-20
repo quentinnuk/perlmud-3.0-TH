@@ -1,0 +1,46 @@
+mtest House
+lineout e,w,n,g stick
+mcheck
+lineout s,w,s,s,e,light stick w fire
+mcheck
+lineout e,g all
+mcheck
+lineout w,s,g all
+mcheck
+lineout n,g all,w,open door w key
+mcheck
+lineout s,g groats
+mcheck
+lineout clean groats
+mcheck
+lineout nw,flip pan
+mcheck
+lineout g all
+mcheck
+lineout se,n,e,s,s,s,drop stick
+mcheck
+lineout s,drop t
+mcheck
+lineout n,g stick
+mcheck
+lineout nw,nw,n,w,u,u,s
+mcheck
+lineout make bed
+mcheck
+lineout l bed
+mcheck
+lineout g potty
+mcheck
+lineout n,d,d,w,g fur
+mcheck
+lineout g jet fr potty
+mcheck
+lineout drop potty
+mcheck
+lineout e,e,s,s,s,drop stick
+mcheck
+lineout s,drop t
+mcheck
+msuccess
+end
+
