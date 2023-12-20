@@ -1,4 +1,4 @@
-define ftest {if fail stop 1 \%t failed.}
+define ftest {if fail stop 1 \%t failed at line \v(_line) in \v(cmdfile).}
 define mprompt input 5 {*}
 define mtest {
     assign \%t \%1
