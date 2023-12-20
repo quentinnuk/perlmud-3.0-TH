@@ -1,4 +1,4 @@
-# starts at bandstand (BSTAND)
+# starts at bandstand (BSTAND) holding brand,baton
 mtest {attic}
 lineout o,o,o,o,o,nw,nw,n,w,u,u,se
 mcheck
