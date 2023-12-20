@@ -1,0 +1,15 @@
+define ftest {if fail stop 1 \%t failed.}
+define mprompt input 5 {*}
+define mtest {
+    assign \%t \%1
+    xecho {Testing \%t ... }
+}
+define mcheck {
+    mprompt
+    ftest
+}
+define msuccess {
+    echo \%t success.
+    assign \%t undefined
+}
+

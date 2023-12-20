@@ -1,3 +1,4 @@
+# starts at hall (HALL)
 mtest {bandstand}
 lineout e,s,s,sw,s,s,s,s,s,e
 mcheck

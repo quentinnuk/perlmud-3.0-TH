@@ -1,3 +1,4 @@
+# starts at hall (HALL)
 mtest {sorcerers room}
 lineout e,e
 mcheck

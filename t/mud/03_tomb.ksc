@@ -1,3 +1,4 @@
+# starts at swamp (SWAMP1)
 mtest Tomb
 lineout n,g all
 mcheck

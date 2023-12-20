@@ -3,20 +3,7 @@ log session test.log
 set case off
 set output pacing 100
 set host localhost 4200
-define ftest {if fail stop 1 \%t failed.}
-define mprompt input 5 {*}
-define mtest {
-	assign \%t \%1
-	xecho {Testing \%t ... }
-}
-define mcheck {
-	mprompt
-	ftest
-}
-define msuccess {
-	echo \%t success.
-	assign \%t undefined
-}
+take 00_setup.ksc
 mtest connect
 input 3 .
 ftest
@@ -30,9 +17,9 @@ ftest
 msuccess
 take 01_mudlogin.ksc
 take 02_house.ksc
-take 03_toad.ksc
-take 04_tomb.ksc
-take 05_eyes.ksc
+take 03_tomb.ksc
+take 04_eyes.ksc
+take 05_toad.ksc
 take 06_rth.ksc
 take 07_sorcerers.ksc
 take 08_bandstand.ksc

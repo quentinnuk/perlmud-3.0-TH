@@ -1,3 +1,4 @@
+# starts at bandstand (BSTAND)
 mtest {attic}
 lineout o,o,o,o,o,nw,nw,n,w,u,u,se
 mcheck
@@ -45,9 +46,9 @@ lineout in
 mcheck
 lineout g bow
 mcheck
-lineout g baton,brand
+lineout o,g baton,brand
 mcheck
-lineout swamp,swamp,swamp,swamp,swamp,swamp,swamp,dr brand
+lineout swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp,dr brand
 mcheck
 lineout swamp
 mcheck
@@ -56,6 +57,8 @@ mcheck
 lineout g t fr bag
 input 5 removed
 ftest
+lineout dr t
+mcheck
 msuccess
 end
 
