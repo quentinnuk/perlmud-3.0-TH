@@ -12,13 +12,16 @@ lineout in
 input 5 {stepladder}
 ftest
 lineout close door
-ftest
-lineout u,u
-ftest
-lineout g bow
-ftest
-lineout g bag
 mcheck
+lineout u,u
+input 10 attic
+ftest
+mcheck
+lineout g bow
+mcheck
+lineout g bag
+input 5 {bag taken}
+ftest
 lineout g t
 mcheck
 lineout put magazine in bag
@@ -39,9 +42,12 @@ ftest
 lineout d,d
 mcheck
 lineout wave bow
+input 5 {bow dropped}
+ftest
 mcheck
 lineout open door
-mcheck
+input 5 {opens off its latch}
+ftest
 lineout in
 mcheck
 lineout g bow
@@ -59,6 +65,9 @@ input 5 removed
 ftest
 lineout dr t
 mcheck
+lineout o
+input 5 pond
+ftest
 msuccess
 end
 

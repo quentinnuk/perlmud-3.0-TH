@@ -6,6 +6,9 @@ lineout g brand
 input 5 {Brand taken}
 ftest
 lineout o,o,o,w,w,s,s
+# should be in hall (HALL)
+input 10 Hall
+ftest
 mcheck
 msuccess
 end

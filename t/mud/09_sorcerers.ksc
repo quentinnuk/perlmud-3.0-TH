@@ -24,6 +24,9 @@ lineout open door w key
 input 5 {The door creaks slowly open.}
 ftest
 lineout n,n,n,n,w,w
+# should be in hall (HALL)
+input 10 Hall
+ftest
 mcheck
 msuccess
 end
