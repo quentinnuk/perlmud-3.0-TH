@@ -1,0 +1,10 @@
+mtest mausoleum
+lineout dr baton,bow,leg,key
+input 5 {dropped}
+ftest
+mcheck
+lineout n,n,e,n,n,n,n,e,se
+input 5 {Mausoleum}
+ftest
+mcheck
+msuccess
