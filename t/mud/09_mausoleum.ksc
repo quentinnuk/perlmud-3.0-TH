@@ -1,5 +1,6 @@
+# starts in hall (HALL)
 mtest mausoleum
-lineout dr baton,bow,leg,key
+lineout dr baton,bow,key
 input 5 {dropped}
 ftest
 mcheck
@@ -7,4 +8,38 @@ lineout n,n,e,n,n,n,n,e,se
 input 5 {Mausoleum}
 ftest
 mcheck
+lineout re
+input 5 {north tomb opens}
+ftest
+lineout dundee
+input 5 {west tomb swings}
+ftest
+lineout 432
+input 5 {south tomb opens}
+ftest
+lineout cqywri
+input 5 {east tomb's entrance}
+ftest
+lineout eb
+input 5 {southeast tomb slides}
+ftest
+lineout 1152921504606846976
+input 5 {southwest tomb opens}
+ftest
+mcheck
+mline 5 {n,g t}
+mline 5 {s,se,g t}
+mline 5 {nw,sw,g t}
+mline 5 {ne,s,g t}
+mline 5 {n,e,feed z w leg}
+mline 5 {g t}
+mline 5 {w,w,g t}
+mline 5 {open coffin}
+mline 5 {g body}
+mline 10 {swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp}
+mline 5 {dr brand}
+mline 5 {swamp}
+mline 5 {dr t}
+# end in pond (POND)
+mline 5 {o}
 msuccess

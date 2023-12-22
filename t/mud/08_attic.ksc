@@ -1,7 +1,6 @@
 # starts at bandstand (BSTAND) holding brand,baton
 mtest {attic}
-lineout o,o,o,o,o,nw,nw,n,w,u,u,se
-mcheck
+mline 5 {o,o,o,o,o,nw,nw,n,w,u,u,se}
 lineout {dr brand,baton}
 input 5 {baton dropped}
 ftest
@@ -11,19 +10,16 @@ ftest
 lineout in
 input 5 {stepladder}
 ftest
-lineout close door
-mcheck
+mline 5 {close door}
 lineout u,u
 input 10 attic
 ftest
 mcheck
-lineout g bow
-mcheck
+mline 5 {g bow}
 lineout g bag
 input 5 {bag taken}
 ftest
-lineout g t
-mcheck
+mline 5 {g t}
 lineout put magazine in bag
 input 5 {Magazine now inside the bag}
 ftest
@@ -39,8 +35,7 @@ ftest
 lineout put candlestick in bag
 input 5 {Candlestick now inside the bag}
 ftest
-lineout d,d
-mcheck
+mline 5 {d,d}
 lineout wave bow
 input 5 {bow dropped}
 ftest
@@ -48,23 +43,16 @@ mcheck
 lineout open door
 input 5 {opens off its latch}
 ftest
-lineout in
-mcheck
-lineout g bow
-mcheck
-lineout o,g baton,brand
-mcheck
-lineout swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp,dr brand
-mcheck
-lineout swamp
-mcheck
-lineout dr t
-mcheck
+mline 5 {in}
+mline 5 {g bow}
+mline 5 {o,g baton,brand}
+mline 5 {swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp,dr brand}
+mline 5 {swamp}
+mline 5 {dr t}
 lineout g t fr bag
 input 5 removed
 ftest
-lineout dr t
-mcheck
+mline 5 {dr t}
 # end in pond (POND)
 lineout o
 input 5 pond

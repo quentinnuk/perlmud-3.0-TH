@@ -1,7 +1,6 @@
 # starts at pond (POND) with brand in rapids (RAPIDS)
 mtest {return to house}
-lineout o
-mcheck
+mline 5 {o}
 lineout g brand
 input 5 {Brand taken}
 ftest

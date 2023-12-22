@@ -1,10 +1,8 @@
 mtest mud
 lineout mud
-input 30 Elizabethan
-mcheck
+mline 30 {Elizabethan}
 msuccess
 mtest who
-lineout who
-mcheck
+mline 5 who
 msuccess
 end

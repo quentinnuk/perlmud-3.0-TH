@@ -1,15 +1,10 @@
 # starts at swamp (SWAMP1)
 mtest Tomb
-lineout n,g all
-mcheck
-lineout n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all
-mcheck
-lineout s,g all
-mcheck
-lineout prise tomb
-mcheck
-lineout d
-mcheck
+mline 5 {n,g all}
+mline 5 {n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all}
+mline 5 {s,g all}
+mline 5 {prise tomb}
+mline 5 {d}
 msuccess
 end
 

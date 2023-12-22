@@ -2,23 +2,21 @@
 mtest {Red eyes}
 set count 99 ; try looking for red eyes
 :RED
+clear input
 lineout l
 input 5 { red eyes!}
 if fail if count goto RED
 ftest
 mcheck
-lineout g statue
-mcheck
-lineout s,w,g all
-mcheck
-lineout e
-mcheck
-lineout n,u,o,dr statue
-mcheck
+mline 5 {g statue}
+mline 5 {s,w,g all}
+mline 5 {e}
+mline 5 {n,u,o,dr statue}
 msuccess
 mtest {Emerald eyes}
 set count 99 ; try looking for emerald eyes
 :EMERALD
+clear input
 lineout l
 input 5 { emerald eyes!}
 if fail if count goto EMERALD
@@ -26,11 +24,8 @@ ftest
 msuccess
 mtest {swamp statue}
 mcheck
-lineout g statue
-mcheck
-lineout swamp,swamp,swamp,swamp,dr brand
-mcheck
-lineout swamp,dr t
-mcheck
+mline 5 {g statue}
+mline 5 {swamp,swamp,swamp,swamp,dr brand}
+mline 5 {swamp,dr t}
 msuccess
 end

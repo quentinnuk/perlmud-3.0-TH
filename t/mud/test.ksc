@@ -25,6 +25,7 @@ take 07_bandstand.ksc
 take 08_attic.ksc
 take 06_rth.ksc
 take 09_mausoleum.ksc
+take 06_rth.ksc
 ; exit mud and TH
 # mtest logout
 # lineout qq

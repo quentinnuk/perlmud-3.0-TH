@@ -1,47 +1,26 @@
 # starts at Elizabethan Tearoom (ETROOM)
 mtest House
-lineout e,w,n,g stick
-mcheck
-lineout s,w,s,s,e,light stick w fire
-mcheck
-lineout e,g all
-mcheck
-lineout w,s,g all
-mcheck
-lineout n,g all,w,open door w key
-mcheck
-lineout s,g groats
-mcheck
-lineout clean groats
-mcheck
-lineout nw,flip pan
-mcheck
-lineout g all
-mcheck
-lineout se,n,e,s,s,s,drop stick
-mcheck
-lineout s,drop t
-mcheck
-lineout n,g stick
-mcheck
-lineout nw,nw,n,w,u,u,s
-mcheck
-lineout make bed
-mcheck
-lineout l bed
-mcheck
-lineout g potty
-mcheck
-lineout n,d,d,w,g fur
-mcheck
-lineout g jet fr potty
-mcheck
-lineout drop potty
-mcheck
-lineout e,e,s,s,s,drop stick
-mcheck
-lineout s,drop t
-mcheck
+mline 5 {e,w,n,g stick}
+mline 5 {s,w,s,s,e,light stick w fire}
+mline 5 {e,g all}
+mline 5 {w,s,g all}
+mline 5 {n,g all,w,open door w key}
+mline 5 {s,g groats}
+mline 5 {clean groats}
+mline 5 {nw,flip pan}
+mline 5 {g all}
+mline 5 {se,n,e,s,s,s,drop stick}
+mline 5 {s,drop t}
+mline 5 {n,g stick}
+mline 5 {nw,nw,n,w,u,u,s}
+mline 5 {make bed}
+mline 5 {l bed}
+mline 5 {g potty}
+mline 5 {n,d,d,w,g fur}
+mline 5 {g jet fr potty}
+mline 5 {drop potty}
+mline 5 {e,e,s,s,s,drop stick}
+mline 5 {s,drop t}
 msuccess
 end
 

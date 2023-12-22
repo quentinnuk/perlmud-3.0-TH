@@ -1,9 +1,7 @@
 # starts at hall (HALL)
 mtest {bandstand}
-lineout e,s,s,sw,s,s,s,s,s,e
-mcheck
-lineout g baton
-mcheck
+mline 5 {e,s,s,sw,s,s,s,s,s,e}
+mline 5 {g baton}
 msuccess
 end
 
