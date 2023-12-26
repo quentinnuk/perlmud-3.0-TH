@@ -1,8 +1,9 @@
 # starts at tomb (TOMB)
 mtest {Red eyes}
 set count 99 ; try looking for red eyes
+mprompt 5
 :RED
-clear input
+clear
 lineout l
 input 5 { red eyes!}
 if fail if count goto RED
@@ -12,11 +13,13 @@ mline 5 {g statue}
 mline 5 {s,w,g all}
 mline 5 {e}
 mline 5 {n,u,o,dr statue}
+clear
 msuccess
 mtest {Emerald eyes}
 set count 99 ; try looking for emerald eyes
+mprompt 5
 :EMERALD
-clear input
+clear
 lineout l
 input 5 { emerald eyes!}
 if fail if count goto EMERALD

@@ -1,0 +1,55 @@
+# starts in hall (HALL)
+mtest hut
+mline 5 {e,s,s,n} ; get to hut
+lineout {in}
+input 5 {woodsman}
+ftest
+mline 5 {g ax} ; its either in hut, uhut, or gorse
+mline 5 {o,nw} ; get to gorse
+mline 5 {g ax}
+mline 5 {n,w,s,s} ; back to hall
+mline 5 {dr all} ; leave the axe here if you have it
+msuccess
+mtest rats
+mline 5 {g brand} ; for the tunnel
+mline 5 {d,d} ; to the cellar
+:RAT
+input 10 {evil black rat}
+if fail goto NORAT
+clear
+mline 5 {k rat}
+reinput 0 {no rat}
+if success goto NORAT
+input 300 {you are victorious}
+ftest
+goto RAT
+:NORAT
+msuccess
+mtest tunnel
+mline 5 {s,se,s,e,se}
+lineout {g t}
+input 5 {beads taken}
+ftest
+mline 5 {ne,n,se,e,s,e}
+lineout {g moose}
+input 5 {moose taken}
+ftest
+msuccess
+mtest moose
+mline 10 {w,n,w,nw,s,sw,nw,w,n,nw,n,u,u,e,s,s,n,in}
+lineout {put moose on wall}
+input 5 {trapdoor opens}
+mline 5 {d,d}
+lineout {g t}
+input 5 {pillar taken}
+ftest
+mline 5 {u,u}
+lineout {g moose fr wall}
+input 5 {taken}
+mline 5 {swamp,swamp}
+lineout {dr brand}
+input 5 {brand dropped}
+mline 5 {swamp}
+mline 5 {dr t}
+mline 5 {e} ; end at pond
+msuccess

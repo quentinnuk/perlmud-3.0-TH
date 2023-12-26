@@ -1,10 +1,16 @@
 # starts at Elizabethan Tearoom (ETROOM)
 mtest House
 mline 5 {e,w,n,g stick}
-mline 5 {s,w,s,s,e,light stick w fire}
+mline 5 {s,w,s,s,e}
+lineout {light stick w fire}
+input 5 {brand is now lit}
+ftest
 mline 5 {e,g all}
 mline 5 {w,s,g all}
-mline 5 {n,g all,w,open door w key}
+mline 5 {n,g all,w}
+lineout {open door w key}
+input 5 {door creaks slowly open}
+ftest
 mline 5 {s,g groats}
 mline 5 {clean groats}
 mline 5 {nw,flip pan}
@@ -14,10 +20,14 @@ mline 5 {s,drop t}
 mline 5 {n,g stick}
 mline 5 {nw,nw,n,w,u,u,s}
 mline 5 {make bed}
-mline 5 {l bed}
+lineout {l bed}
+input 5 {potty}
+ftest
 mline 5 {g potty}
 mline 5 {n,d,d,w,g fur}
-mline 5 {g jet fr potty}
+lineout {g jet fr potty}
+input 5 {jet removed}
+ftest
 mline 5 {drop potty}
 mline 5 {e,e,s,s,s,drop stick}
 mline 5 {s,drop t}

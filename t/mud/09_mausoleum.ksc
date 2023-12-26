@@ -31,15 +31,22 @@ mline 5 {n,g t}
 mline 5 {s,se,g t}
 mline 5 {nw,sw,g t}
 mline 5 {ne,s,g t}
-mline 5 {n,e,feed z w leg}
+mline 5 {n,e}
+lineout {feed z w leg}
+input 5 {accepts the leg}
+ftest
 mline 5 {g t}
 mline 5 {w,w,g t}
 mline 5 {open coffin}
-mline 5 {g body}
+lineout {g body}
+input 5 {body taken}
+ftest
 mline 10 {swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp}
 mline 5 {dr brand}
 mline 5 {swamp}
 mline 5 {dr t}
 # end in pond (POND)
-mline 5 {o}
+lineout {o}
+input 5 {pond in swamp}
+ftest
 msuccess

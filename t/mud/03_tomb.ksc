@@ -5,6 +5,7 @@ mline 5 {n,nw,n,w,n,n,n,se,nw,s,n,ne,sw,w,e,n,get all}
 mline 5 {s,g all}
 mline 5 {prise tomb}
 mline 5 {d}
+clear input
 msuccess
 end
 

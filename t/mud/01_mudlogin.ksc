@@ -3,6 +3,8 @@ lineout mud
 mline 30 {Elizabethan}
 msuccess
 mtest who
-mline 5 who
+lineout {who}
+input 5 {anana}
+ftest
 msuccess
 end
