@@ -61,3 +61,5 @@ input 5 {dropped}
 ftest
 mline 5 {e} ; end at pond
 msuccess
+take 06_rth.ksc ; return to house
+end

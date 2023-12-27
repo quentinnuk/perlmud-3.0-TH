@@ -58,5 +58,6 @@ lineout o
 input 5 pond
 ftest
 msuccess
+take 06_rth.ksc ; return to house
 end
 

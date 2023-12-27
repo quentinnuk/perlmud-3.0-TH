@@ -1,0 +1,53 @@
+# starts at pond (POND) with brand at rapids
+mtest sundial
+mline 5 {o}
+lineout {g stick}
+input 5 {taken}
+ftest
+mline 5 {douse stick,s,w,sw,se}
+lineout {g foot}
+input 5 {taken}
+ftest
+mline 5 {d}
+lineout {g all}
+input 5 {taken}
+ftest
+mline 5 {o,nw,sw}
+lineout {put stick in sundial}
+input 5 {sundial will work now}
+ftest
+lineout {read time}
+input 10 {the stick in the dial}
+ftest
+mline 5 {w,nw}
+lineout {g lion}
+input 5 {taken}
+ftest
+mline 5 {se,e,e,e,se}
+lineout {g all}
+input 5 {taken}
+ftest
+mline 5 {nw,nw,nw,n,e}
+lineout {dr t}
+input 5 {dropped}
+ftest
+mline 5 {e} ; end in pond without brand
+msuccess
+mtest {relight my fire}
+lineout o,o,nw,n,w
+# should be in hall (HALL)
+input 10 Hall
+ftest
+mline 5 {d,d}
+lineout {g brand}
+input 5 {taken}
+ftest
+mline 5 {u,u}
+mline 5 {e}
+lineout {light brand w fire}
+input 5 {is now lit}
+ftest
+mline 5 {w} ; end in hall with lit brand
+msuccess
+end
+

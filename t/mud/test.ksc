@@ -23,14 +23,12 @@ take 05_toad.ksc
 take 06_rth.ksc
 take 07_bandstand.ksc
 take 08_attic.ksc
-take 06_rth.ksc
 take 09_mausoleum.ksc
-take 06_rth.ksc
 take 10_ratrun.ksc
-take 06_rth.ksc
 take 11_mine.ksc
-take 06_rth.ksc
 take 12_root.ksc
+take 13_cave.ksc
+take 14_sundial.ksc
 ; exit mud and TH
 # mtest logout
 # lineout qq

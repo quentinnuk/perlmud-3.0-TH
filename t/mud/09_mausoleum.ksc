@@ -50,3 +50,5 @@ lineout {o}
 input 5 {pond in swamp}
 ftest
 msuccess
+take 06_rth.ksc ; retunr to house
+end

@@ -53,3 +53,5 @@ mline 5 {swamp}
 mline 5 {dr t}
 mline 5 {e} ; end at pond
 msuccess
+take 06_rth.ksc ; return to house
+end
