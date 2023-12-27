@@ -40,7 +40,7 @@ mline 10 {w,n,w,nw,s,sw,nw,w,n,nw,n,u,u,e,s,s,n,in}
 lineout {put moose on wall}
 input 5 {trapdoor opens}
 mline 5 {d,d}
-lineout {g t}
+lineout {g all} ; all in case the ax is here
 input 5 {pillar taken}
 ftest
 mline 5 {u,u}

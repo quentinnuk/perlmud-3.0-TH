@@ -27,6 +27,10 @@ take 06_rth.ksc
 take 09_mausoleum.ksc
 take 06_rth.ksc
 take 10_ratrun.ksc
+take 06_rth.ksc
+take 11_mine.ksc
+take 06_rth.ksc
+take 12_root.ksc
 ; exit mud and TH
 # mtest logout
 # lineout qq
