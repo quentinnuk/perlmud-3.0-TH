@@ -2,61 +2,47 @@
 mtest {attic}
 mline 5 {o,o,o,o,o,nw,nw,n,w,u,u,se}
 lineout {dr brand,baton}
-input 5 {baton dropped}
-ftest
+mudinput 5 {baton dropped}
 lineout open door
-input 5 {open}
-ftest
+mudinput 5 {open}
 lineout in
-input 5 {stepladder}
-ftest
+mudinput 5 {stepladder}
 mline 5 {close door}
 lineout u,u
-input 10 attic
-ftest
+mudinput 10 attic
 mcheck
 mline 5 {g bow}
 lineout g bag
-input 5 {bag taken}
-ftest
+mudinput 5 {bag taken}
 mline 5 {g t}
 lineout put magazine in bag
-input 5 {Magazine now inside the bag}
-ftest
+mudinput 5 {Magazine now inside the bag}
 lineout put doll in bag
-input 5 {Doll now inside the bag}
-ftest
+mudinput 5 {Doll now inside the bag}
 lineout put violin in bag
-input 5 {Violin now inside the bag}
-ftest
+mudinput 5 {Violin now inside the bag}
 lineout put bat in bag
-input 5 {Bat now inside the bag}
-ftest
+mudinput 5 {Bat now inside the bag}
 lineout put candlestick in bag
-input 5 {Candlestick now inside the bag}
-ftest
+mudinput 5 {Candlestick now inside the bag}
 mline 5 {d,d}
 lineout wave bow
-input 5 {bow dropped}
-ftest
+mudinput 5 {bow dropped}
 mcheck
-lineout open door
-input 5 {opens off its latch}
-ftest
+lineout {open door}
+mudinput 5 {opens off its latch}
 mline 5 {in}
 mline 5 {g bow}
 mline 5 {o,g baton,brand}
 mline 5 {swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp,dr brand}
 mline 5 {swamp}
 mline 5 {dr t}
-lineout g t fr bag
-input 5 removed
-ftest
+lineout {g t fr bag}
+mudinput 5 {removed}
 mline 5 {dr t}
 # end in pond (POND)
 lineout o
-input 5 pond
-ftest
+mudinput 5 {pond}
 msuccess
 take 06_rth.ksc ; return to house
 end

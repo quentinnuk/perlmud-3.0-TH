@@ -1,17 +1,27 @@
 define ftest {if fail stop 1 \%t failed at line \v(_line) in \v(cmdfile).}
+
 define mprompt input \%1 {*}
+
 define mtest {
     assign \%t \%1
     xecho {Testing \%t ... }
 }
+
 define mcheck {
     mprompt \%1
     ftest
 }
+
 define mline {
     lineout {\%2}
     mcheck \%1
 }
+
+define mudinput {
+    input \%1 {\%2}
+    ftest
+}
+
 define msuccess {
     echo \%t success.
     assign \%t undefined

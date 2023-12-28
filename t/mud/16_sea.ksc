@@ -1,0 +1,41 @@
+# starts at inlet (INLET) with boat present
+mtest {woe}
+lineout {g boat}
+mudinput 5 {Coracle taken}
+mline 10 {w,w,s,s,s}
+lineout {g all}
+mudinput 5 {Effigy taken}
+lineout {put t in sack}
+mudinput 5 {Effigy now inside the sack}
+msuccess
+mtest {vicious rocks}
+mline 10 {n,n,n,n,n,u}
+lineout {g t}
+mudinput 5 {Earrings taken}
+lineout {put t in sack}
+mudinput 5 {Earrings now inside the sack}
+mline 5 {d,e,e}
+lineout {g all}
+mudinput 5 {String taken}
+mline 5 {w,w,ne}
+lineout {g pen}
+mudinput 5 {Quill taken}
+lineout {write book Hello World}
+mudinput 5 {You feel proud to have left your mark on The Land}
+lineput {dr brand}
+mudinput 5 {Brand dropped}
+mline 5 {d,d}
+lineout {g powder}
+mudinput 5 {Powder taken}
+mline 5 {u}
+lineout {g biscuit}
+mudinput 5 {Wafer taken}
+mline 5 {u}
+lineout {g brand}
+mudinput 5 {taken}
+mline 5 {sw,d}
+lineout {g silk}
+mudinput 5 {Silk taken}
+mline 5 {u,s}
+# vicious rocks
+msuccess

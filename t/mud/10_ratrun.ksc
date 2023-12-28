@@ -2,8 +2,7 @@
 mtest hut
 mline 5 {e,s,s,n} ; get to hut
 lineout {in}
-input 5 {woodsman}
-ftest
+mudinput 5 {woodsman}
 mline 5 {g ax} ; its either in hut, uhut, or gorse
 mline 5 {o,nw} ; get to gorse
 mline 5 {g ax}
@@ -12,28 +11,25 @@ mline 5 {dr all} ; leave the axe here if you have it
 msuccess
 mtest rats
 mline 5 {g brand} ; for the tunnel
-mline 5 {d,d} ; to the cellar
+mline 10 {d,d} ; to the cellar
 :RAT
 input 10 {evil black rat}
 if fail goto NORAT
 clear
-mline 5 {k rat}
+mline 10 {k rat}
 reinput 0 {no rat}
 if success goto NORAT
-input 300 {you are victorious}
-ftest
+mudinput 300 {you are victorious}
 goto RAT
 :NORAT
 msuccess
 mtest tunnel
 mline 5 {s,se,s,e,se}
 lineout {g t}
-input 5 {beads taken}
-ftest
+mudinput 5 {beads taken}
 mline 5 {ne,n,se,e,s,e}
 lineout {g moose}
-input 5 {moose taken}
-ftest
+mudinput 5 {moose taken}
 msuccess
 mtest moose
 mline 10 {w,n,w,nw,s,sw,nw,w,n,nw,n,u,u,e,s,s,n,in}
@@ -41,8 +37,7 @@ lineout {put moose on wall}
 input 5 {trapdoor opens}
 mline 5 {d,d}
 lineout {g all} ; all in case the ax is here
-input 5 {pillar taken}
-ftest
+mudinput 5 {pillar taken}
 mline 5 {u,u}
 lineout {g moose fr wall}
 input 5 {taken}

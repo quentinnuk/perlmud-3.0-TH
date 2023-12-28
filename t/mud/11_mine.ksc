@@ -2,51 +2,39 @@
 mtest mine
 mline 5 {dr all} ; in case you are carrying the ax
 lineout {g brand,bag,keys}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {n,n,e,n,n,n,n,n,n}
 mline 5 {e,e,e,e,e,u,u}
 lineout {open door w key}
-input 5 {door creaks slowly open}
-ftest
+mudinput 5 {door creaks slowly open}
 lineout {n}
 input 5 {shed}
 lineout {g pick}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {s,d,d,n,d,e,e}
 lineout {g tin w pick}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {w,s,s,s,s}
 lineout {g tin w pick}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {n,u,u,u,u,u,u,se,e,e,d,s,e}
 lineout {g tin w pick}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 lineout {g uranium}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 lineout {put uranium in bag}
-input 5 {Uranium now inside the bag}
-ftest
+mudinput 5 {Uranium now inside the bag}
 mline 5 {o,o,o,o,o,o,o,o,o,w,w}
 lineout {prise bolt w pick}
-input 5 {bolt comes out easily}
-ftest
+mudinput 5 {bolt comes out easily}
 mline 5 {swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp}
 lineout {dr brand}
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mline 5 {swamp}
 lineout {g t fr bag}
-input 5 {removed}
-ftest
+mudinput 5 {removed}
 lineout {dr t}
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mline 5 {e} ; end at pond
 msuccess
 take 06_rth.ksc ; return to house

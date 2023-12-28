@@ -1,12 +1,9 @@
 # starts at swamp (SWAMP1)
 mtest toad
 lineout e
-input 5 {A bloated toad croaks}
-ftest
+mudinput 5 {A bloated toad croaks}
 lineout kiss toad
-input 5 {handsome prince!}
-ftest
+mudinput 5 {handsome prince!}
 lineout kiss prince
-input 5 {feel better!}
-ftest
+mudinput 5 {feel better!}
 msuccess

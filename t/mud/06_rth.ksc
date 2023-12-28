@@ -1,13 +1,11 @@
 # starts at pond (POND) with brand in rapids (RAPIDS)
 mtest {return to house}
 mline 5 {o}
-lineout g brand
-input 5 {Brand taken}
-ftest
-lineout o,o,o,w,w,s,s
+lineout {g brand}
+mudinput 5 {Brand taken}
+lineout {o,o,o,w,w,s,s}
 # should be in hall (HALL)
-input 10 Hall
-ftest
+mudinput 10 {Hall}
 mcheck
 msuccess
 end

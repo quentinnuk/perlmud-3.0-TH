@@ -2,22 +2,17 @@
 mtest cave
 mline 5 {dr all}
 lineout {g brand,ax}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {e,s,s,e,e}
 lineout {s}
-input 5 {ogre}
-ftest
+mudinput 5 {ogre}
 lineout {k ogre w axe}
-input 5 {hack him to pieces}
-ftest
+mudinput 5 {hack him to pieces}
 mline 5 {s}
 lineout {g leprechaun}
-input 5 {Tis not fair}
-ftest
+mudinput 5 {Tis not fair}
 lineout {g gold}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {n,n,e,n}
 lineout {kiss beauty}
 input 5 {result of the experience} ; you are a boy kissing the girl
@@ -25,18 +20,15 @@ if fail reinput 0 {many sisters} ; you are a girl kissing the girl
 ftest
 mline 5 {s,u,u}
 lineout {pray}
-input 5 {tumbles out}
-ftest
+mudinput 5 {tumbles out}
 lineout {g eye}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {d,d,w,w,w,s}
 lineout {drop stick}
 input 5 {dropped}
 mline 5 {s}
 lineout {dr t}
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mline 5 {e} ; end at pond
 msuccess
 end

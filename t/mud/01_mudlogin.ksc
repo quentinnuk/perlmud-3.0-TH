@@ -4,7 +4,6 @@ mline 30 {Elizabethan}
 msuccess
 mtest who
 lineout {who}
-input 5 {anana}
-ftest
+mudinput 5 {anana}
 msuccess
 end

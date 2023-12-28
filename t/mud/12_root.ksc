@@ -2,63 +2,49 @@
 mtest root
 mline 5 {dr all}
 lineout {g brand,ax}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {n,n,w,n}
 lineout {chop tree w axe}
-input 5 {chop}
-ftest
+mudinput 5 {chop}
 lineout {chop tree w axe}
-input 5 {chop}
-ftest
+mudinput 5 {chop}
 lineout {chop tree w axe}
-input 5 {chop}
-ftest
+mudinput 5 {chop}
 mline 5 {d,drop stick}
 mline 5 {n,n,n}
 lineout {g all}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {e}
 lineout {open door}
-input 5 {open}
-ftest
+mudinput 5 {open}
 mline 5 {e}
 lineout {g all}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {n}
 lineout {g all}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {s}
 lineout {drop stick}
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mline 5 {w,w,s,s,s}
 lineout {g stick}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {s,se}
 lineout {g all}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {w}
 lineout {drop icicle in pool}
 input 5 {is now safe}
 mline 5 {w}
 lineout {g all}
-input 5 {taken}
-ftest
+mudinput 5 {taken}
 mline 5 {e,e,nw,n,u}
 mline 5 {s,e,s,s,e,s,s,s}
 lineout {dr brand}
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mline 5 {swamp}
 lineout {dr t}
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mline 5 {e} ; end at pond
 msuccess
 take 06_rth.ksc ; return to house

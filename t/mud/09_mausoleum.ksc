@@ -1,31 +1,23 @@
 # starts in hall (HALL)
 mtest mausoleum
 lineout dr baton,bow,key
-input 5 {dropped}
-ftest
+mudinput 5 {dropped}
 mcheck
 lineout n,n,e,n,n,n,n,e,se
-input 5 {Mausoleum}
-ftest
+mudinput 5 {Mausoleum}
 mcheck
 lineout re
-input 5 {north tomb opens}
-ftest
+mudinput 5 {north tomb opens}
 lineout dundee
-input 5 {west tomb swings}
-ftest
+mudinput 5 {west tomb swings}
 lineout 432
-input 5 {south tomb opens}
-ftest
+mudinput 5 {south tomb opens}
 lineout cqywri
-input 5 {east tomb's entrance}
-ftest
+mudinput 5 {east tomb's entrance}
 lineout eb
-input 5 {southeast tomb slides}
-ftest
+mudinput 5 {southeast tomb slides}
 lineout 1152921504606846976
-input 5 {southwest tomb opens}
-ftest
+mudinput 5 {southwest tomb opens}
 mcheck
 mline 5 {n,g t}
 mline 5 {s,se,g t}
@@ -33,22 +25,19 @@ mline 5 {nw,sw,g t}
 mline 5 {ne,s,g t}
 mline 5 {n,e}
 lineout {feed z w leg}
-input 5 {accepts the leg}
-ftest
+mudinput 5 {accepts the leg}
 mline 5 {g t}
 mline 5 {w,w,g t}
 mline 5 {open coffin}
 lineout {g body}
-input 5 {body taken}
-ftest
+mudinput 5 {body taken}
 mline 10 {swamp,swamp,swamp,swamp,swamp,swamp,swamp,swamp}
 mline 5 {dr brand}
 mline 5 {swamp}
 mline 5 {dr t}
 # end in pond (POND)
 lineout {o}
-input 5 {pond in swamp}
-ftest
+mudinput 5 {pond in swamp}
 msuccess
 take 06_rth.ksc ; retunr to house
 end

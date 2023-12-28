@@ -1,0 +1,22 @@
+# starts in hall (HALL) with a lit brand present
+mtest beach
+mline 5 {dr all}
+mline 5 {g brand}
+mline 20 {w,g brolly,e,n,n,w,w,open brolly}
+lineout {jump}
+mudinput 5 {Falling off cliff}
+mudinput 20 {You land safely}
+mline 5 {close brolly}
+mline 5 {in}
+lineout {slide grate}
+mudinput 5 {grate slides open}
+mline 5 {u}
+lineout {g sack,pieces}
+mudinput 5 {taken}
+lineout {put t in sack}
+mudinput 5 {inside the sack}
+lineout {put brolly in sack}
+mudinput 5 {inside the sack}
+mline 5 {d,w,s,s,s,s,se}
+msuccess
+end
