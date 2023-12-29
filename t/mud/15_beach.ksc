@@ -15,8 +15,8 @@ lineout {g sack,pieces}
 mudinput 5 {taken}
 lineout {put t in sack}
 mudinput 5 {inside the sack}
-lineout {put brolly in sack}
-mudinput 5 {inside the sack}
+lineout {dr brolly}
+mudinput 5 {dropped}
 mline 5 {d,w,s,s,s,s,se}
 msuccess
 end

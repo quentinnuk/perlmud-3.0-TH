@@ -22,7 +22,7 @@ lineout {g pen}
 mudinput 5 {Quill taken}
 lineout {write book Hello World}
 mudinput 5 {You feel proud to have left your mark on The Land}
-lineput {dr brand}
+lineout {dr brand}
 mudinput 5 {Brand dropped}
 mline 5 {d,d}
 lineout {g powder}
@@ -33,9 +33,18 @@ mudinput 5 {Wafer taken}
 mline 5 {u}
 lineout {g brand}
 mudinput 5 {taken}
+lineout {put string in sack}
+mudinput 5 {String now inside the sack}
+lineout {put wafer in sack}
+mudinput 5 {Wafer now inside the sack}
 mline 5 {sw,d}
 lineout {g silk}
 mudinput 5 {Silk taken}
 mline 5 {u,s}
 # vicious rocks
+mline 10 {e,e,e,e,e}
+lineout (dr boat)
+mudinput 5 {Coracle dropped}
+# end at waterfall
 msuccess
+end

@@ -14,6 +14,9 @@ take 11_mine.ksc
 take 12_root.ksc
 take 13_cave.ksc
 take 14_sundial.ksc
+take 15_beach.ksc
+take 16_sea.ksc
+take 17_waterfall.ksc
 ; exit mud and TH
 # mtest logout
 # lineout qq
