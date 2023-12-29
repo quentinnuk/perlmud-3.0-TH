@@ -43,7 +43,7 @@ mudinput 5 {Silk taken}
 mline 5 {u,s}
 # vicious rocks
 mline 10 {e,e,e,e,e}
-lineout (dr boat)
+lineout {dr boat}
 mudinput 5 {Coracle dropped}
 # end at waterfall
 msuccess
