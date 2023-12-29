@@ -1,3 +1,14 @@
+mtest connect
+input 3 .
+ftest
+msuccess
+mtest login
+lineout login anana
+input 1 Password:
+lineout joules
+input 1 @
+ftest
+msuccess
 mtest mud
 lineout mud
 mline 30 {Elizabethan}

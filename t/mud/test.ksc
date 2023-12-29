@@ -1,16 +1,5 @@
 take 00_setup.ksc
 set host localhost 4200
-mtest connect
-input 3 .
-ftest
-msuccess
-mtest login
-lineout login anana
-input 1 Password: 
-lineout joules
-input 1 @ 
-ftest
-msuccess
 take 01_mudlogin.ksc
 take 02_house.ksc
 take 03_tomb.ksc
