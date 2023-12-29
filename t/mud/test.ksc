@@ -1,9 +1,5 @@
-set input echo off
-log session test.log
-set case off
-set output pacing 100
-set host localhost 4200
 take 00_setup.ksc
+set host localhost 4200
 mtest connect
 input 3 .
 ftest

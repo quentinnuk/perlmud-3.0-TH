@@ -1,3 +1,8 @@
+set input echo off
+log session test.log
+set case off
+set output pacing 100
+
 define ftest {if fail stop 1 \%t failed at line \v(_line) in \v(cmdfile).}
 
 define mprompt input \%1 {*}
