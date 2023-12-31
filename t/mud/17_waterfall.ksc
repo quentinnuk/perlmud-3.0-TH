@@ -1,4 +1,15 @@
-# starts at bottom of waterfall holiding the stuff from vicious rocks
+# starts at bottom of waterfall (BEACH2) holiding the stuff from vicious rocks and brolly in room
 mtest waterfall
+lineout {dr boat}
+mudinput 5 {dropped}
+lineout {g brolly}
+mudinput 5 {taken}
+mline 5 {e}
+lineout (g conch)
+mudinput 5 {taken}
+mline 5 {u,u,u}
+lineout {blow conch}
+mudinput 5 {reveal a dark, eerie room}
+mline 5 {w}
 msuccess
 end

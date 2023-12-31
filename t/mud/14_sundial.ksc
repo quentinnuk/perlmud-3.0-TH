@@ -13,7 +13,9 @@ mline 5 {o,nw,sw}
 lineout {put stick in sundial}
 mudinput 5 {sundial will work now}
 lineout {read time}
-mudinput 10 {the stick in the dial}
+input 10 {the stick in the dial} ; the sun is out
+if fail reinput 0 {skies are too overcast} ; its cloudy or raining
+ftest
 mline 5 {w,nw}
 lineout {g lion}
 mudinput 5 {taken}
