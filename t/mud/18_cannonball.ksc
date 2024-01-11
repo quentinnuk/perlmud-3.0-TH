@@ -1,7 +1,7 @@
 mtest cannonball
 lineout {g gauntlet}
 mudinput 5 {Gauntlet taken}
-mline 20 {w,w,w,w,w,n,n,n}
+mline 20 {w,w,w,w,w,n,n,n,n}
 lineout {n} ; underground river but can you cross?
 mudinput 5 {sphere rests on the bank}
 lineout {g ball}
