@@ -1,0 +1,32 @@
+mtest cannonball
+lineout {g gauntlet}
+mudinput 5 {Gauntlet taken}
+mline 20 {w,w,w,w,w,n,n,n}
+lineout {n} ; underground river but can you cross?
+mudinput 5 {sphere rests on the bank}
+lineout {g ball}
+mudinput 5 {Sphere taken}
+lineout {s} ; but can you cross?
+mudinput 5 {Underground river}
+mline 20 {s,s,s,s}
+lineout {s}
+mudinput 10 {The cannon is unloaded and unprimed}
+lineout {dr powder}
+mudinput 5 {Powder dropped}
+lineout {g string fr sack}
+mudinput 5 {String removed from sack}
+lineout {put string in powder}
+mudinput 5 {The fuse fixes itself}
+lineout {put powder in cannon}
+mudinput 5 {The cannon is now primed}
+lineput {put ball in cannon}
+mudinput 5 {The cannon is now loaded and primed}
+lineout {shoot cannon at door}
+mudinput 5 {Out from the end of the cannon}
+mline 5 {s}
+lineout {enter fountain}
+mudinput 5 {than when you did before you entered}
+mline {n,n,e}
+# end at crooked passage (CROOKP)
+msuccess
+end

@@ -1,6 +1,8 @@
 # starts at bandstand (BSTAND) holding brand,baton
 mtest {attic}
-mline 5 {o,o,o,o,o,nw,nw,n,w,u,u,se}
+mline 10 {o,o,o,o,o,nw,nw,n,w} ; should be in HALL
+mline 5 {stroke ox,dr ox} ; just in case we picked it up in passing
+mline 5 {u,u,se}
 lineout {dr brand,baton}
 mudinput 5 {baton dropped}
 lineout open door

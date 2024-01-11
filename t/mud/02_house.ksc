@@ -12,7 +12,7 @@ mudinput 5 {door creaks slowly open}
 mline 5 {s,g groats}
 mline 5 {clean groats}
 mline 5 {nw,flip pan}
-mline 5 {g all}
+mline 5 {g kipper} ; specific in case wand is also here
 mline 5 {se,n,e,s,s,s,drop stick}
 mline 5 {s,drop t}
 mline 5 {n,g stick}

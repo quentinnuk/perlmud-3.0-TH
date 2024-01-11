@@ -1,0 +1,4 @@
+mtest goblins
+mline {n,n} ; enter the goblins lair (GOB2)
+msuccess
+end

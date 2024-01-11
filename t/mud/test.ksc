@@ -17,6 +17,8 @@ take 14_sundial.ksc
 take 15_beach.ksc
 take 16_sea.ksc
 take 17_waterfall.ksc
+take 18_cannonball.ksc
+take 19_goblins.ksc
 ; exit mud and TH
 # mtest logout
 # lineout qq

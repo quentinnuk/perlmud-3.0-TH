@@ -8,6 +8,14 @@ mudinput 5 {taken}
 mline 5 {u,u,u}
 lineout {blow conch}
 mudinput 5 {reveal a dark, eerie room}
-mline 5 {w}
+lineout {e}
+mudinput 5 {Fossil room}
+lineout {k skeleton}
+mudinput 300 {You are victorious}
+lineout {g fossil}
+mudinput 5 {Fossil taken}
+mline 10 {w,n,n,g all}
+lineout {pull lever}
+mudinput 60 {Bottom of stairs}
 msuccess
 end
