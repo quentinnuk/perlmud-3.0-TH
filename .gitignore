@@ -7,3 +7,5 @@ log.txt
 *.GET
 *.db
 .vscode/extensions.json
+t/mud/telehack.ksc
+Good wiz guide.docx
