@@ -1,0 +1,33 @@
+take 00_setup.ksc
+set host telehack.com
+take 01_mudlogin.ksc
+take 02_house.ksc
+take 03_tomb.ksc
+take 04_eyes.ksc
+take 05_toad.ksc
+take 06_rth.ksc
+take 07_bandstand.ksc
+take 08_attic.ksc
+take 09_mausoleum.ksc
+take 10_ratrun.ksc
+take 11_mine.ksc
+take 12_root.ksc
+take 13_cave.ksc
+take 14_sundial.ksc
+take 15_beach.ksc
+take 16_sea.ksc
+take 17_waterfall.ksc
+take 18_cannonball.ksc
+take 19_goblins.ksc
+; exit mud and TH
+# mtest logout
+# lineout qq
+# input 15 {@}
+# ftest
+# lineout logout
+# input 5 {%logout}
+# ftest
+# msuccess
+close session
+# close
+end
