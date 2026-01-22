@@ -1,0 +1,9 @@
+take 00_setup.ksc
+mtest telehack
+lineout {hack}
+:LOOP
+mudinput 120 {Porthack 2.1}
+mudinput 300 {scan? [A]}
+lineout {}
+goto LOOP
+
